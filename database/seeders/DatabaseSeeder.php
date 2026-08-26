@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Setting::updateOrCreate(['key' => 'headmaster_name'], ['value' => 'Dr. H. Ahmad Fauzi, M.Pd.', 'type' => 'text']);
         \App\Models\Setting::updateOrCreate(['key' => 'headmaster_photo'], ['value' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuC-iJ913cEi8hx22nInx5-4zR5WXOPADgOmW8YKxREJQx4iDze8fNm2x2kTjuuBO8F-Piy8dObi_zEOvquoUSH9g25PGTWl28LBHK0xut6gHwrQ2-wCxlsRBmcXFe4dUOJ5s-JHNVTFTqJKfhCGagFTc5g23Rrrkl5mIwxoJWh01YJDjZDwK0aUjMKtiPL1utb_YO9RzQZoASFfP5A8XhCmuAVRBRw-XPrTHBZfXOCUxDKtHD8GOnUf', 'type' => 'image']);
         \App\Models\Setting::updateOrCreate(['key' => 'headmaster_greeting'], ['value' => '"Assalamu\'alaikum Warahmatullahi Wabarakatuh. Welcome to our digital portal. We are committed to nurturing the next generation of pious and intelligent leaders..."', 'type' => 'textarea']);
-        \App\Models\Setting::updateOrCreate(['key' => 'contact_email'], ['value' => 'info@darunnajah.sch.id', 'type' => 'text']);
+        \App\Models\Setting::updateOrCreate(['key' => 'contact_email'], ['value' => 'midarunnajahjepara@gmail.com', 'type' => 'text']);
         \App\Models\Setting::updateOrCreate(['key' => 'contact_phone'], ['value' => '+62 812 3456 7890', 'type' => 'text']);
         \App\Models\Setting::updateOrCreate(['key' => 'contact_whatsapp'], ['value' => '+62 812 3456 7890', 'type' => 'text']);
         \App\Models\Setting::updateOrCreate(['key' => 'contact_address'], ['value' => 'Jl. Kauman, Desa Srobyong RT.04/RW.02, Kec. Mlonggo, Kabupaten Jepara, Jawa Tengah 59452', 'type' => 'textarea']);

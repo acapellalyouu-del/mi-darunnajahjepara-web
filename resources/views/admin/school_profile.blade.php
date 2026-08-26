@@ -205,7 +205,7 @@
                     </div>
                     <div>
                         <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Email Address</label>
-                        <input class="w-full px-4 py-2 rounded-lg border border-outline-variant text-label-md" type="email" name="contact_email" value="{{ $settings['contact_email'] ?? 'info@darunnajah.sch.id' }}">
+                        <input class="w-full px-4 py-2 rounded-lg border border-outline-variant text-label-md" type="email" name="contact_email" value="{{ $settings['contact_email'] ?? 'midarunnajahjepara@gmail.com' }}">
                     </div>
                     <div>
                         <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">WhatsApp</label>

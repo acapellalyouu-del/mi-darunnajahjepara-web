@@ -124,8 +124,8 @@
             <div class="relative z-10">
                 <!-- Branding -->
                 <div class="flex items-center gap-3 mb-16">
-                    <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border border-white/40 shadow-sm">
-                        <img class="w-full h-full object-cover" alt="MI Darun Najah Logo" src="/images/logo.jpg">
+                    <div class="w-12 h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-white/40 shadow-sm p-1.5">
+                        <img class="w-full h-full object-contain" alt="MI Darun Najah Logo" src="/images/logo.png">
                     </div>
                     <span class="font-headline-md text-headline-md font-bold tracking-tight">{{ $school_name ?? 'MI Darun Najah' }}</span>
                 </div>

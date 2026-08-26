@@ -4,8 +4,8 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>{{ $settings['school_name'] }} - Unggul &amp; Qur'ani</title>
-    <link rel="icon" type="image/jpeg" href="/images/logo.jpg"/>
-    <link rel="shortcut icon" href="/images/logo.jpg"/>
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <link rel="shortcut icon" href="/favicon.png"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -139,8 +139,8 @@
     <header class="bg-surface border-b border-outline-variant">
         <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm">
-                    <img src="/images/logo.jpg" alt="MI Darun Najah" class="w-full h-full object-cover"/>
+                <div class="w-12 h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1.5">
+                    <img src="/images/logo.png" alt="MI Darun Najah" class="w-full h-full object-contain"/>
                 </div>
                 <div>
                     <h1 class="font-headline-md text-headline-md font-bold text-primary">{{ $settings['school_name'] }}</h1>
