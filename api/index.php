@@ -1,14 +1,15 @@
 <?php
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+// Force stderr logging to prevent read-only filesystem errors on Vercel
+putenv('LOG_CHANNEL=stderr');
+$_ENV['LOG_CHANNEL'] = 'stderr';
 
 putenv('APP_ENV=production');
-putenv('APP_DEBUG=true');
+putenv('APP_DEBUG=false');
 $_ENV['APP_ENV'] = 'production';
-$_ENV['APP_DEBUG'] = 'true';
+$_ENV['APP_DEBUG'] = 'false';
 
+// Prepare writable /tmp storage structure
 $tmpDir = '/tmp';
 @mkdir($tmpDir . '/storage/framework/views', 0777, true);
 @mkdir($tmpDir . '/storage/framework/sessions', 0777, true);
@@ -25,6 +26,7 @@ $_ENV['VIEW_COMPILED_PATH'] = $tmpDir . '/storage/framework/views';
 putenv('APP_KEY=base64:ZvPHpC93tx1xP1wIigjbeuhHA0/bWFMViZCwJI3vCy0=');
 $_ENV['APP_KEY'] = 'base64:ZvPHpC93tx1xP1wIigjbeuhHA0/bWFMViZCwJI3vCy0=';
 
+// Copy SQLite database to /tmp if exists
 $srcDb = __DIR__ . '/../database/database.sqlite';
 $dstDb = $tmpDir . '/database.sqlite';
 if (file_exists($srcDb)) {
@@ -37,11 +39,16 @@ putenv('DB_DATABASE=' . $dstDb);
 $_ENV['DB_CONNECTION'] = 'sqlite';
 $_ENV['DB_DATABASE'] = $dstDb;
 
-try {
-    require __DIR__ . '/../public/index.php';
-} catch (\Throwable $e) {
-    echo '<h1>Laravel Vercel Error</h1>';
-    echo '<p><strong>Message:</strong> ' . htmlspecialchars($e->getMessage()) . '</p>';
-    echo '<p><strong>File:</strong> ' . htmlspecialchars($e->getFile()) . ':' . $e->getLine() . '</p>';
-    echo '<pre>' . htmlspecialchars($e->getTraceAsString()) . '</pre>';
-}
+// Boot Laravel with custom storage path in /tmp
+$app = require_once __DIR__ . '/../bootstrap/app.php';
+$app->useStoragePath($tmpDir . '/storage');
+
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
+
+$response->send();
+
+$kernel->terminate($request, $response);
