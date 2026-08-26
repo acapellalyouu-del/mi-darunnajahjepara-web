@@ -4,6 +4,8 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>{{ $settings['school_name'] }} - Unggul &amp; Qur'ani</title>
+    <link rel="icon" type="image/jpeg" href="/images/logo.jpg"/>
+    <link rel="shortcut icon" href="/images/logo.jpg"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -137,8 +139,8 @@
     <header class="bg-surface border-b border-outline-variant">
         <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container">
-                    <span class="material-symbols-outlined text-3xl">school</span>
+                <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm">
+                    <img src="/images/logo.jpg" alt="MI Darun Najah" class="w-full h-full object-cover"/>
                 </div>
                 <div>
                     <h1 class="font-headline-md text-headline-md font-bold text-primary">{{ $settings['school_name'] }}</h1>
@@ -234,19 +236,19 @@
     <div class="px-margin-desktop max-w-container-max mx-auto">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
             <div class="space-y-2">
-                <span class="font-display-lg text-display-lg block font-bold text-primary">{{ $teachers->count() }}</span>
+                <span class="font-display-lg text-display-lg block font-bold text-on-primary-container">{{ $teachers->count() }}</span>
                 <p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Tenaga Pengajar</p>
             </div>
             <div class="space-y-2">
-                <span class="font-display-lg text-display-lg block font-bold text-primary">850+</span>
+                <span class="font-display-lg text-display-lg block font-bold text-on-primary-container">850+</span>
                 <p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Siswa Aktif</p>
             </div>
             <div class="space-y-2">
-                <span class="font-display-lg text-display-lg block font-bold text-primary">120+</span>
+                <span class="font-display-lg text-display-lg block font-bold text-on-primary-container">120+</span>
                 <p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Prestasi Nasional</p>
             </div>
             <div class="space-y-2">
-                <span class="font-display-lg text-display-lg block font-bold text-primary">24</span>
+                <span class="font-display-lg text-display-lg block font-bold text-on-primary-container">24</span>
                 <p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Ruang Kelas</p>
             </div>
         </div>

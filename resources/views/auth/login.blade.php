@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Admin Login | {{ $school_name ?? 'MI Darun Najah' }}</title>
+    <link rel="icon" type="image/jpeg" href="/images/logo.jpg"/>
+    <link rel="shortcut icon" href="/images/logo.jpg"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -122,8 +124,8 @@
             <div class="relative z-10">
                 <!-- Branding -->
                 <div class="flex items-center gap-3 mb-16">
-                    <div class="w-12 h-12 bg-on-primary rounded-lg flex items-center justify-center p-2">
-                        <img class="w-full h-full object-contain" alt="MI Darun Najah Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS3OswjIpcQr2Pl5IncrLrDBvSGFEgdkk9E7qB2uGgl6hg5NpWgzMOxTCbWrzpAHuy4huxpQgP6pqW7-2mMHwya5MMxGADNfD6iMy6lYSAdHQQPrixsikmHfqUz4PCDfCgaL2c6A1jR-yn3nCgrYq29RG90HdODYbzFXJgmaMNQuKwC0wa4srT2DWqDWV4kMsFqbCNHlsG_fZpzHcajI_a6lbEPDzM7p6ZFwfyMCf4Ha_Z10-hf_Yrqy4Bj1lcKFCa5Dew-aeaGbw">
+                    <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border border-white/40 shadow-sm">
+                        <img class="w-full h-full object-cover" alt="MI Darun Najah Logo" src="/images/logo.jpg">
                     </div>
                     <span class="font-headline-md text-headline-md font-bold tracking-tight">{{ $school_name ?? 'MI Darun Najah' }}</span>
                 </div>
