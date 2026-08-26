@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MI Darun Najah - Unggul &amp; Qur'ani</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#00210c",
+                    "outline-variant": "#bec9c8",
+                    "secondary-container": "#fed65b",
+                    "on-background": "#191c1d",
+                    "surface": "#f8f9fa",
+                    "surface-container-highest": "#e1e3e4",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-secondary-fixed": "#241a00",
+                    "secondary-fixed": "#ffe088",
+                    "surface-tint": "#096969",
+                    "on-tertiary-container": "#5aef8f",
+                    "on-secondary-fixed-variant": "#574500",
+                    "inverse-surface": "#2e3132",
+                    "on-surface-variant": "#3f4948",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-container": "#006666",
+                    "on-tertiary-fixed-variant": "#005228",
+                    "surface-dim": "#d9dadb",
+                    "background": "#f8f9fa",
+                    "tertiary-fixed": "#6bfe9c",
+                    "primary-fixed-dim": "#86d4d3",
+                    "outline": "#6f7979",
+                    "surface-container-high": "#e7e8e9",
+                    "error-container": "#ffdad6",
+                    "primary": "#004c4c",
+                    "surface-bright": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#a2f0ef",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#004f26",
+                    "inverse-on-surface": "#f0f1f2",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#004f4f",
+                    "on-primary-fixed": "#002020",
+                    "on-secondary-container": "#745c00",
+                    "secondary": "#735c00",
+                    "tertiary-container": "#006a35",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#4ae183",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#86d4d3",
+                    "on-primary-container": "#93e1e0",
+                    "surface-variant": "#e1e3e4",
+                    "surface-container": "#edeeef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "80px",
+                    "margin-desktop": "40px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Manrope"],
+                    "label-md": ["Work Sans"],
+                    "label-sm": ["Work Sans"],
+                    "display-lg": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "body-lg": ["Work Sans"],
+                    "body-md": ["Work Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .animate-scroll {
+            animation: scroll 30s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .hero-gradient {
+            background: linear-gradient(rgba(0, 76, 76, 0.75), rgba(0, 76, 76, 0.75)), url('placeholder');
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md">
+<!-- Running Announcement Bar -->
+<div class="bg-primary text-on-primary py-2 overflow-hidden whitespace-nowrap sticky top-0 z-[60]">
+<div class="animate-scroll inline-block font-label-md">
+            Pendaftaran Murid Baru (PPDB) Tahun Ajaran 2024/2025 Telah Dibuka! • Raih Beasiswa Prestasi dan Hafidz Qur'an • Hubungi Admin untuk Informasi Lebih Lanjut.
+        </div>
+</div>
+<!-- Top Navigation Header -->
+<header class="bg-surface border-b border-outline-variant z-50 transition-all duration-300">
+<div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">MI Darun Najah</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Cerdas Terampil Berakhlaq Mulia</p>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Profile</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Program</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Information</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all">public</button>
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all">person</button>
+<button class="md:hidden material-symbols-outlined p-2">menu</button>
+</div>
+</div>
+</header>
+<!-- Hero Banner -->
+<section class="relative h-[870px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0 hero-gradient bg-cover bg-center" data-alt="A wide cinematic shot of a modern Islamic primary school building with traditional architectural influences. The scene is bathed in golden hour sunlight, highlighting the teal and gold accents of the structure. In the foreground, students in neat uniforms are engaged in outdoor activities on a lush green lawn. The atmosphere is academic, serene, and prestigious."></div>
+<div class="relative z-10 px-margin-desktop max-w-container-max mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+<div class="text-on-primary space-y-6">
+<span class="inline-block px-4 py-1 rounded-full border border-primary-fixed text-primary-fixed font-label-md">PPDB 2024/2025</span>
+<h2 class="font-display-lg text-display-lg leading-tight">Melahirkan Generasi Qur'ani</h2>
+<p class="font-body-lg text-body-lg text-on-primary/90 max-w-lg">
+                    Excellent with Integral Character. Membentuk generasi yang cerdas secara akademik dan kokoh secara spiritual melalui pendidikan terpadu.
+                </p>
+<div class="flex gap-4">
+<button class="bg-secondary-container text-on-secondary-container px-8 py-4 rounded-lg font-bold hover:scale-105 transition-transform flex items-center gap-2">
+                        Kepoin Sekarang <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="border-2 border-on-primary text-on-primary px-8 py-4 rounded-lg font-bold hover:bg-on-primary/10 transition-colors">
+                        Tentang Kami
+                    </button>
+</div>
+</div>
+<div class="hidden md:block relative h-[500px]">
+<img class="absolute right-0 bottom-0 w-4/5 h-full object-cover rounded-2xl shadow-2xl border-4 border-on-primary/20" data-alt="Two young male students in traditional white prayer caps and school uniforms sitting on a carpeted floor. One student is actively reading from a Quran held in his hands, while the other listens attentively in a scholarly setting. The lighting is soft and focused, creating a mood of deep spiritual devotion and academic excellence in a modern Islamic school environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgWVML9hfLHSB3B833oM2kAYFBhQX9rz7ca5EhW30COwlQvgqjOtr5EoNorGGfYRb6_D0bFUWVc4QzUerBLC2I7t2oS_fd076gDRqe4oEUdgNb1FYz6k65AsJciGb5Kk9GPWyRd99DxPc0B4GORD5CCYxl4AidXUCoAIclg7lFuBPzv_e4nuoGMBst4UCXUbRnrf18X1SULZ5IF_YxGe9M9EJh1DXY7TUhzk4CxzUyp4T1T-iP69ds"/>
+</div>
+</div>
+<!-- WhatsApp Floating Button -->
+<a class="fixed bottom-8 right-8 z-[100] bg-[#2ECC71] text-white p-4 rounded-full shadow-lg flex items-center gap-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-bold">Hubungi Admin?</span>
+</a>
+</section>
+<!-- Achievement Counter -->
+<section class="bg-primary-container text-on-primary-container py-16">
+<div class="px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
+<div class="space-y-2">
+<span class="font-display-lg text-display-lg block">45+</span>
+<p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Tenaga Pengajar</p>
+</div>
+<div class="space-y-2">
+<span class="font-display-lg text-display-lg block">850+</span>
+<p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Siswa Aktif</p>
+</div>
+<div class="space-y-2">
+<span class="font-display-lg text-display-lg block">120+</span>
+<p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Prestasi Nasional</p>
+</div>
+<div class="space-y-2">
+<span class="font-display-lg text-display-lg block">24</span>
+<p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Ruang Kelas</p>
+</div>
+</div>
+</div>
+</section>
+<!-- School Introduction & Principal's Welcome -->
+<section class="py-section-gap px-margin-desktop max-w-container-max mx-auto grid md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-5 relative">
+<div class="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover" data-alt="A formal professional portrait of a distinguished Islamic school principal in his mid-50s. He is wearing a dark traditional suit and a neat black peci (prayer cap), standing in a bright, modern office with books and certificates in the background. The lighting is soft and flattering, conveying a sense of wisdom, authority, and approachability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-iJ913cEi8hx22nInx5-4zR5WXOPADgOmW8YKxREJQx4iDze8fNm2x2kTjuuBO8F-Piy8dObi_zEOvquoUSH9g25PGTWl28LBHK0xut6gHwrQ2-wCxlsRBmcXFe4dUOJ5s-JHNVTFTqJKfhCGagFTc5g23Rrrkl5mIwxoJWh01YJDjZDwK0aUjMKtiPL1utb_YO9RzQZoASFfP5A8XhCmuAVRBRw-XPrTHBZfXOCUxDKtHD8GOnUf"/>
+</div>
+<div class="absolute -bottom-6 -right-6 bg-secondary-fixed text-on-secondary-fixed p-6 rounded-xl shadow-lg max-w-[240px]">
+<p class="font-label-md italic mb-2">"Mendidik dengan hati, membimbing dengan Al-Qur'an."</p>
+<p class="font-bold">Ust. Ahmad Fauzi, M.Pd</p>
+<p class="text-sm opacity-75">Kepala Sekolah MI Darun Najah</p>
+</div>
+</div>
+<div class="md:col-span-7 space-y-6">
+<h3 class="text-primary font-headline-lg text-headline-lg">Selamat Datang di MI Darun Najah</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                Sejak berdiri, MI Darun Najah telah berkomitmen untuk menghadirkan pendidikan berkualitas yang mengintegrasikan kecerdasan intelektual, emosional, dan spiritual. Kami percaya bahwa setiap anak adalah anugerah unik yang harus dibina dalam lingkungan yang islami dan progresif.
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Kurikulum kami dirancang untuk membekali siswa dengan kompetensi abad 21 tanpa meninggalkan akar tradisi keislaman. Melalui program Tahfidz intensif dan pembelajaran berbasis karakter, kami mencetak lulusan yang tidak hanya unggul dalam prestasi, tetapi juga mulia dalam akhlak.
+            </p>
+<button class="text-primary font-bold flex items-center gap-2 group">
+                Baca Pesan Selengkapnya <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_right_alt</span>
+</button>
+</div>
+</section>
+<!-- Teacher of the Month -->
+<section class="bg-surface-container py-section-gap">
+<div class="px-margin-desktop max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-12">
+<div class="max-w-xl">
+<h3 class="text-primary font-headline-lg text-headline-lg">Teacher of the Month</h3>
+<p class="text-on-surface-variant">Apresiasi bagi pendidik yang penuh dedikasi dalam membimbing generasi.</p>
+</div>
+</div>
+<div class="bg-surface p-8 rounded-3xl shadow-sm border border-outline-variant grid md:grid-cols-2 gap-12 items-center">
+<div class="relative rounded-2xl overflow-hidden aspect-video">
+<img class="w-full h-full object-cover" data-alt="A professional and friendly female Indonesian teacher wearing a stylish dark green hijab and a formal batik blouse. She is holding a tablet and smiling warmly while standing in a brightly lit, modern library or classroom setting. The background is softly blurred to focus on her as a symbol of educational dedication and modern pedagogy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8fOzmS6ivMHlu865CSHFkYD0nrQPRGc_YnoUkLgFAywKyQI5NAlqYfcYY9yXG-us8yIgDwWVspNmkq5JswC3AbudTMMd3pfDq8JeQpHSqakCIbty5odMmSLQBOdlmaDKVYZierMQDN6VKMocKWVS_Yr5gx1dU6aXEsrnt0r1Atc8lv7RsmJM_aYsflnWZvQH1xhRnToa-hX5llHbsBuncZkM4AAMfpMl6ZTJ6hV2YtrpniS2S9DIr"/>
+</div>
+<div class="space-y-4">
+<div class="bg-primary-container text-on-primary-container px-3 py-1 rounded-md inline-block font-label-sm">MEI 2024</div>
+<h4 class="font-headline-md text-headline-md text-primary">Ibu Nurul Hidayah, S.Pd.I</h4>
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest">Guru Al-Qur'an &amp; Hadits</p>
+<p class="text-on-surface-variant">"Dedikasi beliau dalam menerapkan metode pengajaran Tahfidz yang inovatif telah membantu 90% siswa kelas 5 mencapai target hafalan semester ini."</p>
+<div class="pt-4 flex gap-2">
+<span class="material-symbols-outlined text-primary">military_tech</span>
+<span class="material-symbols-outlined text-primary">military_tech</span>
+<span class="material-symbols-outlined text-primary">military_tech</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Upcoming Events & Countdown -->
+<section class="py-section-gap bg-primary text-on-primary">
+<div class="px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="max-w-md text-center md:text-left">
+<h3 class="font-headline-lg text-headline-lg mb-4">Agenda Terdekat</h3>
+<p class="opacity-80">Persiapkan diri Anda untuk kegiatan besar madrasah yang akan datang.</p>
+</div>
+<div class="flex-1 max-w-2xl bg-white/10 p-8 rounded-2xl backdrop-blur-md border border-white/20">
+<div class="text-center mb-6">
+<h4 class="font-bold text-xl">Wisuda Tahfidz &amp; Haflah Akhirussanah 2024</h4>
+<p class="text-sm opacity-70">15 Juni 2024 • Auditorium Utama Darun Najah</p>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<div class="bg-white text-primary p-4 rounded-xl text-center">
+<span class="block text-3xl font-extrabold">12</span>
+<span class="text-xs uppercase font-bold">Hari</span>
+</div>
+<div class="bg-white text-primary p-4 rounded-xl text-center">
+<span class="block text-3xl font-extrabold">08</span>
+<span class="text-xs uppercase font-bold">Jam</span>
+</div>
+<div class="bg-white text-primary p-4 rounded-xl text-center">
+<span class="block text-3xl font-extrabold">45</span>
+<span class="text-xs uppercase font-bold">Menit</span>
+</div>
+<div class="bg-white text-primary p-4 rounded-xl text-center">
+<span class="block text-3xl font-extrabold">22</span>
+<span class="text-xs uppercase font-bold">Detik</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Latest News & Announcements -->
+<section class="py-section-gap px-margin-desktop max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h3 class="text-primary font-headline-lg text-headline-lg">Warta &amp; Pengumuman</h3>
+<p class="text-on-surface-variant">Informasi terkini seputar kegiatan dan perkembangan madrasah.</p>
+</div>
+<button class="border-2 border-primary text-primary px-6 py-2 rounded-lg font-bold hover:bg-primary hover:text-on-primary transition-all">Semua Berita</button>
+</div>
+<div class="grid md:grid-cols-3 gap-gutter">
+<!-- News Card 1 -->
+<div class="bg-surface rounded-xl overflow-hidden border border-outline-variant hover:shadow-lg transition-shadow group">
+<div class="h-56 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A group of primary school children in Islamic school uniforms excitedly participating in a robotics competition. They are gathered around a table with a small programmable robot, showing expressions of joy and concentration. The background is a brightly decorated school hall with tech-themed posters in a professional academic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxqRo3PsgeTZBsSIyNF1IPBn5qE6NNUDQ5p50H550Qhi_V_UB20VbxS8ztHYhUsLSSYY7wYyOofdiwgHOW3s3Rh1kHgvxXySYy44QzJHnyk4YOZ2tfCxoR_wJHhM998jhMIZiQXsGuIXM-mW4Do7IPloIbKWZGgRxa3XDAOVvYDBglbsiTmjQUZZFD681PjNHxqkNxGe6h_30O8IypQbn-TRQQzEzM87KXGbEAAfta2l74K5cueDJ_"/>
+</div>
+<div class="p-6 space-y-3">
+<div class="flex justify-between text-xs font-bold text-on-surface-variant">
+<span>BERITA TERKINI</span>
+<span>12 MEI 2024</span>
+</div>
+<h4 class="font-headline-md text-headline-md leading-tight text-on-surface hover:text-primary cursor-pointer transition-colors">Delegasi Robotik MI Darun Najah Raih Emas di Kompetisi Regional</h4>
+<p class="text-on-surface-variant line-clamp-3">Tim robotik madrasah berhasil menunjukkan keunggulan teknologi dalam ajang tahunan yang diikuti oleh 50 sekolah se-Jawa Timur...</p>
+</div>
+</div>
+<!-- News Card 2 -->
+<div class="bg-surface rounded-xl overflow-hidden border border-outline-variant hover:shadow-lg transition-shadow group">
+<div class="h-56 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A serene scene of a modern Islamic school campus at sunrise. The architectural details feature a blend of minimalist glass facades and traditional arched motifs. High-quality landscape photography showing the clean, organized layout of the school during a peaceful morning. The lighting is bright, airy, and welcoming, fitting a corporate educational brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSQo-1h-JJI1nVRF8kRdlpd1RYk1ivjcP4AOqh9Vl38vjbHfQi6Hy3nFw5sCx4dg6y6qR_lS3lg-01Iy3EoxRZg-X-yrD6_nE0Wp9DF5mGeM0RsEC8Zm3RBlt0C1eDbA03PcAbo3XVPo3tiMfYe0uSULnS7o1IwaypuHQgM1nWTcF5A2WB-xKOZoxUnH6ugrjB-c-g0xoIbUFYqZrrfyp3gR9uijR_NIWNSBK2ljOFBOWHvXyZi_ot"/>
+</div>
+<div class="p-6 space-y-3">
+<div class="flex justify-between text-xs font-bold text-on-surface-variant">
+<span>PENGUMUMAN</span>
+<span>08 MEI 2024</span>
+</div>
+<h4 class="font-headline-md text-headline-md leading-tight text-on-surface hover:text-primary cursor-pointer transition-colors">Jadwal Ujian Akhir Semester Genap Tahun Ajaran 2023/2024</h4>
+<p class="text-on-surface-variant line-clamp-3">Pihak madrasah telah merilis kalender akademik terbaru terkait pelaksanaan evaluasi akhir tahun bagi seluruh jenjang kelas...</p>
+</div>
+</div>
+<!-- News Card 3 -->
+<div class="bg-surface rounded-xl overflow-hidden border border-outline-variant hover:shadow-lg transition-shadow group">
+<div class="h-56 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Interior shot of a well-equipped science laboratory in a primary school. Children wearing protective goggles and white coats are performing simple chemistry experiments under the guidance of a teacher. The lab is clean, modern, and filled with professional-grade equipment. The atmosphere is focused on discovery and high-end education." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX3TQplAuehkuEbFeaIkfIOV9GWUFbswetV9S51eJbLWysyow8avq6ECIrza8OZz4f-OHe5NZEyjJtO1piE96sAja60hfrFXAjL0qC1akXUwsMDW2SjtxTupF05RKyyGiQiYG7yB19nv0ZamIEoJYKtz9OLtLrxfqcYSlEK7kraiRQtPHmyyoGt4sLo9-qzGO72MCCLVcuFVJXlGDJjzh593dEjX3klYexCPpaE_fhcC9PgLrqayzB"/>
+</div>
+<div class="p-6 space-y-3">
+<div class="flex justify-between text-xs font-bold text-on-surface-variant">
+<span>BERITA TERKINI</span>
+<span>01 MEI 2024</span>
+</div>
+<h4 class="font-headline-md text-headline-md leading-tight text-on-surface hover:text-primary cursor-pointer transition-colors">Peresmian Laboratorium Sains Terintegrasi Baru</h4>
+<p class="text-on-surface-variant line-clamp-3">Fasilitas pendukung pembelajaran sains resmi beroperasi guna menunjang kurikulum berbasis riset dan eksperimen bagi siswa...</p>
+</div>
+</div>
+</div>
+</section>
+<!-- School Achievements Grid -->
+<section class="py-section-gap bg-surface-container">
+<div class="px-margin-desktop max-w-container-max mx-auto text-center mb-16">
+<h3 class="text-primary font-headline-lg text-headline-lg">Prestasi Madrasah</h3>
+<p class="text-on-surface-variant">Kebanggaan kami dalam mencetak generasi berprestasi.</p>
+</div>
+<div class="px-margin-desktop max-w-container-max mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="bg-surface p-6 rounded-2xl border border-outline-variant flex flex-col items-center text-center hover:bg-secondary-fixed transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-4 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<h5 class="font-bold text-primary">Juara 1 MTQ Nasional</h5>
+<p class="text-sm opacity-70">Tingkat Sekolah Dasar 2023</p>
+</div>
+<div class="bg-surface p-6 rounded-2xl border border-outline-variant flex flex-col items-center text-center hover:bg-secondary-fixed transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-4 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<h5 class="font-bold text-primary">Emas Olimpiade Sains</h5>
+<p class="text-sm opacity-70">Provinsi Jawa Timur 2024</p>
+</div>
+<div class="bg-surface p-6 rounded-2xl border border-outline-variant flex flex-col items-center text-center hover:bg-secondary-fixed transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-4 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<h5 class="font-bold text-primary">Madrasah Adiwiyata</h5>
+<p class="text-sm opacity-70">Tingkat Nasional 2022</p>
+</div>
+<div class="bg-surface p-6 rounded-2xl border border-outline-variant flex flex-col items-center text-center hover:bg-secondary-fixed transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-4 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">stars</span>
+<h5 class="font-bold text-primary">Akreditasi A (Unggul)</h5>
+<p class="text-sm opacity-70">BAN-S/M Sejak 2015</p>
+</div>
+</div>
+</section>
+<!-- Virtual Tour Preview -->
+<section class="relative py-32 overflow-hidden">
+<div class="absolute inset-0 z-0 bg-fixed bg-center bg-cover brightness-50" data-alt="A stunning 360-degree panoramic view of a modern school atrium. The space is filled with natural light from a glass ceiling, featuring indoor greenery, clean white walls, and elegant wooden accents. This wide-angle shot emphasizes the scale and openness of the educational environment, suggesting a virtual tour experience in a high-end institutional setting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDWbZTaurlojAwQDmPxDOEWmpVtlIgn05Wxm3DrQLMiOy_s4bhCnMFCSsMyYeSD-s_IePdVKTeeXBhlnfF2FRZbAkKHbkkQAWAJNe3eb4U53nZnmdV4eY-cObLg8q_EG0PEAlnVlH3dXZok1s8fVbWgBdCPjbjFWPDb14F2V2xACpHejRcaoUwFigtGb6_XV7eltBSVSpUENju7ccOFzttbbH8m344xb_tPph3VUFOR1PA00kXCxcRZ')"></div>
+<div class="relative z-10 px-margin-desktop max-w-container-max mx-auto text-center text-on-primary">
+<h3 class="font-display-lg text-display-lg mb-6">Virtual School Tour</h3>
+<p class="text-body-lg mb-10 max-w-2xl mx-auto">Jelajahi setiap sudut fasilitas kami secara virtual dari kenyamanan rumah Anda.</p>
+<button class="bg-white text-primary px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform flex items-center gap-3 mx-auto">
+<span class="material-symbols-outlined">vrpano</span>
+                Mulai Tour Sekarang
+            </button>
+</div>
+</section>
+<!-- FAQ Preview -->
+<section class="py-section-gap bg-surface px-margin-desktop max-w-container-max mx-auto">
+<div class="grid md:grid-cols-2 gap-16">
+<div class="space-y-6">
+<h3 class="text-primary font-headline-lg text-headline-lg">Pertanyaan Sering Diajukan (FAQ)</h3>
+<p class="text-on-surface-variant">Cari jawaban cepat untuk pertanyaan umum mengenai pendaftaran dan program sekolah kami.</p>
+<div class="relative">
+<input class="w-full bg-surface-container border-none rounded-xl py-4 pl-12 pr-6 focus:ring-2 focus:ring-primary" placeholder="Cari pertanyaan..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-4 text-on-surface-variant">search</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="border-b border-outline-variant pb-4 group cursor-pointer">
+<div class="flex justify-between items-center text-primary font-bold">
+<span>Bagaimana cara mendaftar di MI Darun Najah?</span>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+</div>
+<div class="border-b border-outline-variant pb-4 group cursor-pointer">
+<div class="flex justify-between items-center text-primary font-bold">
+<span>Apakah ada program beasiswa bagi hafidz Al-Qur'an?</span>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+</div>
+<div class="border-b border-outline-variant pb-4 group cursor-pointer">
+<div class="flex justify-between items-center text-primary font-bold">
+<span>Fasilitas apa saja yang tersedia di madrasah?</span>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+</div>
+<div class="border-b border-outline-variant pb-4 group cursor-pointer">
+<div class="flex justify-between items-center text-primary font-bold">
+<span>Apakah tersedia layanan antar jemput siswa?</span>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact & Map Section -->
+<section class="py-section-gap px-margin-desktop max-w-container-max mx-auto">
+<div class="grid md:grid-cols-12 gap-gutter">
+<div class="md:col-span-4 space-y-8">
+<div>
+<h3 class="text-primary font-headline-lg text-headline-lg mb-4">Hubungi Kami</h3>
+<p class="text-on-surface-variant">Kami siap melayani Anda di jam kerja operasional madrasah.</p>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-3 rounded-lg">location_on</span>
+<div>
+<p class="font-bold">Alamat Utama</p>
+<p class="text-on-surface-variant text-sm">Jl. Pendidikan No. 123, Surabaya, Jawa Timur, Indonesia</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-3 rounded-lg">call</span>
+<div>
+<p class="font-bold">Telepon / WhatsApp</p>
+<p class="text-on-surface-variant text-sm">+62 812-1689-0224</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-3 rounded-lg">mail</span>
+<div>
+<p class="font-bold">Email Resmi</p>
+<p class="text-on-surface-variant text-sm">info@midarunnajah.sch.id</p>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-8 rounded-2xl overflow-hidden h-96 shadow-inner bg-surface-container-high relative">
+<div class="absolute inset-0 pointer-events-none border-4 border-surface/50 rounded-2xl"></div>
+<!-- Simulating a map placeholder with data-location -->
+<div class="w-full h-full bg-cover bg-center" data-location="Surabaya" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD2h-tqOAmMxDghbIKI88A9X8-8B_IVNbbGQxBWNV_MLDCDP_iGpsY18THDV1VLu86jI-eIPVYvKOH41BbZQwWJvcrhFtpkpYutyXFKDJjeDv1EBIq_8RLafOzEkxFXlKCfEbImX_qEaiJVWiOFz_cEpEsQqSR5-ULPkVwHthUY2b4tI36gZEdP6OyZioXepWJj3nzXO7seVzENglLDfOj0CVfDDOWzPHHJumYjMN_g6ZIifzZ49NDT')"></div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-primary text-on-primary py-16 mt-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="md:col-span-5 space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold">MI Darun Najah</h1>
+</div>
+<p class="opacity-80 max-w-md">Lembaga pendidikan Islam yang berfokus pada pembentukan karakter Qur'ani dan keunggulan akademik yang kompetitif di era digital.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary-container hover:text-on-secondary-container transition-colors" href="#">
+<span class="material-symbols-outlined">face_nod</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary-container hover:text-on-secondary-container transition-colors" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary-container hover:text-on-secondary-container transition-colors" href="#">
+<span class="material-symbols-outlined">camera</span>
+</a>
+</div>
+</div>
+<div class="md:col-span-2 space-y-4">
+<h6 class="font-bold uppercase tracking-widest text-secondary-fixed">Tautan Cepat</h6>
+<nav class="flex flex-col gap-2 opacity-80 text-sm">
+<a class="hover:text-secondary-fixed transition-colors" href="#">Profil Sekolah</a>
+<a class="hover:text-secondary-fixed transition-colors" href="#">Program Unggulan</a>
+<a class="hover:text-secondary-fixed transition-colors" href="#">Berita Terkini</a>
+<a class="hover:text-secondary-fixed transition-colors" href="#">Informasi PPDB</a>
+</nav>
+</div>
+<div class="md:col-span-2 space-y-4">
+<h6 class="font-bold uppercase tracking-widest text-secondary-fixed">Informasi</h6>
+<nav class="flex flex-col gap-2 opacity-80 text-sm">
+<a class="hover:text-secondary-fixed transition-colors" href="#">Kalender Akademik</a>
+<a class="hover:text-secondary-fixed transition-colors" href="#">Kebijakan Privasi</a>
+<a class="hover:text-secondary-fixed transition-colors" href="#">Syarat &amp; Ketentuan</a>
+<a class="hover:text-secondary-fixed transition-colors" href="#">FAQ</a>
+</nav>
+</div>
+<div class="md:col-span-3 space-y-4">
+<h6 class="font-bold uppercase tracking-widest text-secondary-fixed">Newsletter</h6>
+<p class="text-sm opacity-80">Berlangganan untuk mendapatkan berita terbaru langsung ke email Anda.</p>
+<div class="flex gap-2">
+<input class="flex-1 bg-white/10 border-white/20 rounded-lg text-sm px-4 focus:ring-secondary-fixed" placeholder="Email Anda" type="email"/>
+<button class="bg-secondary-container text-on-secondary-container p-2 rounded-lg font-bold hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="border-t border-white/10 pt-8 mt-8 text-center px-margin-desktop">
+<p class="font-label-sm text-label-sm opacity-60">© 2024 MI Darun Najah. All Rights Reserved. Member of Pesantren Hidayatullah Network.</p>
+</div>
+</footer>
+<script>
+        // Simple countdown logic (mockup)
+        function startCountdown() {
+            // This is just a visual placeholder, in a real app it would count down from a specific date
+            console.log("Countdown active for Wisuda Tahfidz");
+        }
+        startCountdown();
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md', 'h-16');
+                header.classList.remove('h-20');
+            } else {
+                header.classList.remove('shadow-md', 'h-16');
+                header.classList.add('h-20');
+            }
+        });
+    </script>
+</body></html>

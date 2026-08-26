@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin - Create/Edit Announcement | MI Darun Najah</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#00210c",
+                    "outline-variant": "#bec9c8",
+                    "secondary-container": "#fed65b",
+                    "on-background": "#191c1d",
+                    "surface": "#f8f9fa",
+                    "surface-container-highest": "#e1e3e4",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-secondary-fixed": "#241a00",
+                    "secondary-fixed": "#ffe088",
+                    "surface-tint": "#096969",
+                    "on-tertiary-container": "#5aef8f",
+                    "on-secondary-fixed-variant": "#574500",
+                    "inverse-surface": "#2e3132",
+                    "on-surface-variant": "#3f4948",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-container": "#006666",
+                    "on-tertiary-fixed-variant": "#005228",
+                    "surface-dim": "#d9dadb",
+                    "background": "#f8f9fa",
+                    "tertiary-fixed": "#6bfe9c",
+                    "primary-fixed-dim": "#86d4d3",
+                    "outline": "#6f7979",
+                    "surface-container-high": "#e7e8e9",
+                    "error-container": "#ffdad6",
+                    "primary": "#004c4c",
+                    "surface-bright": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#a2f0ef",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#004f26",
+                    "inverse-on-surface": "#f0f1f2",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#004f4f",
+                    "on-primary-fixed": "#002020",
+                    "on-secondary-container": "#745c00",
+                    "secondary": "#735c00",
+                    "tertiary-container": "#006a35",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#4ae183",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#86d4d3",
+                    "on-primary-container": "#93e1e0",
+                    "surface-variant": "#e1e3e4",
+                    "surface-container": "#edeeef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "80px",
+                    "margin-desktop": "40px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Manrope"],
+                    "label-md": ["Work Sans"],
+                    "label-sm": ["Work Sans"],
+                    "display-lg": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "body-lg": ["Work Sans"],
+                    "body-md": ["Work Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav {
+            background-color: #006666; /* primary-container */
+            color: #93e1e0; /* on-primary-container */
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bec9c8; border-radius: 10px; }
+        .editor-btn { padding: 4px 8px; border-radius: 4px; transition: background 0.2s; }
+        .editor-btn:hover { background: #e1e3e4; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container border-r border-outline-variant flex flex-col gap-base p-4 overflow-y-auto z-50">
+<div class="mb-6 px-2">
+<h1 class="font-headline-sm text-headline-md font-bold text-primary">Admin Panel</h1>
+<p class="text-on-surface-variant font-label-sm">MI Darun Najah</p>
+</div>
+<nav class="flex-grow space-y-1">
+<!-- Dashboard -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</div>
+<!-- School Profile -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>School Profile</span>
+</div>
+<!-- Teachers -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span>Teachers</span>
+</div>
+<!-- Announcements (ACTIVE) -->
+<div class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold hover:scale-[1.02] transition-transform cursor-pointer font-label-md">
+<span class="material-symbols-outlined" data-icon="campaign" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span>Announcements</span>
+</div>
+<!-- Events -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+<span>Events</span>
+</div>
+<!-- Achievements -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+<span>Achievements</span>
+</div>
+<!-- Extracurricular -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="sports_soccer">sports_soccer</span>
+<span>Extracurricular</span>
+</div>
+<!-- FAQ -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span>FAQ</span>
+</div>
+<!-- Hero Banners -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="image">image</span>
+<span>Hero Banners</span>
+</div>
+<!-- Virtual Tour -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="vrpano">vrpano</span>
+<span>Virtual Tour</span>
+</div>
+<!-- Settings -->
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02] transition-transform cursor-pointer rounded-lg font-label-md">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</div>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">
+                    AD
+                </div>
+<div class="flex-grow overflow-hidden">
+<p class="font-label-md text-on-surface truncate">Admin User</p>
+<p class="font-label-sm text-on-surface-variant truncate">admin@darunnajah.sch.id</p>
+</div>
+<button class="text-error material-symbols-outlined" title="Logout">logout</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-full bg-surface">
+<!-- Header Bar -->
+<header class="h-16 border-b border-outline-variant flex items-center justify-between px-margin-desktop bg-white">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="campaign">campaign</span>
+<h2 class="font-headline-md text-primary">New Announcement</h2>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 rounded-lg border-2 border-outline text-outline font-label-md hover:bg-surface transition-all active:scale-95">
+                        Cancel
+                    </button>
+<button class="px-6 py-2 rounded-lg bg-primary text-on-primary font-label-md shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95" id="save-btn">
+                        Publish Announcement
+                    </button>
+</div>
+</header>
+<!-- Form Content -->
+<div class="flex-1 overflow-y-auto p-margin-desktop">
+<div class="max-w-[900px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Left Column: Primary Fields -->
+<div class="md:col-span-8 space-y-gutter">
+<!-- Title Section -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
+<div>
+<label class="font-label-md text-on-surface-variant block mb-2">Announcement Title</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-lg text-on-surface" id="announcement-title" placeholder="e.g. Annual School Festival 2024" type="text"/>
+<p class="hidden text-error text-label-sm mt-1" id="error-title">Please provide a descriptive title for the announcement.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="font-label-md text-on-surface-variant block mb-2">Category</label>
+<select class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md bg-white">
+<option>Academic</option>
+<option>Holiday</option>
+<option>Competition</option>
+<option>Enrollment</option>
+<option>Urgent Notice</option>
+</select>
+</div>
+<div>
+<label class="font-label-md text-on-surface-variant block mb-2">Publish Date</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-on-surface" type="date"/>
+</div>
+</div>
+</div>
+<!-- Rich Text Editor -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
+<label class="font-label-md text-on-surface-variant block">Content</label>
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<!-- ToolBar -->
+<div class="bg-surface-container-low p-2 border-b border-outline-variant flex flex-wrap gap-1">
+<button class="editor-btn material-symbols-outlined">format_bold</button>
+<button class="editor-btn material-symbols-outlined">format_italic</button>
+<button class="editor-btn material-symbols-outlined">format_underlined</button>
+<div class="w-px h-6 bg-outline-variant mx-1"></div>
+<button class="editor-btn material-symbols-outlined">format_list_bulleted</button>
+<button class="editor-btn material-symbols-outlined">format_list_numbered</button>
+<button class="editor-btn material-symbols-outlined">format_align_left</button>
+<button class="editor-btn material-symbols-outlined">format_align_center</button>
+<div class="w-px h-6 bg-outline-variant mx-1"></div>
+<button class="editor-btn material-symbols-outlined">link</button>
+<button class="editor-btn material-symbols-outlined">add_photo_alternate</button>
+</div>
+<!-- Content Area -->
+<div class="min-h-[300px] p-6 focus:outline-none font-body-md text-on-surface leading-relaxed" contenteditable="true">
+                                    Start writing the announcement details here...
+                                </div>
+</div>
+</div>
+</div>
+<!-- Right Column: Media & Settings -->
+<div class="md:col-span-4 space-y-gutter">
+<!-- Banner Image -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
+<label class="font-label-md text-on-surface-variant block mb-4">Banner Image</label>
+<div class="relative aspect-video rounded-lg overflow-hidden bg-surface-container-highest group border border-dashed border-outline">
+<img class="w-full h-full object-cover opacity-80" data-alt="A professional architectural photograph of the MI Darun Najah school campus entrance with lush greenery, clear blue skies, and high-contrast lighting reflecting an academic institution of excellence. The style is clean and institutional with a warm, welcoming morning sun light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDI6NRcgbs1XTtqQ4oENnj0WbWCAufAJIvB1W7GbWLhvGiSYFzIcOgvLKG2NRxKYfzd8iavZLpBAAMYM-6rSMrYjlG9ZYMUyDGEt9fnAzEprWp8qAKd2y7Tzsk5PoyOLqeOgFH3UmHfrOqIWzDm51Zp9MWcZTzP6pWTbNHzJFmdqBJOVJl9pmQVbZ5M89NfcbN2Dz_RhM76Zpd_5RRNmO8r1LtGiFkpJJICrWS0DODZh8BNYq2sNQ0"/>
+<div class="absolute inset-0 flex flex-col items-center justify-center bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-on-primary text-4xl">cloud_upload</span>
+<span class="text-on-primary font-label-md mt-2">Replace Image</span>
+</div>
+</div>
+<p class="text-label-sm text-outline mt-3 leading-tight">Recommended size: 1200x630px. Max size: 2MB.</p>
+</div>
+<!-- Visibility Settings -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-6">
+<h3 class="font-label-md text-on-surface border-b border-outline-variant pb-2">Publishing Settings</h3>
+<!-- Toggle Pin -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="keep">keep</span>
+<div>
+<p class="font-label-md text-on-surface">Pin to Top</p>
+<p class="text-label-sm text-on-surface-variant">Keep at the top of the list</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Toggle Announcement Bar -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="notification_important">notification_important</span>
+<div>
+<p class="font-label-md text-on-surface">Global Banner</p>
+<p class="text-label-sm text-on-surface-variant">Display in top ticker</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Tag Input -->
+<div class="space-y-2">
+<label class="font-label-sm text-on-surface-variant">Keywords / Tags</label>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-sm text-primary flex items-center gap-1">
+                                        #admission <span class="material-symbols-outlined text-sm cursor-pointer">close</span>
+</span>
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-sm text-primary flex items-center gap-1">
+                                        #2024 <span class="material-symbols-outlined text-sm cursor-pointer">close</span>
+</span>
+<input class="bg-transparent border-none p-0 focus:ring-0 text-label-sm w-20" placeholder="Add tag..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Status Badge -->
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant flex items-center justify-between">
+<span class="font-label-md text-on-surface">Status</span>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm flex items-center gap-1">
+<span class="w-2 h-2 bg-on-secondary-container rounded-full animate-pulse"></span>
+                                Draft
+                            </span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Notification Toast (Hidden by default) -->
+<div class="fixed bottom-10 right-10 transform translate-y-20 opacity-0 transition-all duration-300 z-[100]" id="toast">
+<div class="bg-inverse-surface text-inverse-on-surface px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-fixed">check_circle</span>
+<span class="font-label-md">Announcement successfully saved as draft.</span>
+</div>
+</div>
+<script>
+        // Micro-interactions and UI Logic
+        const saveBtn = document.getElementById('save-btn');
+        const toast = document.getElementById('toast');
+        const titleInput = document.getElementById('announcement-title');
+        const errorTitle = document.getElementById('error-title');
+
+        saveBtn.addEventListener('click', () => {
+            // Simple validation simulation
+            if (!titleInput.value) {
+                titleInput.classList.add('border-error', 'ring-1', 'ring-error');
+                errorTitle.classList.remove('hidden');
+                
+                // Shake effect
+                titleInput.parentElement.classList.add('animate-shake');
+                setTimeout(() => titleInput.parentElement.classList.remove('animate-shake'), 400);
+                return;
+            }
+
+            // Success simulation
+            titleInput.classList.remove('border-error', 'ring-1', 'ring-error');
+            errorTitle.classList.add('hidden');
+
+            saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2">progress_activity</span> Saving...';
+            saveBtn.disabled = true;
+
+            setTimeout(() => {
+                saveBtn.innerHTML = 'Publish Announcement';
+                saveBtn.disabled = false;
+                
+                // Show Toast
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 4000);
+            }, 1200);
+        });
+
+        // Dynamic placeholder cleanup for rich text
+        const editor = document.querySelector('[contenteditable]');
+        editor.addEventListener('focus', function() {
+            if (this.innerText === 'Start writing the announcement details here...') {
+                this.innerText = '';
+            }
+        });
+
+        // Add shake animation style
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+            .animate-shake { animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body></html>

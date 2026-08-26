@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard | MI Darun Najah</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#00210c",
+                    "outline-variant": "#bec9c8",
+                    "secondary-container": "#fed65b",
+                    "on-background": "#191c1d",
+                    "surface": "#f8f9fa",
+                    "surface-container-highest": "#e1e3e4",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-secondary-fixed": "#241a00",
+                    "secondary-fixed": "#ffe088",
+                    "surface-tint": "#096969",
+                    "on-tertiary-container": "#5aef8f",
+                    "on-secondary-fixed-variant": "#574500",
+                    "inverse-surface": "#2e3132",
+                    "on-surface-variant": "#3f4948",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-container": "#006666",
+                    "on-tertiary-fixed-variant": "#005228",
+                    "surface-dim": "#d9dadb",
+                    "background": "#f8f9fa",
+                    "tertiary-fixed": "#6bfe9c",
+                    "primary-fixed-dim": "#86d4d3",
+                    "outline": "#6f7979",
+                    "surface-container-high": "#e7e8e9",
+                    "error-container": "#ffdad6",
+                    "primary": "#004c4c",
+                    "surface-bright": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#a2f0ef",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#004f26",
+                    "inverse-on-surface": "#f0f1f2",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#004f4f",
+                    "on-primary-fixed": "#002020",
+                    "on-secondary-container": "#745c00",
+                    "secondary": "#735c00",
+                    "tertiary-container": "#006a35",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#4ae183",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#86d4d3",
+                    "on-primary-container": "#93e1e0",
+                    "surface-variant": "#e1e3e4",
+                    "surface-container": "#edeeef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "80px",
+                    "margin-desktop": "40px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Manrope"],
+                    "label-md": ["Work Sans"],
+                    "label-sm": ["Work Sans"],
+                    "display-lg": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "body-lg": ["Work Sans"],
+                    "body-md": ["Work Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #004c4c;
+            border-radius: 10px;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(160px, auto);
+            gap: 24px;
+        }
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+@include('admin.partials.sidebar', ['active' => 'dashboard'])
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="h-20 bg-surface border-b border-outline-variant sticky top-0 z-40 px-margin-desktop flex justify-between items-center">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Overview</h2>
+<p class="font-body-md text-on-surface-variant">Welcome back, Administrator</p>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="relative hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-48 lg:w-64" placeholder="Search records..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-10 w-[1px] bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">Super Admin</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional studio portrait of a school administrator, middle-aged with a warm and authoritative expression, wearing a modest professional outfit. The background is a soft-focus office interior with clean lighting and neutral tones, fitting a modern corporate educational brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHADkd9QLMGkBebrKbc6fINOauBdQpkcnLFfE39SlobMWw-DlWQN0oMHuqP8Oka-g2e3qfbO2cYX8-8DVwb9zE251IA4ScpqsyE5r8CFRa0pGVG8617KRRoRWMQv21B66yOhJpzqZ_MaMmq1LSwJ9a_S247LB1E7B-BmmEOS7M-mbDy9YIoP4Hg17oCPPdUObWB7eG9IjFb38xY0B4bhiEuRRU9ZEVrHerWVAZBBKqMNuQPwBr2zdp"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-margin-desktop space-y-section-gap">
+<!-- Stats Bento Grid -->
+<section class="bento-grid">
+<!-- Large Card: Main Stat -->
+<div class="col-span-1 lg:col-span-2 bg-surface-container-lowest p-gutter rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Weekly Visitors</p>
+<h3 class="font-display-lg text-display-lg text-primary">1,284</h3>
+</div>
+<div class="p-3 bg-secondary-container text-on-secondary-container rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 text-tertiary font-label-md">
+<span class="material-symbols-outlined">trending_up</span>
+<span>+12.5% from last week</span>
+</div>
+</div>
+<!-- Teacher Card -->
+<div class="bg-surface-container-lowest p-gutter rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col h-full justify-between">
+<div class="p-3 bg-primary/10 text-primary rounded-lg w-fit mb-4">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Teachers</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">{{ $teachersCount }}</h3>
+</div>
+</div>
+</div>
+<!-- Events Card -->
+<div class="bg-surface-container-lowest p-gutter rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col h-full justify-between">
+<div class="p-3 bg-tertiary/10 text-tertiary rounded-lg w-fit mb-4">
+<span class="material-symbols-outlined">event_note</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Upcoming Events</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">{{ $upcomingEventsCount }}</h3>
+</div>
+</div>
+</div>
+<!-- Achievement Card -->
+<div class="bg-primary text-on-primary p-gutter rounded-xl shadow-lg flex flex-col justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider mb-2">Total Achievements</p>
+<h3 class="font-display-lg text-[40px] leading-tight font-bold">{{ $achievementsCount }}</h3>
+</div>
+<div class="flex items-center gap-2 text-primary-fixed-dim font-label-sm">
+<span class="material-symbols-outlined text-sm">stars</span>
+<span>Institutional excellence</span>
+</div>
+</div>
+<!-- Announcements -->
+<div class="bg-surface-container-lowest p-gutter rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col h-full justify-between">
+<div class="p-3 bg-secondary-container/20 text-secondary rounded-lg w-fit mb-4">
+<span class="material-symbols-outlined">campaign</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Active Announcements</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">{{ $activeAnnouncementsCount }}</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Shortcuts & Activity Feed -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Shortcuts -->
+<div class="lg:col-span-4 space-y-6">
+<h4 class="font-headline-md text-headline-md text-primary font-bold">Quick Actions</h4>
+<div class="grid grid-cols-1 gap-4">
+<a href="/admin/announcements" class="group flex items-center justify-between p-4 bg-surface-container-highest/50 border border-outline-variant rounded-xl hover:bg-primary hover:text-on-primary transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-primary shadow-sm group-hover:bg-primary-container group-hover:text-on-primary-container">
+<span class="material-symbols-outlined">add_alert</span>
+</div>
+<span class="font-label-md text-label-md">Add Announcement</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<a href="/admin/events/create" class="group flex items-center justify-between p-4 bg-surface-container-highest/50 border border-outline-variant rounded-xl hover:bg-primary hover:text-on-primary transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-primary shadow-sm group-hover:bg-primary-container group-hover:text-on-primary-container">
+<span class="material-symbols-outlined">calendar_add_on</span>
+</div>
+<span class="font-label-md text-label-md">Add Event</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<a href="/admin/teachers" class="group flex items-center justify-between p-4 bg-surface-container-highest/50 border border-outline-variant rounded-xl hover:bg-primary hover:text-on-primary transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-primary shadow-sm group-hover:bg-primary-container group-hover:text-on-primary-container">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<span class="font-label-md text-label-md">Register Teacher</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Recent Activity Feed -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm">
+<div class="px-gutter py-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h4 class="font-headline-md text-headline-md text-primary font-bold">Recent Activity</h4>
+<button class="text-primary font-label-md hover:underline">View All History</button>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Activity Item -->
+<div class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm">campaign</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md text-on-surface">New announcement posted: <span class="font-bold">"Ramadan Schedule 2024"</span></p>
+<p class="text-label-sm text-on-surface-variant mt-1">2 hours ago • By Admin Ahmad</p>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-primary transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<!-- Activity Item -->
+<div class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm">military_tech</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md text-on-surface">Achievement updated: <span class="font-bold">"National Science Olympiad Winner"</span></p>
+<p class="text-label-sm text-on-surface-variant mt-1">5 hours ago • By System</p>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-primary transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<!-- Activity Item -->
+<div class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm">person_add</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md text-on-surface">New teacher registered: <span class="font-bold">Siti Aminah, S.Pd.I</span></p>
+<p class="text-label-sm text-on-surface-variant mt-1">Yesterday • By Admin Fauzan</p>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-primary transition-all">
+<span class="material-symbols-outlined">person_search</span>
+</button>
+</div>
+<!-- Activity Item -->
+<div class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm">delete</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md text-on-surface">Removed event: <span class="font-bold">"School Bazaar 2023"</span> from archive</p>
+<p class="text-label-sm text-on-surface-variant mt-1">Yesterday • By Super Admin</p>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-primary transition-all">
+<span class="material-symbols-outlined">restore</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Information Bar -->
+<footer class="mt-section-gap pt-12 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-gutter text-on-surface-variant">
+<p class="font-label-sm text-label-sm">© 2024 MI Darun Najah. Admin Management System v2.1.4</p>
+<div class="flex items-center gap-6">
+<a class="font-label-sm text-label-sm hover:text-primary" href="#">System Status</a>
+<a class="font-label-sm text-label-sm hover:text-primary" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm hover:text-primary" href="#">Help Center</a>
+</div>
+</footer>
+</div>
+</main>
+<!-- Contextual FAB for quick adding - only visible on relevant screens -->
+<button class="fixed bottom-margin-desktop right-margin-desktop w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl hover:scale-110 active:scale-95 transition-all flex items-center justify-center group z-50">
+<span class="material-symbols-outlined">add</span>
+<span class="absolute right-16 bg-primary text-on-primary px-3 py-1 rounded-lg text-label-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">New Entry</span>
+</button>
+<script>
+        // Simple animation for stat numbers
+        document.querySelectorAll('h3.font-display-lg, h3.font-headline-lg').forEach(el => {
+            const finalValue = parseInt(el.innerText.replace(/,/g, ''));
+            if(isNaN(finalValue)) return;
+            
+            let startValue = 0;
+            const duration = 1500;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const currentValue = Math.floor(progress * finalValue);
+                el.innerText = currentValue.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        });
+        function handleLogout(e) {
+            e.preventDefault();
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/logout';
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = '{{ csrf_token() }}';
+            form.appendChild(csrfInput);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body></html>

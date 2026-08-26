@@ -1,0 +1,362 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Manage Virtual Tour - MI Darun Najah Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&amp;family=Work+Sans:wght@400..700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#574500",
+                      "tertiary": "#004f26",
+                      "surface-container-high": "#e7e8e9",
+                      "outline": "#6f7979",
+                      "inverse-surface": "#2e3132",
+                      "surface-container": "#edeeef",
+                      "on-surface": "#191c1d",
+                      "on-secondary-container": "#745c00",
+                      "on-background": "#191c1d",
+                      "tertiary-fixed": "#6bfe9c",
+                      "on-tertiary-fixed": "#00210c",
+                      "surface-container-highest": "#e1e3e4",
+                      "inverse-on-surface": "#f0f1f2",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#e9c349",
+                      "surface-tint": "#096969",
+                      "on-primary-fixed-variant": "#004f4f",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f3f4f5",
+                      "on-secondary-fixed": "#241a00",
+                      "secondary-container": "#fed65b",
+                      "on-primary-fixed": "#002020",
+                      "surface-dim": "#d9dadb",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#006a35",
+                      "surface-variant": "#e1e3e4",
+                      "outline-variant": "#bec9c8",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#f8f9fa",
+                      "primary": "#004c4c",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f8f9fa",
+                      "on-primary-container": "#93e1e0",
+                      "primary-fixed": "#a2f0ef",
+                      "on-tertiary-container": "#5aef8f",
+                      "on-tertiary-fixed-variant": "#005228",
+                      "secondary-fixed": "#ffe088",
+                      "tertiary-fixed-dim": "#4ae183",
+                      "primary-container": "#006666",
+                      "secondary": "#735c00",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#86d4d3",
+                      "on-surface-variant": "#3f4948",
+                      "inverse-primary": "#86d4d3",
+                      "error": "#ba1a1a",
+                      "surface": "#f8f9fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "80px",
+                      "margin-desktop": "40px",
+                      "container-max": "1200px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Manrope"
+                      ],
+                      "headline-lg": [
+                              "Manrope"
+                      ],
+                      "label-sm": [
+                              "Work Sans"
+                      ],
+                      "body-md": [
+                              "Work Sans"
+                      ],
+                      "body-lg": [
+                              "Work Sans"
+                      ],
+                      "label-md": [
+                              "Work Sans"
+                      ],
+                      "display-lg": [
+                              "Manrope"
+                      ],
+                      "headline-md": [
+                              "Manrope"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container dark:bg-surface-dim fixed left-0 top-0 h-full w-64 border-r border-outline-variant dark:border-outline flex flex-col gap-base p-4 h-screen overflow-y-auto hidden md:flex z-50">
+<div class="mb-8">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary">Admin Panel</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">MI Darun Najah</p>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<!-- Nav Items -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">school</span>
+                School Profile
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">groups</span>
+                Teachers
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">campaign</span>
+                Announcements
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">event</span>
+                Events
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">military_tech</span>
+                Achievements
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">sports_soccer</span>
+                Extracurricular
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">quiz</span>
+                FAQ
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-lg font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">image</span>
+                Hero Banners
+            </a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg font-bold font-label-md text-label-md hover:scale-[1.02] transition-transform cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">vrpano</span>
+                Virtual Tour
+            </a>
+
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<button class="flex items-center gap-3 px-4 py-3 text-error w-full hover:bg-error-container rounded-lg font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop bg-surface-bright min-h-screen">
+<!-- Header -->
+<header class="flex justify-between items-center mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Manage Virtual Tour</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Add, edit, and organize 360 panoramas and gallery images for the school virtual tour.</p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                Add New Location
+            </button>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- List/Table Section -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Location Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-shadow hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-outline text-3xl">vrpano</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Main Gate &amp; Courtyard</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Active
+                                    <span class="mx-2 text-outline-variant">|</span>
+<span class="material-symbols-outlined text-[16px]">image</span> 360 Panorama
+                                </p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-primary hover:bg-primary-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Location Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-shadow hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] border-l-4 border-l-primary">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex items-center justify-center relative">
+<img class="w-full h-full object-cover" data-alt="A bright, modern elementary school classroom interior with colorful desks, educational posters, and natural sunlight streaming through large windows. Minimalist, organized, high-quality architectural photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrCwXhyzLdhbysQPeEw-cI1wbRJquQqhtOG5BlJFqYnOxZHi9F5hyjj7nYzDxn4qn03vwgjN6_pAFtR5kuryexJSxhVTHVTeQfHnjNMQFj0rAgMEUKBxMt7aNxmHVi24Ls-EGn1M8ghgHut2a2wG9fRpQg3Y9SwIWSdL6fIbdBxBVgObkFjwaFeb1s9rbhg9gt15yN0j6CgfXwthVGjRJIikjl5cZUwROwI2C0NBDvRfVPYqgp4CmYRQMuAiQealTRbjXK16oJNfU">
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Primary Classrooms</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Active
+                                    <span class="mx-2 text-outline-variant">|</span>
+<span class="material-symbols-outlined text-[16px]">collections</span> Gallery (5 images)
+                                </p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-primary hover:bg-primary-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Edit/Add Form Sidebar -->
+<div class="lg:col-span-1">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] sticky top-6">
+<h3 class="font-headline-md text-headline-md text-primary mb-6 border-b border-outline-variant pb-4">Edit Location</h3>
+<form class="flex flex-col gap-5">
+<!-- Location Name -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Location Name</label>
+<input class="w-full rounded-lg border-outline-variant bg-surface-bright text-on-surface font-body-md focus:border-primary focus:ring-1 focus:ring-primary transition-colors py-2 px-3" type="text" value="Primary Classrooms">
+</div>
+<!-- Description -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Description (Optional)</label>
+<textarea class="w-full rounded-lg border-outline-variant bg-surface-bright text-on-surface font-body-md focus:border-primary focus:ring-1 focus:ring-primary transition-colors py-2 px-3" rows="3">Explore our state-of-the-art primary learning environments.</textarea>
+</div>
+<!-- Media Type Toggle -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Media Type</label>
+<div class="flex bg-surface-container rounded-lg p-1">
+<button class="flex-1 py-2 font-label-md text-label-md rounded-md text-on-surface-variant hover:text-primary transition-colors" type="button">360 Panorama</button>
+<button class="flex-1 py-2 font-label-md text-label-md rounded-md bg-surface-container-lowest text-primary shadow-sm" type="button">Standard Gallery</button>
+</div>
+</div>
+<!-- Image Upload Area -->
+<div class="mt-2">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Upload Images</label>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-8 flex flex-col items-center justify-center text-center hover:border-primary hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">cloud_upload</span>
+<p class="font-label-md text-label-md text-on-surface">Click to upload or drag &amp; drop</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+</div>
+<!-- Thumbnail Preview (Gallery Mode) -->
+<div class="grid grid-cols-4 gap-2 mt-4">
+<div class="aspect-square rounded-lg bg-surface-container relative group overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of modern school desks with tablet computers and bright natural light. Minimalist, organized, high-quality photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfHQp2s6-Of7ucGBkR0CSr1_uCYkjcra4LcogtWAr5QX7Kin18lhMMK5aedcMbhxfZlz6HTpWFI1jDmp7HURdWzX4Hxy7Rqt1ihs1fkKpPwLpLnhRBCqiMKWHQY1e3ZK4TBQFb0zYGGiPz0KcsEsS2-7ad8SkzyU-ovLQ2sA0pYsOL-mjCWnf_V9DMPfSwgMBTjxIv_PPH2C0l1JEf92uiI2jLX_RLi7TGEBfnywjOtViCo3XAwxPfWlITRVrCbMxUrRe3zborjXA">
+<button class="absolute top-1 right-1 bg-error/90 text-on-error rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+<div class="aspect-square rounded-lg bg-surface-container relative group overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A bright school library corner with colorful bean bags and wooden bookshelves filled with books. Clean, inviting, high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZt3EgkmQ_QmwZZvjIuTnJvhkkp3CQix1UD0vqhROgrTQ7cbKJVfjdGvDnjwKs107FT9I-PWNxKSOwMZ6GAWZ5dn0HKdSYemv2GeITbxjt5xQhMU03ZkIX-0GcS6_q4e4j71gcG9CgDFFBcgWE6dNMNlrYUn3a-TOTsNb3RlWDFrbs78SqJ4lMtqGjj2mR97Pw0wFSx2DGTnb049oQ7p-QiLYA6aXaeV3u-G9omWmSrU8KNZATtnXxoxi6X9T86ak-248Y19L13YQ">
+<button class="absolute top-1 right-1 bg-error/90 text-on-error rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Status -->
+<div>
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-5 w-5" type="checkbox">
+<span class="font-body-md text-body-md text-on-surface">Visible on Website</span>
+</label>
+</div>
+<!-- Actions -->
+<div class="flex gap-3 mt-4 pt-4 border-t border-outline-variant">
+<button class="flex-1 py-3 px-4 bg-surface-container-high text-on-surface font-label-md text-label-md rounded-lg hover:bg-surface-container transition-colors" type="button">Cancel</button>
+<button class="flex-1 py-3 px-4 bg-primary text-on-primary font-label-md text-label-md rounded-lg hover:bg-primary/90 transition-colors shadow-sm" type="submit">Save Changes</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>
