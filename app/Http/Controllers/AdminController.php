@@ -25,11 +25,65 @@ class AdminController extends Controller
         $achievementsCount = Achievement::count();
         $activeAnnouncementsCount = Announcement::where('is_active', true)->count();
 
+        // Dynamic recent activities feed from actual database records
+        $activities = collect();
+
+        Announcement::latest()->take(3)->get()->each(function ($item) use ($activities) {
+            $activities->push([
+                'title' => 'Pengumuman dipublikasi: "' . $item->title . '"',
+                'time' => $item->created_at ? $item->created_at->diffForHumans() : 'Baru saja',
+                'timestamp' => $item->created_at ?? now(),
+                'user' => 'Admin',
+                'icon' => 'campaign',
+                'bg' => 'bg-tertiary-container text-on-tertiary-container',
+                'url' => '/admin/announcements'
+            ]);
+        });
+
+        Teacher::latest()->take(3)->get()->each(function ($item) use ($activities) {
+            $activities->push([
+                'title' => 'Guru didaftarkan: "' . $item->name . '"',
+                'time' => $item->created_at ? $item->created_at->diffForHumans() : 'Baru saja',
+                'timestamp' => $item->created_at ?? now(),
+                'user' => 'Admin',
+                'icon' => 'person_add',
+                'bg' => 'bg-primary-container text-on-primary-container',
+                'url' => '/admin/teachers'
+            ]);
+        });
+
+        Event::latest()->take(3)->get()->each(function ($item) use ($activities) {
+            $activities->push([
+                'title' => 'Kegiatan dibuat: "' . $item->title . '"',
+                'time' => $item->created_at ? $item->created_at->diffForHumans() : 'Baru saja',
+                'timestamp' => $item->created_at ?? now(),
+                'user' => 'Admin',
+                'icon' => 'event',
+                'bg' => 'bg-tertiary/10 text-tertiary',
+                'url' => '/admin/events'
+            ]);
+        });
+
+        Achievement::latest()->take(3)->get()->each(function ($item) use ($activities) {
+            $activities->push([
+                'title' => 'Prestasi ditambahkan: "' . $item->title . '"',
+                'time' => $item->created_at ? $item->created_at->diffForHumans() : 'Baru saja',
+                'timestamp' => $item->created_at ?? now(),
+                'user' => 'Admin',
+                'icon' => 'military_tech',
+                'bg' => 'bg-secondary-container text-on-secondary-container',
+                'url' => '/admin/achievements'
+            ]);
+        });
+
+        $recentActivities = $activities->sortByDesc('timestamp')->take(3)->values();
+
         return view('admin.dashboard', compact(
             'teachersCount',
             'upcomingEventsCount',
             'achievementsCount',
-            'activeAnnouncementsCount'
+            'activeAnnouncementsCount',
+            'recentActivities'
         ));
     }
 

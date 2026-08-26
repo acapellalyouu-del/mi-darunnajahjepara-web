@@ -274,61 +274,28 @@
 <div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm">
 <div class="px-gutter py-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
 <h4 class="font-headline-md text-headline-md text-primary font-bold">Recent Activity</h4>
-<button class="text-primary font-label-md hover:underline">View All History</button>
+<span class="text-xs text-on-surface-variant font-medium">3 Aktivitas Terbaru</span>
 </div>
 <div class="divide-y divide-outline-variant">
-<!-- Activity Item -->
-<div class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group">
-<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-sm">campaign</span>
-</div>
-<div class="flex-1">
-<p class="text-body-md text-on-surface">New announcement posted: <span class="font-bold">"Ramadan Schedule 2024"</span></p>
-<p class="text-label-sm text-on-surface-variant mt-1">2 hours ago • By Admin Ahmad</p>
-</div>
-<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-primary transition-all">
-<span class="material-symbols-outlined">edit</span>
-</button>
-</div>
-<!-- Activity Item -->
-<div class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group">
-<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-sm">military_tech</span>
-</div>
-<div class="flex-1">
-<p class="text-body-md text-on-surface">Achievement updated: <span class="font-bold">"National Science Olympiad Winner"</span></p>
-<p class="text-label-sm text-on-surface-variant mt-1">5 hours ago • By System</p>
-</div>
-<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-primary transition-all">
-<span class="material-symbols-outlined">visibility</span>
-</button>
-</div>
-<!-- Activity Item -->
-<div class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group">
-<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-sm">person_add</span>
-</div>
-<div class="flex-1">
-<p class="text-body-md text-on-surface">New teacher registered: <span class="font-bold">Siti Aminah, S.Pd.I</span></p>
-<p class="text-label-sm text-on-surface-variant mt-1">Yesterday • By Admin Fauzan</p>
-</div>
-<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-primary transition-all">
-<span class="material-symbols-outlined">person_search</span>
-</button>
-</div>
-<!-- Activity Item -->
-<div class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group">
-<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-sm">delete</span>
-</div>
-<div class="flex-1">
-<p class="text-body-md text-on-surface">Removed event: <span class="font-bold">"School Bazaar 2023"</span> from archive</p>
-<p class="text-label-sm text-on-surface-variant mt-1">Yesterday • By Super Admin</p>
-</div>
-<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-primary transition-all">
-<span class="material-symbols-outlined">restore</span>
-</button>
-</div>
+@forelse ($recentActivities as $act)
+    <a href="{{ $act['url'] }}" class="p-gutter flex gap-4 hover:bg-surface-container-low transition-colors group block">
+        <div class="w-10 h-10 rounded-full {{ $act['bg'] }} flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-sm">{{ $act['icon'] }}</span>
+        </div>
+        <div class="flex-1">
+            <p class="text-body-md text-on-surface">{!! $act['title'] !!}</p>
+            <p class="text-label-sm text-on-surface-variant mt-1">{{ $act['time'] }} • Oleh {{ $act['user'] }}</p>
+        </div>
+        <div class="opacity-0 group-hover:opacity-100 text-outline group-hover:text-primary transition-all flex items-center">
+            <span class="material-symbols-outlined">arrow_forward</span>
+        </div>
+    </a>
+@empty
+    <div class="p-gutter text-center py-12 text-on-surface-variant">
+        <span class="material-symbols-outlined text-4xl mb-2 text-outline">history</span>
+        <p class="font-body-md text-sm">Belum ada aktivitas terbaru.</p>
+    </div>
+@endforelse
 </div>
 </div>
 </section>
