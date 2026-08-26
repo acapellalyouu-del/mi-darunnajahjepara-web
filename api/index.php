@@ -1,6 +1,9 @@
 <?php
 
-// Force stderr logging to prevent read-only filesystem errors on Vercel
+// 1. Load Composer Autoloader FIRST
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// Force stderr logging
 putenv('LOG_CHANNEL=stderr');
 $_ENV['LOG_CHANNEL'] = 'stderr';
 
