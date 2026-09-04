@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Setting::updateOrCreate(['key' => 'contact_youtube'], ['value' => '', 'type' => 'text']);
         \App\Models\Setting::updateOrCreate(['key' => 'contact_facebook'], ['value' => '', 'type' => 'text']);
         \App\Models\Setting::updateOrCreate(['key' => 'contact_maps'], ['value' => 'https://www.google.com/maps/embed?pb=!1m0!4m2!3m1!1s0x2e71220b291fa277:0x56057d7d4f06f570!6m8!1m7!1s2ojEInFwjsk_gIbIPeeWHw!2m2!1d-6.5203405!2d110.7086687!3f250.65!2f0!5f0.7820853872224151', 'type' => 'text']);
-        \App\Models\Setting::updateOrCreate(['key' => 'announcement_bar_text'], ['value' => 'Pendaftaran Murid Baru (PPDB) Tahun Ajaran 2026/2027 Telah Dibuka!', 'type' => 'text']);
+        \App\Models\Setting::updateOrCreate(['key' => 'announcement_bar_text'], ['value' => 'Selamat Datang di Website Resmi MI Darun Najah Jepara!', 'type' => 'text']);
         \App\Models\Setting::updateOrCreate(['key' => 'announcement_bar_active'], ['value' => '1', 'type' => 'boolean']);
 
         // Seed default teachers

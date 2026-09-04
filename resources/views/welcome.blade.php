@@ -181,7 +181,7 @@
     </div>
     <div class="relative z-10 px-margin-desktop max-w-container-max mx-auto w-full">
         <div class="text-on-primary space-y-6 max-w-2xl text-white">
-            <span class="inline-block px-4 py-1.5 rounded-full border border-primary-fixed text-primary-fixed font-label-md">PPDB TAHUN AJARAN BARU - MENDATANG</span>
+            <span class="inline-block px-4 py-1.5 rounded-full border border-primary-fixed text-primary-fixed font-label-md">TAHUN AJARAN BARU - MENDATANG</span>
             <h2 class="font-display-lg text-display-lg leading-tight">{{ $banner->subtitle ?? 'Melahirkan Generasi Qur\'ani yang Unggul & Berkarakter' }}</h2>
             <p class="font-body-lg text-body-lg text-on-primary/90">
                 Excellent with Integral Character. Membentuk generasi yang cerdas secara akademik dan kokoh secara spiritual melalui pendidikan terpadu di {{ $settings['school_name'] }}.
@@ -335,12 +335,6 @@
     <div class="text-center mb-12">
         <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Program Kelas</h3>
         <p class="text-on-surface-variant">Pilihan program pendidikan yang disesuaikan dengan kebutuhan belajar siswa.</p>
-        <div class="mt-3">
-            <span class="text-xs text-primary font-semibold bg-primary-container/20 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 border border-primary-container/40">
-                <span class="material-symbols-outlined text-sm">info</span>
-                <span>Program kelas dipilih calon siswa saat proses Pendaftaran Siswa Baru (PPDB)</span>
-            </span>
-        </div>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-surface rounded-lg p-8 border border-outline-variant hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between">
@@ -382,18 +376,6 @@
             </div>
             <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary-container hover:text-white transition-colors block">Detail Kurikulum</a>
         </div>
-    </div>
-
-    <!-- PPDB Call to Action Banner -->
-    <div class="mt-12 bg-surface-container-low p-6 md:p-8 rounded-xl border border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
-        <div class="text-left space-y-1">
-            <h4 class="font-bold text-primary text-lg">Tertarik Mendaftarkan Putra/Putri Anda di MI Darun Najah?</h4>
-            <p class="text-sm text-on-surface-variant">Pendaftaran murid baru (PPDB) dapat dilakukan dengan menghubungi panitia pendaftaran kami.</p>
-        </div>
-        <a href="#kontak" class="bg-primary text-on-primary px-6 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all flex-shrink-0 flex items-center gap-2 shadow-sm">
-            <span class="material-symbols-outlined text-sm">assignment_add</span>
-            <span>Info &amp; Pendaftaran PPDB</span>
-        </a>
     </div>
 </section>
 
