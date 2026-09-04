@@ -386,7 +386,8 @@ class AdminController extends Controller
             if ($request->has('clear_existing') && $request->clear_existing) {
                 $tour->image_paths = $newImages;
             } else {
-                $tour->image_paths = array_merge($existingImages, $newImages);
+                // Put new images first so they automatically shift/replace existing images
+                $tour->image_paths = array_merge($newImages, $existingImages);
             }
             if (empty($tour->image_paths) && !$id) {
                 return redirect()->back()->withErrors(['images' => 'Please upload at least one image.']);
@@ -401,11 +402,39 @@ class AdminController extends Controller
         return redirect('/admin/virtual-tours')->with('success', 'Virtual tour location saved successfully!');
     }
 
+    public function pinVirtualTour($id)
+    {
+        $tour = VirtualTour::findOrFail($id);
+
+        // Re-sequence all tours so that the pinned tour gets order = 1 (top preview)
+        $tours = VirtualTour::orderBy('order', 'asc')->get();
+        $counter = 2;
+        foreach ($tours as $t) {
+            if ($t->id == $id) {
+                $t->order = 1;
+            } else {
+                $t->order = $counter++;
+            }
+            $t->save();
+        }
+
+        return redirect()->back()->with('success', '"' . $tour->name . '" berhasil disetel sebagai Gambar Preview / Header Utama Website!');
+    }
+
     public function deleteVirtualTour($id)
     {
         $tour = VirtualTour::findOrFail($id);
+        $tourName = $tour->name;
         $tour->delete();
-        return redirect()->back()->with('success', 'Virtual tour location deleted successfully!');
+
+        // Re-sequence remaining tours
+        $remainingTours = VirtualTour::orderBy('order', 'asc')->get();
+        foreach ($remainingTours as $index => $t) {
+            $t->order = $index + 1;
+            $t->save();
+        }
+
+        return redirect()->back()->with('success', 'Lokasi "' . $tourName . '" berhasil dihapus!');
     }
 
     public function extracurriculars()

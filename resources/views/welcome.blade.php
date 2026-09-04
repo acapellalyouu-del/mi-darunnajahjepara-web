@@ -188,7 +188,7 @@
             </p>
             <div class="flex flex-wrap gap-4 pt-2">
                 <a href="#kontak" class="bg-secondary-container text-on-secondary-container px-8 py-3.5 rounded-lg font-bold hover:scale-105 transition-transform flex items-center gap-2">
-                    Kepoin Sekarang <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    Lihat Sekarang <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
                 <a href="#sambutan" class="border border-on-primary text-on-primary px-8 py-3.5 rounded-lg font-bold hover:bg-on-primary/10 transition-colors">
                     Tentang Kami
@@ -335,6 +335,12 @@
     <div class="text-center mb-12">
         <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Program Kelas</h3>
         <p class="text-on-surface-variant">Pilihan program pendidikan yang disesuaikan dengan kebutuhan belajar siswa.</p>
+        <div class="mt-3">
+            <span class="text-xs text-primary font-semibold bg-primary-container/20 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 border border-primary-container/40">
+                <span class="material-symbols-outlined text-sm">info</span>
+                <span>Program kelas dipilih calon siswa saat proses Pendaftaran Siswa Baru (PPDB)</span>
+            </span>
+        </div>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-surface rounded-lg p-8 border border-outline-variant hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between">
@@ -347,7 +353,7 @@
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Ekstrakurikuler Wajib</li>
                 </ul>
             </div>
-            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary-container hover:text-white transition-colors block">Daftar Reguler</a>
+            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary-container hover:text-white transition-colors block">Detail Kurikulum</a>
         </div>
         <div class="bg-primary text-on-primary rounded-lg p-8 shadow-lg relative transform scale-105 z-10 flex flex-col justify-between text-white">
             <div class="absolute top-0 right-0 bg-secondary-fixed text-on-secondary-fixed text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">POPULER</div>
@@ -361,7 +367,7 @@
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> Program Pengembangan Diri</li>
                 </ul>
             </div>
-            <a href="#kontak" class="w-full text-center bg-secondary-container text-on-secondary-container py-2.5 rounded-lg font-bold hover:opacity-90 transition-opacity block">Daftar Reguler Plus</a>
+            <a href="#kontak" class="w-full text-center bg-secondary-container text-on-secondary-container py-2.5 rounded-lg font-bold hover:opacity-90 transition-opacity block">Detail Kurikulum</a>
         </div>
         <div class="bg-surface rounded-lg p-8 border border-outline-variant hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between">
             <div>
@@ -374,8 +380,20 @@
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Bimbingan Belajar Khusus</li>
                 </ul>
             </div>
-            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary-container hover:text-white transition-colors block">Daftar Full Day</a>
+            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary-container hover:text-white transition-colors block">Detail Kurikulum</a>
         </div>
+    </div>
+
+    <!-- PPDB Call to Action Banner -->
+    <div class="mt-12 bg-surface-container-low p-6 md:p-8 rounded-xl border border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+        <div class="text-left space-y-1">
+            <h4 class="font-bold text-primary text-lg">Tertarik Mendaftarkan Putra/Putri Anda di MI Darun Najah?</h4>
+            <p class="text-sm text-on-surface-variant">Pendaftaran murid baru (PPDB) dapat dilakukan dengan menghubungi panitia pendaftaran kami.</p>
+        </div>
+        <a href="#kontak" class="bg-primary text-on-primary px-6 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all flex-shrink-0 flex items-center gap-2 shadow-sm">
+            <span class="material-symbols-outlined text-sm">assignment_add</span>
+            <span>Info &amp; Pendaftaran PPDB</span>
+        </a>
     </div>
 </section>
 

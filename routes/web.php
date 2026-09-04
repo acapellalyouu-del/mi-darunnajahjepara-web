@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/virtual-tours', [AdminController::class, 'virtualTours']);
     Route::post('/admin/virtual-tours', [AdminController::class, 'storeVirtualTour']);
+    Route::post('/admin/virtual-tours/{id}/pin', [AdminController::class, 'pinVirtualTour']);
     Route::delete('/admin/virtual-tours/{id}', [AdminController::class, 'deleteVirtualTour']);
 
     Route::get('/admin/extracurriculars', [AdminController::class, 'extracurriculars']);

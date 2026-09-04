@@ -207,7 +207,7 @@ class DatabaseSeeder extends Seeder
             [
                 'subtitle' => 'Melahirkan Generasi Qur\'ani',
                 'image_path' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuDWbZTaurlojAwQDmPxDOEWmpVtlIgn05Wxm3DrQLMiOy_s4bhCnMFCSsMyYeSD-s_IePdVKTeeXBhlnfF2FRZbAkKHbkkQAWAJNe3eb4U53nZnmdV4eY-cObLg8q_EG0PEAlnVlH3dXZok1s8fVbWgBdCPjbjFWPDb14F2V2xACpHejRcaoUwFigtGb6_XV7eltBSVSpUENju7ccOFzttbbH8m344xb_tPph3VUFOR1PA00kXCxcRZ',
-                'button_text' => 'Kepoin sekarang',
+                'button_text' => 'Lihat sekarang',
                 'button_link' => '#kontak',
                 'order' => 2,
                 'is_active' => true,

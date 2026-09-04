@@ -177,6 +177,14 @@ class HomeController extends Controller
 
     public function virtualTour()
     {
-        return view('virtual_tour');
+        $virtualTours = VirtualTour::where('is_active', true)
+            ->orderBy('order')
+            ->get();
+
+        $settings = [
+            'school_name' => Setting::get('school_name', 'MI Darun Najah'),
+        ];
+
+        return view('virtual_tour', compact('virtualTours', 'settings'));
     }
 }
