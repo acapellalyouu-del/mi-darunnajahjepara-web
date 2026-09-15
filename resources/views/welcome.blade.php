@@ -163,25 +163,40 @@
 
 <!-- Hero Banner Section -->
 @php
-    $banner = $banners->first();
-    if ($banner && !empty($banner->image_path)) {
-        $heroImage = filter_var($banner->image_path, FILTER_VALIDATE_URL)
-            ? $banner->image_path
-            : (Str::startsWith($banner->image_path, ['/storage', 'storage']) ? asset($banner->image_path) : asset('storage/' . $banner->image_path));
-    } else {
-        $heroImage = !empty($settings['school_cover_image']) 
-            ? (filter_var($settings['school_cover_image'], FILTER_VALIDATE_URL) ? $settings['school_cover_image'] : (Str::startsWith($settings['school_cover_image'], ['/storage', 'storage']) ? asset($settings['school_cover_image']) : asset('storage/' . $settings['school_cover_image'])))
-            : 'https://lh3.googleusercontent.com/aida-public/AB6AXuBSQo-1h-JJI1nVRF8kRdlpd1RYk1ivjcP4AOqh9Vl38vjbHfQi6Hy3nFw5sCx4dg6y6qR_lS3lg-01Iy3EoxRZg-X-yrD6_nE0Wp9DF5mGeM0RsEC8Zm3RBlt0C1eDbA03PcAbo3XVPo3tiMfYe0uSULnS7o1IwaypuHQgM1nWTcF5A2WB-xKOZoxUnH6ugrjB-c-g0xoIbUFYqZrrfyp3gR9uijR_NIWNSBK2ljOFBOWHvXyZi_ot';
+    $heroImages = [];
+    foreach ($banners as $b) {
+        if (!empty($b->image_path)) {
+            $heroImages[] = filter_var($b->image_path, FILTER_VALIDATE_URL)
+                ? $b->image_path
+                : (Str::startsWith($b->image_path, ['/storage', 'storage']) ? asset($b->image_path) : asset('storage/' . $b->image_path));
+        }
+    }
+    if (empty($heroImages) && !empty($settings['school_cover_image'])) {
+        $heroImages[] = filter_var($settings['school_cover_image'], FILTER_VALIDATE_URL) 
+            ? $settings['school_cover_image'] 
+            : (Str::startsWith($settings['school_cover_image'], ['/storage', 'storage']) ? asset($settings['school_cover_image']) : asset('storage/' . $settings['school_cover_image']));
+    }
+    if (empty($heroImages)) {
+        $heroImages[] = asset('images/logo.png');
     }
 @endphp
 <section class="relative h-[650px] md:h-[750px] flex items-center overflow-hidden">
-    <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('{{ $heroImage }}')">
-        <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent"></div>
+    <!-- Background Slideshow Images -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+        @foreach($heroImages as $idx => $imgUrl)
+            <div class="hero-bg-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out {{ $idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0' }}" 
+                 style="background-image: url('{{ $imgUrl }}')">
+            </div>
+        @endforeach
+        <!-- Dark/Teal Overlay for legibility -->
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent z-20 pointer-events-none"></div>
     </div>
-    <div class="relative z-10 px-margin-desktop max-w-container-max mx-auto w-full">
+
+    <!-- Static Overlay Content (Unchanged) -->
+    <div class="relative z-30 px-margin-desktop max-w-container-max mx-auto w-full">
         <div class="text-on-primary space-y-6 max-w-2xl text-white">
             <span class="inline-block px-4 py-1.5 rounded-full border border-primary-fixed text-primary-fixed font-label-md">TAHUN AJARAN BARU - MENDATANG</span>
-            <h2 class="font-display-lg text-display-lg leading-tight">{{ $banner->subtitle ?? 'Melahirkan Generasi Qur\'ani yang Unggul & Berkarakter' }}</h2>
+            <h2 class="font-display-lg text-display-lg leading-tight">{{ $banners->first()->subtitle ?? 'Melahirkan Generasi Qur\'ani yang Unggul & Berkarakter' }}</h2>
             <p class="font-body-lg text-body-lg text-on-primary/90">
                 Excellent with Integral Character. Membentuk generasi yang cerdas secara akademik dan kokoh secara spiritual melalui pendidikan terpadu di {{ $settings['school_name'] }}.
             </p>
@@ -196,6 +211,25 @@
         </div>
     </div>
 </section>
+
+<!-- Auto Slide Script (3 Seconds) -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.hero-bg-slide');
+        if (slides.length > 1) {
+            let currentSlideIdx = 0;
+            setInterval(() => {
+                slides[currentSlideIdx].classList.remove('opacity-100', 'z-10');
+                slides[currentSlideIdx].classList.add('opacity-0', 'z-0');
+
+                currentSlideIdx = (currentSlideIdx + 1) % slides.length;
+
+                slides[currentSlideIdx].classList.remove('opacity-0', 'z-0');
+                slides[currentSlideIdx].classList.add('opacity-100', 'z-10');
+            }, 3000); // 3 seconds interval
+        }
+    });
+</script>
 
 <!-- Accreditation & Identity Section -->
 <section class="py-12 bg-surface -mt-16 relative z-20">
