@@ -109,10 +109,10 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .animate-scroll {
-            animation: scroll 30s linear infinite;
+            animation: scroll 25s linear infinite;
         }
         @keyframes scroll {
-            0% { transform: translateX(100%); }
+            0% { transform: translateX(100vw); }
             100% { transform: translateX(-100%); }
         }
     </style>
@@ -123,14 +123,18 @@
 <!-- Sticky Top Header Container -->
 <div class="sticky top-0 z-50 w-full shadow-sm">
     <!-- Running Announcement Bar -->
-    @if ($settings['announcement_bar_active'] && !empty($settings['announcement_bar_text']))
-    <div class="bg-primary text-on-primary py-2 overflow-hidden whitespace-nowrap">
+    @if ($settings['announcement_bar_active'] ?? true)
+    <div class="bg-primary text-on-primary py-2 overflow-hidden whitespace-nowrap relative w-full">
         <div class="animate-scroll inline-block font-label-md">
             @if (!empty($settings['announcement_bar_link']))
-                <a href="{{ $settings['announcement_bar_link'] }}" target="_blank" class="hover:underline">{{ $settings['announcement_bar_text'] }}</a>
+                <a href="{{ $settings['announcement_bar_link'] }}" target="_blank" class="hover:underline">{{ $settings['announcement_bar_text'] ?? 'Selamat Datang di Website Resmi MI Darun Najah Jepara' }}</a>
             @else
-                {{ $settings['announcement_bar_text'] }}
+                <span>{{ !empty($settings['announcement_bar_text']) ? $settings['announcement_bar_text'] : 'Selamat Datang di Website Resmi MI Darun Najah Jepara' }}</span>
             @endif
+            <span class="mx-8 opacity-75">•</span>
+            <span>Mewujudkan Generasi Islami, Cerdas, Terampil, dan Berakhlaq Mulia</span>
+            <span class="mx-8 opacity-75">•</span>
+            <span>Pusat Informasi Akademik, Kegiatan Siswa, serta Prestasi Madrasah Ibtidaiyah Darun Najah</span>
         </div>
     </div>
     @endif

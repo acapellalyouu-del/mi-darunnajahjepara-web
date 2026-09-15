@@ -16,6 +16,17 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // 0. Increment Site Visitor Tracking Counter
+        try {
+            $visitorSetting = Setting::firstOrCreate(
+                ['key' => 'site_visitor_count'],
+                ['value' => '0', 'type' => 'text']
+            );
+            $visitorSetting->increment('value');
+        } catch (\Throwable $e) {
+            // Silent catch
+        }
+
         // 1. Fetch Banners
         $banners = HeroBanner::where('is_active', true)
             ->where(function ($q) {

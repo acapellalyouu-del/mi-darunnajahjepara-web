@@ -170,16 +170,16 @@
 <div class="col-span-1 lg:col-span-2 bg-surface-container-lowest p-gutter rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
 <div class="flex justify-between items-start">
 <div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Weekly Visitors</p>
-<h3 class="font-display-lg text-display-lg text-primary">1,284</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Total Visitors</p>
+<h3 class="font-display-lg text-display-lg text-primary">{{ number_format($visitorCount) }}</h3>
 </div>
 <div class="p-3 bg-secondary-container text-on-secondary-container rounded-lg">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
 </div>
 </div>
 <div class="mt-4 flex items-center gap-2 text-tertiary font-label-md">
-<span class="material-symbols-outlined">trending_up</span>
-<span>+12.5% from last week</span>
+<span class="material-symbols-outlined">visibility</span>
+<span>Real-time site visitor counter</span>
 </div>
 </div>
 <!-- Teacher Card -->
@@ -305,11 +305,7 @@
 </footer>
 </div>
 </main>
-<!-- Contextual FAB for quick adding - only visible on relevant screens -->
-<button class="fixed bottom-margin-desktop right-margin-desktop w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl hover:scale-110 active:scale-95 transition-all flex items-center justify-center group z-50">
-<span class="material-symbols-outlined">add</span>
-<span class="absolute right-16 bg-primary text-on-primary px-3 py-1 rounded-lg text-label-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">New Entry</span>
-</button>
+
 <script>
         // Simple animation for stat numbers
         document.querySelectorAll('h3.font-display-lg, h3.font-headline-lg').forEach(el => {

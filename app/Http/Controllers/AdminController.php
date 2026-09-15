@@ -76,9 +76,11 @@ class AdminController extends Controller
             ]);
         });
 
+        $visitorCount = (int) Setting::get('site_visitor_count', 0);
         $recentActivities = $activities->sortByDesc('timestamp')->take(3)->values();
 
         return view('admin.dashboard', compact(
+            'visitorCount',
             'teachersCount',
             'upcomingEventsCount',
             'achievementsCount',
