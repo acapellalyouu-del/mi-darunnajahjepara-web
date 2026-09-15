@@ -205,54 +205,7 @@
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant/30">
-@php
-    $headmasters = $teachers->filter(fn($t) => in_array($t->role, ['Kepala Sekolah', 'Wakil Kepala Sekolah']));
-    $regularTeachers = $teachers->filter(fn($t) => !in_array($t->role, ['Kepala Sekolah', 'Wakil Kepala Sekolah']));
-@endphp
-
-@if ($headmasters->isNotEmpty() || true)
-<tr class="bg-primary/5">
-    <td colspan="6" class="px-6 py-3 font-bold text-xs uppercase text-primary tracking-widest border-b border-outline-variant">
-        Struktur Pimpinan (Kepala & Wakil Sekolah)
-    </td>
-</tr>
-<!-- Permanent Headmaster Row -->
-<tr class="hover:bg-surface-container-low/30 transition-colors bg-secondary-container/5">
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-lg overflow-hidden border border-outline-variant bg-surface-container-high">
-@if (!empty($settings['headmaster_photo']))
-    <img class="w-full h-full object-cover" src="{{ filter_var($settings['headmaster_photo'], FILTER_VALIDATE_URL) ? $settings['headmaster_photo'] : (Str::startsWith($settings['headmaster_photo'], ['/storage', 'storage']) ? asset($settings['headmaster_photo']) : asset('storage/' . $settings['headmaster_photo'])) }}"/>
-@else
-    <div class="w-full h-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-        K
-    </div>
-@endif
-</div>
-<div>
-<p class="font-body-md text-body-md font-semibold text-primary">{{ $settings['headmaster_name'] ?? 'Dr. H. Ahmad Fauzi, M.Pd.' }}</p>
-<p class="text-xs text-on-surface-variant">Kepala Sekolah (Utama)</p>
-</div>
-</div>
-</td>
-<td class="px-6 py-4">
-    <span class="px-2.5 py-1 bg-primary text-on-primary text-xs font-bold rounded-full">Kepala Sekolah</span>
-</td>
-<td class="px-6 py-4 font-body-md text-body-md">Kepala Sekolah / Pimpinan</td>
-<td class="px-6 py-4 font-mono text-sm text-on-surface-variant">-</td>
-<td class="px-6 py-4 text-center">
-<span class="px-2 py-1 bg-secondary/10 text-secondary text-xs rounded font-bold">Permanent</span>
-</td>
-<td class="px-6 py-4 text-right">
-<div class="flex justify-end gap-2">
-<button onclick="openEditHeadmasterModal()" class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors" title="Edit">
-<span class="material-symbols-outlined text-xl" data-icon="edit">edit</span>
-</button>
-</div>
-</td>
-</tr>
-
-@foreach ($headmasters as $teacher)
+@forelse ($teachers as $teacher)
 <tr class="hover:bg-surface-container-low/30 transition-colors">
 <td class="px-6 py-4 whitespace-nowrap">
 <div class="flex items-center gap-3">
@@ -299,70 +252,11 @@
 </div>
 </td>
 </tr>
-@endforeach
-@endif
-
-@if ($regularTeachers->isNotEmpty())
-<tr class="bg-surface-container-low">
-    <td colspan="6" class="px-6 py-3 font-bold text-xs uppercase text-on-surface-variant tracking-widest border-y border-outline-variant">
-        Tenaga Pengajar (Guru)
-    </td>
-</tr>
-@foreach ($regularTeachers as $teacher)
-<tr class="hover:bg-surface-container-low/30 transition-colors">
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-lg overflow-hidden border border-outline-variant bg-surface-container-high">
-@if ($teacher->photo_path)
-    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $teacher->photo_path) }}"/>
-@else
-    <div class="w-full h-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-        {{ substr($teacher->name, 0, 1) }}
-    </div>
-@endif
-</div>
-<div>
-<p class="font-body-md text-body-md font-semibold text-primary">{{ $teacher->name }}</p>
-<p class="text-xs text-on-surface-variant">Active since {{ $teacher->created_at->format('Y') }}</p>
-</div>
-</div>
-</td>
-<td class="px-6 py-4">
-    @if(($teacher->role ?? 'Guru') === 'Kepala Sekolah')
-        <span class="px-2.5 py-1 bg-primary text-on-primary text-xs font-bold rounded-full">Kepala Sekolah</span>
-    @elseif(($teacher->role ?? 'Guru') === 'Wakil Kepala Sekolah')
-        <span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container text-xs font-bold rounded-full">Waka Sekolah</span>
-    @else
-        <span class="px-2.5 py-1 bg-surface-variant text-on-surface-variant text-xs font-bold rounded-full">Guru</span>
-    @endif
-</td>
-<td class="px-6 py-4 font-body-md text-body-md">{{ $teacher->subject }}</td>
-<td class="px-6 py-4 font-mono text-sm text-on-surface-variant">{{ $teacher->nip ?? '-' }}</td>
-<td class="px-6 py-4 text-center">
-<label class="relative inline-flex items-center cursor-pointer">
-<input {{ $teacher->is_active ? 'checked' : '' }} class="sr-only peer" type="checkbox" onchange="toggleTeacherActive({{ $teacher->id }}, this)"/>
-<div class="relative w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:bg-secondary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:left-[22px]"></div>
-</label>
-</td>
-<td class="px-6 py-4 text-right">
-<div class="flex justify-end gap-2">
-<button onclick="openEditModal({{ json_encode($teacher) }})" class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors" title="Edit">
-<span class="material-symbols-outlined text-xl" data-icon="edit">edit</span>
-</button>
-<button onclick="openDeleteDialog({{ $teacher->id }}, '{{ addslashes($teacher->name) }}')" class="p-2 text-error hover:bg-error/10 rounded-full transition-colors" title="Delete">
-<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
-</button>
-</div>
-</td>
-</tr>
-@endforeach
-@endif
-
-@if ($headmasters->isEmpty() && $regularTeachers->isEmpty())
+@empty
 <tr>
 <td colspan="6" class="px-6 py-8 text-center text-on-surface-variant">Belum ada data guru. Silakan tambahkan melalui tombol di atas.</td>
 </tr>
-@endif
+@endforelse
 </tbody>
 </table>
 </div>
