@@ -160,8 +160,6 @@
 <div class="h-10 w-[1px] bg-outline-variant mx-2"></div>
 <div class="flex items-center gap-3 group cursor-pointer">
 <div class="text-right">
-<p class="font-label-md text-label-md text-on-surface">Admin User</p>
-<p class="text-[10px] text-on-surface-variant">Super Admin</p>
 </div>
 <img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional studio portrait of a school administrator, middle-aged with a warm and authoritative expression, wearing a modest professional outfit. The background is a soft-focus office interior with clean lighting and neutral tones, fitting a modern corporate educational brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHADkd9QLMGkBebrKbc6fINOauBdQpkcnLFfE39SlobMWw-DlWQN0oMHuqP8Oka-g2e3qfbO2cYX8-8DVwb9zE251IA4ScpqsyE5r8CFRa0pGVG8617KRRoRWMQv21B66yOhJpzqZ_MaMmq1LSwJ9a_S247LB1E7B-BmmEOS7M-mbDy9YIoP4Hg17oCPPdUObWB7eG9IjFb38xY0B4bhiEuRRU9ZEVrHerWVAZBBKqMNuQPwBr2zdp"/>
 </div>

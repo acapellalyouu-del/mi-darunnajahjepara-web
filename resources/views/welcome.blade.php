@@ -445,7 +445,7 @@
     </div>
     <div class="flex flex-col lg:flex-row gap-8 items-center bg-surface-container-lowest p-8 rounded-xl border border-outline-variant shadow-sm relative">
         <!-- Main Quote Display Card -->
-        <div class="w-full lg:w-1/2 relative h-[380px] rounded-xl overflow-hidden bg-primary-container text-white flex flex-col justify-end p-8" id="teacher-showcase-card">
+        <div class="w-full lg:w-1/2 relative aspect-square rounded-xl overflow-hidden bg-primary-container text-white flex flex-col justify-end p-8" id="teacher-showcase-card">
             <div class="absolute inset-0 z-0 bg-cover bg-center transition-all duration-500 brightness-50" id="showcase-img"></div>
             <div class="relative z-10 space-y-2">
                 <div class="flex gap-2">
