@@ -155,7 +155,6 @@
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#kontak">Contact</a>
             </nav>
             <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full cursor-pointer transition-all">public</span>
                 <a href="/login" class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all" title="Portal Admin">person</a>
             </div>
         </div>
