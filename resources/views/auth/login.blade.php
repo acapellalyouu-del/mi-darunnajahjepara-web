@@ -147,15 +147,29 @@
                     <p class="font-body-md text-body-md text-on-surface-variant">Please enter your credentials to access the dashboard.</p>
                 </header>
 
-                <!-- Error Messages -->
-                @if ($errors->any())
+                <!-- Error & Lockout Messages -->
+                @php
+                    $activeLockout = session('lockout_seconds') ?? ($lockoutSeconds ?? 0);
+                @endphp
+
+                @if ($activeLockout > 0)
+                    <div id="lockout-alert" class="p-4 mb-6 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 flex items-start gap-3 font-body-md shadow-sm">
+                        <span class="material-symbols-outlined text-amber-600 flex-shrink-0 mt-0.5">lock_clock</span>
+                        <div>
+                            <p class="font-bold text-sm text-amber-950">Akses Login Dikunci Sementara</p>
+                            <p class="text-xs text-amber-900/90 mt-1">
+                                Terlalu banyak percobaan gagal. Silakan tunggu <span id="lockout-timer" class="font-bold font-mono text-amber-950 px-1.5 py-0.5 bg-amber-200/60 rounded">--:--</span> sebelum mencoba lagi.
+                            </p>
+                        </div>
+                    </div>
+                @elseif ($errors->any())
                     <div class="p-4 mb-6 rounded-xl bg-error-container text-error flex items-start gap-3 border border-error/20 font-body-md">
                         <span class="material-symbols-outlined flex-shrink-0 mt-0.5">error</span>
                         <span>{{ $errors->first() }}</span>
                     </div>
                 @endif
 
-                <form class="space-y-6" action="/login" method="POST">
+                <form class="space-y-6" action="/login" method="POST" id="login-form">
                     @csrf
                     <!-- Email Field -->
                     <div class="space-y-2">
@@ -193,7 +207,7 @@
                         </label>
                     </div>
                     <!-- Submit Button -->
-                    <button class="w-full bg-primary hover:bg-primary-container text-on-primary font-headline-md text-headline-md py-4 rounded-xl shadow-sm active:scale-[0.98] transition-all flex items-center justify-center gap-3" type="submit">
+                    <button id="submit-btn" class="w-full bg-primary hover:bg-primary-container text-on-primary font-headline-md text-headline-md py-4 rounded-xl shadow-sm active:scale-[0.98] transition-all flex items-center justify-center gap-3" type="submit">
                         <span class="">Sign In</span>
                         <span class="material-symbols-outlined">login</span>
                     </button>
@@ -215,6 +229,46 @@
                 icon.textContent = 'visibility';
             }
         });
+
+        // Lockout countdown timer script
+        const activeLockoutSeconds = {{ (int) $activeLockout }};
+        if (activeLockoutSeconds > 0) {
+            let secondsLeft = activeLockoutSeconds;
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const submitBtn = document.getElementById('submit-btn');
+            const timerEl = document.getElementById('lockout-timer');
+
+            if (emailInput) emailInput.disabled = true;
+            if (passwordInput) passwordInput.disabled = true;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+
+            function updateTimer() {
+                if (secondsLeft <= 0) {
+                    if (emailInput) emailInput.disabled = false;
+                    if (passwordInput) passwordInput.disabled = false;
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    }
+                    const alertEl = document.getElementById('lockout-alert');
+                    if (alertEl) alertEl.remove();
+                    return;
+                }
+                const mins = Math.floor(secondsLeft / 60);
+                const secs = secondsLeft % 60;
+                if (timerEl) {
+                    timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                }
+                secondsLeft--;
+                setTimeout(updateTimer, 1000);
+            }
+
+            updateTimer();
+        }
     </script>
 </body>
 </html>

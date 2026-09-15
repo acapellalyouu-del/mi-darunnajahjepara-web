@@ -9,6 +9,7 @@ use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Setting;
 use App\Models\HeroBanner;
 use App\Models\VirtualTour;
@@ -245,16 +246,41 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Pengumuman berhasil dihapus!');
     }
 
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
         \Illuminate\Support\Facades\Log::info('ShowLoginForm request - Session ID: ' . session()->getId() . ' | Auth check: ' . (Auth::check() ? 'YES' : 'NO'));
+        
+        $ip = $request->ip();
+        $lockoutKey = 'login_lockout_' . $ip;
+        $lockoutUntil = Cache::get($lockoutKey);
+        $lockoutSeconds = 0;
+
+        if ($lockoutUntil && now()->timestamp < $lockoutUntil) {
+            $lockoutSeconds = $lockoutUntil - now()->timestamp;
+        }
+
         $school_name = Setting::get('school_name', 'MI Darun Najah');
-        return view('auth.login', compact('school_name'));
+        return view('auth.login', compact('school_name', 'lockoutSeconds'));
     }
 
     public function login(Request $request)
     {
         \Illuminate\Support\Facades\Log::info('Login submit request - Session ID: ' . session()->getId());
+        
+        $ip = $request->ip();
+        $attemptsKey = 'login_attempts_' . $ip;
+        $lockoutKey = 'login_lockout_' . $ip;
+
+        $lockoutUntil = Cache::get($lockoutKey);
+
+        if ($lockoutUntil && now()->timestamp < $lockoutUntil) {
+            $secondsLeft = $lockoutUntil - now()->timestamp;
+            $minutesLeft = ceil($secondsLeft / 60);
+            return back()->withErrors([
+                'email' => "Terlalu banyak percobaan login yang gagal. Akses dikunci sementara. Silakan tunggu {$minutesLeft} menit.",
+            ])->onlyInput('email')->with('lockout_seconds', $secondsLeft);
+        }
+
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -263,12 +289,45 @@ class AdminController extends Controller
         $remember = $request->has('remember');
 
         if (Auth::attempt($credentials, $remember)) {
+            // Reset throttle counter on successful login
+            Cache::forget($attemptsKey);
+            Cache::forget($lockoutKey);
+
             $request->session()->regenerate();
             return redirect()->intended('/admin');
         }
 
+        // Increment failed attempts counter
+        $failedCount = (int) Cache::get($attemptsKey, 0) + 1;
+        Cache::put($attemptsKey, $failedCount, now()->addDays(1));
+
+        $lockoutMinutes = 0;
+        if ($failedCount == 4) {
+            $lockoutMinutes = 1;
+        } elseif ($failedCount > 4 && ($failedCount - 4) % 3 == 0) {
+            $extraTiers = (int) (($failedCount - 4) / 3);
+            $lockoutMinutes = 1 + ($extraTiers * 3);
+        }
+
+        if ($lockoutMinutes > 0) {
+            $lockoutUntil = now()->addMinutes($lockoutMinutes)->timestamp;
+            Cache::put($lockoutKey, $lockoutUntil, now()->addMinutes($lockoutMinutes + 5));
+
+            return back()->withErrors([
+                'email' => "Percobaan login gagal {$failedCount}x. Akses login dikunci selama {$lockoutMinutes} menit.",
+            ])->onlyInput('email')->with('lockout_seconds', $lockoutMinutes * 60);
+        }
+
+        if ($failedCount < 4) {
+            $remaining = 4 - $failedCount;
+            $warningMsg = "Email atau password salah. Gagal percobaan ke-{$failedCount}. Sisa {$remaining}x percobaan sebelum dikunci 1 menit.";
+        } else {
+            $nextLockoutAttempts = 3 - (($failedCount - 4) % 3);
+            $warningMsg = "Email atau password salah. Total percobaan gagal: {$failedCount}x. Sisa {$nextLockoutAttempts}x percobaan lagi sebelum dikunci kembali.";
+        }
+
         return back()->withErrors([
-            'email' => 'Email address or password is incorrect.',
+            'email' => $warningMsg,
         ])->onlyInput('email');
     }
 
