@@ -145,8 +145,8 @@
         </div>
     </div>
 
-    <!-- HUD Bottom Right: Interactive Denah Sekolah (Mini-Map) -->
-    <div class="absolute bottom-6 right-6 z-20 pointer-events-auto hidden md:block">
+    <!-- HUD Top Right: Interactive Denah Sekolah (Mini-Map) -->
+    <div class="absolute top-24 right-6 z-20 pointer-events-auto hidden md:block">
         <div class="glass-panel rounded-2xl p-3 shadow-2xl relative w-48 h-48 flex flex-col justify-between">
             <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-1">
                 <span>DENAH SEKOLAH</span>
@@ -401,75 +401,9 @@
         }
 
         function renderHotspots() {
-            hotspotContainer.innerHTML = '';
-            const hotspots = HOTSPOTS_MAP[currentRoomName];
-            if (!hotspots) return;
-
-            const width = canvasGL.clientWidth;
-            const height = canvasGL.clientHeight;
-            const aspect = width / height;
-
-            const cy = Math.cos(state.yaw);
-            const sy = Math.sin(state.yaw);
-            const cp = Math.cos(state.pitch);
-            const sp = Math.sin(state.pitch);
-
-            hotspots.forEach(hs => {
-                const hx = Math.sin(hs.yaw) * Math.cos(hs.pitch);
-                const hy = Math.sin(hs.pitch);
-                const hz = Math.cos(hs.yaw) * Math.cos(hs.pitch);
-
-                const v1_x = cy * hx - sy * hz;
-                const v1_y = hy;
-                const v1_z = sy * hx + cy * hz;
-
-                const cam_x = v1_x;
-                const cam_y = cp * v1_y + sp * v1_z;
-                const cam_z = -sp * v1_y + cp * v1_z;
-
-                if (cam_z > 0.08) {
-                    const tanHalfFov = Math.tan(state.fov / 2);
-                    const ndc_x = cam_x / (cam_z * aspect * tanHalfFov);
-                    const ndc_y = cam_y / (cam_z * tanHalfFov);
-
-                    if (ndc_x >= -1.1 && ndc_x <= 1.1 && ndc_y >= -1.1 && ndc_y <= 1.1) {
-                        const screenX = (ndc_x * 0.5 + 0.5) * width;
-                        const screenY = (0.5 - ndc_y * 0.5) * height;
-
-                        const elem = document.createElement('div');
-                        elem.className = 'absolute pointer-events-auto transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform hover:scale-110 flex flex-col items-center group';
-                        elem.style.left = `${screenX}px`;
-                        elem.style.top = `${screenY}px`;
-
-                        if (hs.type === 'nav') {
-                            elem.innerHTML = `
-                                <div class="w-10 h-10 rounded-full bg-blue-600/90 text-white flex items-center justify-center shadow-lg border-2 border-white/80 hotspot-pulse">
-                                    <span class="material-symbols-outlined text-lg">${hs.icon || 'meeting_room'}</span>
-                                </div>
-                                <div class="mt-1.5 px-3 py-1 rounded-lg glass-panel text-[11px] font-bold text-white whitespace-nowrap shadow-xl border border-slate-700/80 group-hover:bg-blue-600 transition">
-                                    ${hs.label}
-                                </div>
-                            `;
-                            elem.onclick = () => {
-                                const targetBtn = document.querySelector(`.vt-btn[data-name="${hs.targetRoom}"]`);
-                                if (targetBtn) selectLocation(targetBtn);
-                            };
-                        } else {
-                            elem.innerHTML = `
-                                <div class="w-10 h-10 rounded-full bg-amber-500/90 text-slate-950 flex items-center justify-center shadow-lg border-2 border-white/80 animate-bounce">
-                                    <span class="material-symbols-outlined text-lg">${hs.icon || 'info'}</span>
-                                </div>
-                                <div class="mt-1.5 px-3 py-1 rounded-lg glass-panel text-[11px] font-bold text-amber-300 whitespace-nowrap shadow-xl border border-slate-700/80 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
-                                    ${hs.title}
-                                </div>
-                            `;
-                            elem.onclick = () => openInfoModal(hs.title, hs.desc);
-                        }
-
-                        hotspotContainer.appendChild(elem);
-                    }
-                }
-            });
+            if (hotspotContainer) {
+                hotspotContainer.innerHTML = '';
+            }
         }
 
         function openInfoModal(title, desc) {
