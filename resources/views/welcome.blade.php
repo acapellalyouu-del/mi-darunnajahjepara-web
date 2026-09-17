@@ -146,10 +146,10 @@
             ? (filter_var($welcomeLogo, FILTER_VALIDATE_URL) ? $welcomeLogo : (Str::startsWith($welcomeLogo, ['/storage', 'storage']) ? asset($welcomeLogo) : asset('storage/' . ltrim($welcomeLogo, '/'))))
             : '/images/logo.png';
     @endphp
-    <header class="bg-surface border-b border-outline-variant relative z-50">
+    <header class="bg-surface/85 backdrop-blur-xl border-b border-outline-variant/60 relative z-50 shadow-sm">
         <div class="flex justify-between items-center h-20 px-4 md:px-margin-desktop max-w-container-max mx-auto">
             <a href="/" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1 md:p-1.5">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-white/90 rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1 md:p-1.5 backdrop-blur-md">
                     <img src="{{ $welcomeLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain"/>
                 </div>
                 <div>
@@ -170,31 +170,31 @@
 
             <!-- Mobile Hamburger Button (3-Strip Icon) -->
             <div class="flex items-center md:hidden">
-                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-primary hover:bg-surface-container-low rounded-xl transition-all border border-outline-variant/60 flex items-center justify-center" aria-label="Toggle Menu">
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-primary hover:bg-white/60 bg-white/40 backdrop-blur-md rounded-xl transition-all border border-outline-variant/60 flex items-center justify-center shadow-sm" aria-label="Toggle Menu">
                     <span id="mobileMenuIcon" class="material-symbols-outlined text-2xl">menu</span>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Navigation Dropdown Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden bg-surface/98 backdrop-blur-md border-b border-outline-variant px-4 py-4 space-y-2 shadow-2xl animate-in slide-in-from-top-2 duration-200">
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold text-sm" href="#">
+        <!-- Mobile Navigation Dropdown Drawer (Frosted Glassmorphism) -->
+        <div id="mobileMenu" class="hidden md:hidden bg-surface/80 backdrop-blur-2xl border-b border-white/40 px-5 py-5 space-y-2 shadow-[0_20px_40px_rgba(0,0,0,0.12)] animate-in slide-in-from-top-2 duration-200 rounded-b-3xl border-t border-outline-variant/20">
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-primary/15 backdrop-blur-md text-primary font-bold text-sm border border-primary/20 shadow-sm" href="#">
                 <span class="material-symbols-outlined text-lg">home</span> <span>Home</span>
             </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold text-sm transition-colors" href="#sambutan">
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-white/70 hover:text-primary backdrop-blur-md font-semibold text-sm transition-all border border-transparent hover:border-white/50" href="#sambutan">
                 <span class="material-symbols-outlined text-lg">school</span> <span>Profile</span>
             </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold text-sm transition-colors" href="#program">
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-white/70 hover:text-primary backdrop-blur-md font-semibold text-sm transition-all border border-transparent hover:border-white/50" href="#program">
                 <span class="material-symbols-outlined text-lg">auto_stories</span> <span>Program</span>
             </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold text-sm transition-colors" href="#warta">
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-white/70 hover:text-primary backdrop-blur-md font-semibold text-sm transition-all border border-transparent hover:border-white/50" href="#warta">
                 <span class="material-symbols-outlined text-lg">newspaper</span> <span>Information</span>
             </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold text-sm transition-colors" href="#kontak">
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-white/70 hover:text-primary backdrop-blur-md font-semibold text-sm transition-all border border-transparent hover:border-white/50" href="#kontak">
                 <span class="material-symbols-outlined text-lg">call</span> <span>Contact</span>
             </a>
-            <div class="pt-2 border-t border-outline-variant/50">
-                <a class="flex items-center justify-center gap-2 w-full py-3 bg-primary text-on-primary rounded-xl font-bold text-sm shadow-sm active:scale-95 transition-all" href="/login">
+            <div class="pt-3 border-t border-outline-variant/30">
+                <a class="flex items-center justify-center gap-2 w-full py-3.5 bg-primary/90 hover:bg-primary text-on-primary rounded-2xl font-bold text-sm shadow-lg shadow-primary/25 backdrop-blur-md active:scale-95 transition-all" href="/login">
                     <span class="material-symbols-outlined text-lg">lock</span> <span>Portal Admin</span>
                 </a>
             </div>
