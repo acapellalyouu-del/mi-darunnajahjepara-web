@@ -8,6 +8,10 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/achievements', [HomeController::class, 'achievements']);
 Route::get('/teachers/{id}', [HomeController::class, 'teacherProfile']);
 Route::get('/virtual-tour', [HomeController::class, 'virtualTour']);
+Route::get('/preview', function () {
+    $school_name = \App\Models\Setting::get('school_name', 'MI Darun Najah');
+    return view('preview', compact('school_name'));
+});
 
 Route::get('/login', [AdminController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AdminController::class, 'login']);
