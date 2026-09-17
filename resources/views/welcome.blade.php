@@ -146,26 +146,57 @@
             ? (filter_var($welcomeLogo, FILTER_VALIDATE_URL) ? $welcomeLogo : (Str::startsWith($welcomeLogo, ['/storage', 'storage']) ? asset($welcomeLogo) : asset('storage/' . ltrim($welcomeLogo, '/'))))
             : '/images/logo.png';
     @endphp
-    <header class="bg-surface border-b border-outline-variant">
-        <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1.5">
+    <header class="bg-surface border-b border-outline-variant relative z-50">
+        <div class="flex justify-between items-center h-20 px-4 md:px-margin-desktop max-w-container-max mx-auto">
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1 md:p-1.5">
                     <img src="{{ $welcomeLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain"/>
                 </div>
                 <div>
-                    <h1 class="font-headline-md text-headline-md font-bold text-primary">{{ $settings['school_name'] }}</h1>
-                    <p class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Cerdas Terampil Berakhlaq Mulia</p>
+                    <h1 class="font-headline-md text-base sm:text-lg md:text-headline-md font-bold text-primary leading-tight group-hover:text-primary/80 transition-colors">{{ $settings['school_name'] }}</h1>
+                    <p class="font-label-sm text-[9px] sm:text-[10px] md:text-label-sm text-on-surface-variant tracking-wider uppercase leading-none mt-0.5">Cerdas Terampil Berakhlaq Mulia</p>
                 </div>
-            </div>
+            </a>
+
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center gap-8">
                 <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 font-bold" href="#">Home</a>
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#sambutan">Profile</a>
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#program">Program</a>
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#warta">Information</a>
                 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#kontak">Contact</a>
-            </nav>
-            <div class="flex items-center gap-2">
                 <a href="/login" class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all" title="Portal Admin">person</a>
+            </nav>
+
+            <!-- Mobile Hamburger Button (3-Strip Icon) -->
+            <div class="flex items-center md:hidden">
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-primary hover:bg-surface-container-low rounded-xl transition-all border border-outline-variant/60 flex items-center justify-center" aria-label="Toggle Menu">
+                    <span id="mobileMenuIcon" class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Dropdown Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden bg-surface/98 backdrop-blur-md border-b border-outline-variant px-4 py-4 space-y-2 shadow-2xl animate-in slide-in-from-top-2 duration-200">
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold text-sm" href="#">
+                <span class="material-symbols-outlined text-lg">home</span> <span>Home</span>
+            </a>
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold text-sm transition-colors" href="#sambutan">
+                <span class="material-symbols-outlined text-lg">school</span> <span>Profile</span>
+            </a>
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold text-sm transition-colors" href="#program">
+                <span class="material-symbols-outlined text-lg">auto_stories</span> <span>Program</span>
+            </a>
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold text-sm transition-colors" href="#warta">
+                <span class="material-symbols-outlined text-lg">newspaper</span> <span>Information</span>
+            </a>
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold text-sm transition-colors" href="#kontak">
+                <span class="material-symbols-outlined text-lg">call</span> <span>Contact</span>
+            </a>
+            <div class="pt-2 border-t border-outline-variant/50">
+                <a class="flex items-center justify-center gap-2 w-full py-3 bg-primary text-on-primary rounded-xl font-bold text-sm shadow-sm active:scale-95 transition-all" href="/login">
+                    <span class="material-symbols-outlined text-lg">lock</span> <span>Portal Admin</span>
+                </a>
             </div>
         </div>
     </header>
@@ -190,7 +221,7 @@
         $heroImages[] = asset('images/logo.png');
     }
 @endphp
-<section class="relative h-[650px] md:h-[750px] flex items-center overflow-hidden">
+<section class="relative min-h-[550px] py-12 md:py-0 md:h-[750px] flex items-center overflow-hidden">
     <!-- Background Slideshow Images -->
     <div class="absolute inset-0 z-0 overflow-hidden">
         @foreach($heroImages as $idx => $imgUrl)
@@ -199,22 +230,22 @@
             </div>
         @endforeach
         <!-- Dark/Teal Overlay for legibility -->
-        <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent z-20 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/40 md:to-transparent z-20 pointer-events-none"></div>
     </div>
 
-    <!-- Static Overlay Content (Unchanged) -->
-    <div class="relative z-30 px-margin-desktop max-w-container-max mx-auto w-full">
-        <div class="text-on-primary space-y-6 max-w-2xl text-white">
-            <span class="inline-block px-4 py-1.5 rounded-full border border-primary-fixed text-primary-fixed font-label-md">TAHUN AJARAN BARU - MENDATANG</span>
-            <h2 class="font-display-lg text-display-lg leading-tight">{{ $banners->first()->subtitle ?? 'Melahirkan Generasi Qur\'ani yang Unggul & Berkarakter' }}</h2>
-            <p class="font-body-lg text-body-lg text-on-primary/90">
+    <!-- Static Overlay Content -->
+    <div class="relative z-30 px-5 md:px-margin-desktop max-w-container-max mx-auto w-full">
+        <div class="text-on-primary space-y-4 sm:space-y-6 max-w-2xl text-white">
+            <span class="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-primary-fixed text-primary-fixed text-xs sm:font-label-md">TAHUN AJARAN BARU - MENDATANG</span>
+            <h2 class="font-display-lg text-2xl sm:text-4xl md:text-display-lg leading-tight font-extrabold">{{ $banners->first()->subtitle ?? 'Melahirkan Generasi Qur\'ani yang Unggul & Berkarakter' }}</h2>
+            <p class="font-body-lg text-xs sm:text-base md:text-body-lg text-on-primary/90 leading-relaxed">
                 Excellent with Integral Character. Membentuk generasi yang cerdas secara akademik dan kokoh secara spiritual melalui pendidikan terpadu di {{ $settings['school_name'] }}.
             </p>
-            <div class="flex flex-wrap gap-4 pt-2">
-                <a href="#kontak" class="bg-secondary-container text-on-secondary-container px-8 py-3.5 rounded-lg font-bold hover:scale-105 transition-transform flex items-center gap-2">
+            <div class="flex flex-wrap gap-3 sm:gap-4 pt-2">
+                <a href="#kontak" class="bg-secondary-container text-on-secondary-container px-6 py-3 sm:px-8 sm:py-3.5 rounded-lg font-bold text-xs sm:text-base hover:scale-105 transition-transform flex items-center gap-2 shadow-md">
                     Lihat Sekarang <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
-                <a href="#sambutan" class="border border-on-primary text-on-primary px-8 py-3.5 rounded-lg font-bold hover:bg-on-primary/10 transition-colors">
+                <a href="#sambutan" class="border border-on-primary text-on-primary px-6 py-3 sm:px-8 sm:py-3.5 rounded-lg font-bold text-xs sm:text-base hover:bg-on-primary/10 transition-colors">
                     Tentang Kami
                 </a>
             </div>
@@ -222,8 +253,22 @@
     </div>
 </section>
 
-<!-- Auto Slide Script (3 Seconds) -->
 <script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const icon = document.getElementById('mobileMenuIcon');
+        if (menu) {
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                if (icon) icon.textContent = 'close';
+            } else {
+                menu.classList.add('hidden');
+                if (icon) icon.textContent = 'menu';
+            }
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.hero-bg-slide');
         if (slides.length > 1) {
