@@ -166,7 +166,7 @@
                         <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">School Logo</label>
                         <div class="flex items-center gap-4 border border-dashed border-outline-variant p-4 rounded-lg">
                             @if (!empty($settings['school_logo']))
-                                <img class="w-16 h-16 rounded shadow-sm object-cover" src="{{ filter_var($settings['school_logo'], FILTER_VALIDATE_URL) ? $settings['school_logo'] : asset('storage/' . $settings['school_logo']) }}">
+                                <img class="w-16 h-16 rounded shadow-sm object-contain bg-white p-1 border border-outline-variant" src="{{ filter_var($settings['school_logo'], FILTER_VALIDATE_URL) ? $settings['school_logo'] : (Str::startsWith($settings['school_logo'], ['/storage', 'storage']) ? asset($settings['school_logo']) : asset('storage/' . ltrim($settings['school_logo'], '/'))) }}">
                             @else
                                 <div class="w-16 h-16 rounded bg-primary/10 flex items-center justify-center text-primary">
                                     <span class="material-symbols-outlined text-2xl">school</span>
@@ -187,7 +187,7 @@
                     <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Cover Image (Homepage Banner)</label>
                     <div class="border border-dashed border-outline-variant p-4 rounded-lg flex items-center gap-4">
                         @if (!empty($settings['school_cover_image']))
-                            <img class="w-24 h-16 rounded object-cover" src="{{ filter_var($settings['school_cover_image'], FILTER_VALIDATE_URL) ? $settings['school_cover_image'] : asset('storage/' . $settings['school_cover_image']) }}">
+                            <img class="w-24 h-16 rounded object-cover" src="{{ filter_var($settings['school_cover_image'], FILTER_VALIDATE_URL) ? $settings['school_cover_image'] : (Str::startsWith($settings['school_cover_image'], ['/storage', 'storage']) ? asset($settings['school_cover_image']) : asset('storage/' . ltrim($settings['school_cover_image'], '/'))) }}">
                         @endif
                         <div class="flex-grow">
                             <input type="file" id="school-cover-input" name="school_cover_image" class="w-full text-xs" accept="image/*">

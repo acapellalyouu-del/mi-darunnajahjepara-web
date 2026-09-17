@@ -65,15 +65,23 @@
     ];
 @endphp
 
+@php
+    $sidebarLogo = \App\Models\Setting::get('school_logo');
+    $sidebarLogoUrl = $sidebarLogo
+        ? (filter_var($sidebarLogo, FILTER_VALIDATE_URL) ? $sidebarLogo : (\Illuminate\Support\Str::startsWith($sidebarLogo, ['/storage', 'storage']) ? asset($sidebarLogo) : asset('storage/' . ltrim($sidebarLogo, '/'))))
+        : '/images/logo.png';
+    $sidebarSchoolName = \App\Models\Setting::get('school_name', 'MI Darun Najah');
+@endphp
+
 <!-- Sidebar Navigation Shell -->
 <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container border-r border-outline-variant flex flex-col gap-base p-4 z-50 overflow-y-auto">
     <div class="mb-6 px-2 py-4 flex items-center gap-3">
         <div class="w-10 h-10 bg-white rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1">
-            <img src="/images/logo.png" alt="MI Darun Najah" class="w-full h-full object-contain"/>
+            <img src="{{ $sidebarLogoUrl }}" alt="{{ $sidebarSchoolName }}" class="w-full h-full object-contain"/>
         </div>
         <div>
             <h1 class="font-headline-sm text-headline-sm font-bold text-primary">Admin Panel</h1>
-            <p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">MI Darun Najah</p>
+            <p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">{{ $sidebarSchoolName }}</p>
         </div>
     </div>
     <nav class="flex-1 space-y-1">

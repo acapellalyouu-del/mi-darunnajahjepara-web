@@ -140,11 +140,17 @@
     @endif
 
     <!-- Top Navigation Header -->
+    @php
+        $welcomeLogo = $settings['school_logo'] ?? null;
+        $welcomeLogoUrl = $welcomeLogo
+            ? (filter_var($welcomeLogo, FILTER_VALIDATE_URL) ? $welcomeLogo : (Str::startsWith($welcomeLogo, ['/storage', 'storage']) ? asset($welcomeLogo) : asset('storage/' . ltrim($welcomeLogo, '/'))))
+            : '/images/logo.png';
+    @endphp
     <header class="bg-surface border-b border-outline-variant">
         <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1.5">
-                    <img src="/images/logo.png" alt="MI Darun Najah" class="w-full h-full object-contain"/>
+                    <img src="{{ $welcomeLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain"/>
                 </div>
                 <div>
                     <h1 class="font-headline-md text-headline-md font-bold text-primary">{{ $settings['school_name'] }}</h1>

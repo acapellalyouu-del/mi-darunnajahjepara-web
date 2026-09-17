@@ -123,9 +123,15 @@
             <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-container to-primary opacity-90 pointer-events-none"></div>
             <div class="relative z-10">
                 <!-- Branding -->
+                @php
+                    $loginLogo = \App\Models\Setting::get('school_logo');
+                    $loginLogoUrl = $loginLogo
+                        ? (filter_var($loginLogo, FILTER_VALIDATE_URL) ? $loginLogo : (\Illuminate\Support\Str::startsWith($loginLogo, ['/storage', 'storage']) ? asset($loginLogo) : asset('storage/' . ltrim($loginLogo, '/'))))
+                        : '/images/logo.png';
+                @endphp
                 <div class="flex items-center gap-3 mb-16">
                     <div class="w-12 h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-white/40 shadow-sm p-1.5">
-                        <img class="w-full h-full object-contain" alt="MI Darun Najah Logo" src="/images/logo.png">
+                        <img class="w-full h-full object-contain" alt="{{ $school_name ?? 'MI Darun Najah' }} Logo" src="{{ $loginLogoUrl }}">
                     </div>
                     <span class="font-headline-md text-headline-md font-bold tracking-tight">{{ $school_name ?? 'MI Darun Najah' }}</span>
                 </div>

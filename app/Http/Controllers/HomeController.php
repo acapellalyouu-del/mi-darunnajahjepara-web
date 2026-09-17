@@ -80,6 +80,8 @@ class HomeController extends Controller
         // 7. General Settings Helper Array
         $settings = [
             'school_name' => Setting::get('school_name', 'MI Darun Najah'),
+            'school_logo' => Setting::get('school_logo'),
+            'school_cover_image' => Setting::get('school_cover_image'),
             'school_npsn' => Setting::get('school_npsn', '60721456 / Grade A'),
             'school_history' => Setting::get('school_history', 'Sejarah MI Darun Najah...'),
             'school_vision' => Setting::get('school_vision', 'Visi MI Darun Najah...'),
