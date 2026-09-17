@@ -146,7 +146,7 @@
             ? (filter_var($welcomeLogo, FILTER_VALIDATE_URL) ? $welcomeLogo : (Str::startsWith($welcomeLogo, ['/storage', 'storage']) ? asset($welcomeLogo) : asset('storage/' . ltrim($welcomeLogo, '/'))))
             : '/images/logo.png';
     @endphp
-    <header class="bg-surface/85 backdrop-blur-xl border-b border-outline-variant/60 relative z-50 shadow-sm">
+    <header class="border-b border-white/30 relative z-50 shadow-sm" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
         <div class="flex justify-between items-center h-20 px-4 md:px-margin-desktop max-w-container-max mx-auto">
             <a href="/" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 md:w-12 md:h-12 bg-white/90 rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1 md:p-1.5 backdrop-blur-md">
@@ -170,33 +170,38 @@
 
             <!-- Mobile Hamburger Button (3-Strip Icon) -->
             <div class="flex items-center md:hidden">
-                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-primary hover:bg-white/60 bg-white/40 backdrop-blur-md rounded-xl transition-all border border-outline-variant/60 flex items-center justify-center shadow-sm" aria-label="Toggle Menu">
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-primary hover:bg-white/80 bg-white/50 backdrop-blur-md rounded-xl transition-all border border-slate-300/80 flex items-center justify-center shadow-sm" aria-label="Toggle Menu">
                     <span id="mobileMenuIcon" class="material-symbols-outlined text-2xl">menu</span>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Navigation Dropdown Drawer (Frosted Glassmorphism) -->
-        <div id="mobileMenu" class="hidden md:hidden bg-surface/80 backdrop-blur-2xl border-b border-white/40 px-5 py-5 space-y-2 shadow-[0_20px_40px_rgba(0,0,0,0.12)] animate-in slide-in-from-top-2 duration-200 rounded-b-3xl border-t border-outline-variant/20">
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-primary/15 backdrop-blur-md text-primary font-bold text-sm border border-primary/20 shadow-sm" href="#">
-                <span class="material-symbols-outlined text-lg">home</span> <span>Home</span>
-            </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-white/70 hover:text-primary backdrop-blur-md font-semibold text-sm transition-all border border-transparent hover:border-white/50" href="#sambutan">
-                <span class="material-symbols-outlined text-lg">school</span> <span>Profile</span>
-            </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-white/70 hover:text-primary backdrop-blur-md font-semibold text-sm transition-all border border-transparent hover:border-white/50" href="#program">
-                <span class="material-symbols-outlined text-lg">auto_stories</span> <span>Program</span>
-            </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-white/70 hover:text-primary backdrop-blur-md font-semibold text-sm transition-all border border-transparent hover:border-white/50" href="#warta">
-                <span class="material-symbols-outlined text-lg">newspaper</span> <span>Information</span>
-            </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:bg-white/70 hover:text-primary backdrop-blur-md font-semibold text-sm transition-all border border-transparent hover:border-white/50" href="#kontak">
-                <span class="material-symbols-outlined text-lg">call</span> <span>Contact</span>
-            </a>
-            <div class="pt-3 border-t border-outline-variant/30">
-                <a class="flex items-center justify-center gap-2 w-full py-3.5 bg-primary/90 hover:bg-primary text-on-primary rounded-2xl font-bold text-sm shadow-lg shadow-primary/25 backdrop-blur-md active:scale-95 transition-all" href="/login">
-                    <span class="material-symbols-outlined text-lg">lock</span> <span>Portal Admin</span>
+        <!-- Mobile Navigation Backdrop Overlay -->
+        <div id="mobileMenuBackdrop" class="hidden md:hidden fixed inset-0 top-[110px] bg-slate-950/40 backdrop-blur-md z-40 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+
+        <!-- Mobile Navigation Dropdown Drawer (True Frosted Glassmorphism Floating Card) -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 p-4 z-50 transition-all duration-300">
+            <div class="p-5 rounded-3xl space-y-2 shadow-[0_25px_60px_rgba(0,0,0,0.35)] border border-white/50" style="background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);">
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3.5 rounded-2xl font-bold text-sm text-primary shadow-sm border border-primary/20" style="background: rgba(0, 76, 76, 0.12); backdrop-filter: blur(8px);" href="#">
+                    <span class="material-symbols-outlined text-lg">home</span> <span>Home</span>
                 </a>
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-transparent hover:border-white/60" style="background: rgba(255, 255, 255, 0.4);" href="#sambutan">
+                    <span class="material-symbols-outlined text-lg">school</span> <span>Profile</span>
+                </a>
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-transparent hover:border-white/60" style="background: rgba(255, 255, 255, 0.4);" href="#program">
+                    <span class="material-symbols-outlined text-lg">auto_stories</span> <span>Program</span>
+                </a>
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-transparent hover:border-white/60" style="background: rgba(255, 255, 255, 0.4);" href="#warta">
+                    <span class="material-symbols-outlined text-lg">newspaper</span> <span>Information</span>
+                </a>
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-transparent hover:border-white/60" style="background: rgba(255, 255, 255, 0.4);" href="#kontak">
+                    <span class="material-symbols-outlined text-lg">call</span> <span>Contact</span>
+                </a>
+                <div class="pt-3 border-t border-slate-900/10">
+                    <a class="flex items-center justify-center gap-2 w-full py-3.5 bg-primary text-on-primary rounded-2xl font-bold text-sm shadow-xl shadow-primary/30 active:scale-95 transition-all" href="/login">
+                        <span class="material-symbols-outlined text-lg">lock</span> <span>Portal Admin</span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>
@@ -256,14 +261,17 @@
 <script>
     function toggleMobileMenu() {
         const menu = document.getElementById('mobileMenu');
+        const backdrop = document.getElementById('mobileMenuBackdrop');
         const icon = document.getElementById('mobileMenuIcon');
         if (menu) {
             const isHidden = menu.classList.contains('hidden');
             if (isHidden) {
                 menu.classList.remove('hidden');
+                if (backdrop) backdrop.classList.remove('hidden');
                 if (icon) icon.textContent = 'close';
             } else {
                 menu.classList.add('hidden');
+                if (backdrop) backdrop.classList.add('hidden');
                 if (icon) icon.textContent = 'menu';
             }
         }
