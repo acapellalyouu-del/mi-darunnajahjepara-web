@@ -146,10 +146,10 @@
             ? (filter_var($welcomeLogo, FILTER_VALIDATE_URL) ? $welcomeLogo : (Str::startsWith($welcomeLogo, ['/storage', 'storage']) ? asset($welcomeLogo) : asset('storage/' . ltrim($welcomeLogo, '/'))))
             : '/images/logo.png';
     @endphp
-    <header class="border-b border-white/30 relative z-50 shadow-sm" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+    <header class="bg-surface border-b border-outline-variant relative z-50">
         <div class="flex justify-between items-center h-20 px-4 md:px-margin-desktop max-w-container-max mx-auto">
             <a href="/" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 md:w-12 md:h-12 bg-white/90 rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1 md:p-1.5 backdrop-blur-md">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-outline-variant/40 shadow-sm p-1 md:p-1.5">
                     <img src="{{ $welcomeLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain"/>
                 </div>
                 <div>
@@ -170,7 +170,7 @@
 
             <!-- Mobile Hamburger Button (3-Strip Icon) -->
             <div class="flex items-center md:hidden">
-                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-primary hover:bg-white/80 bg-white/50 backdrop-blur-md rounded-xl transition-all border border-slate-300/80 flex items-center justify-center shadow-sm" aria-label="Toggle Menu">
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-primary hover:bg-slate-100 bg-surface rounded-xl transition-all border border-slate-300 flex items-center justify-center shadow-sm" aria-label="Toggle Menu">
                     <span id="mobileMenuIcon" class="material-symbols-outlined text-2xl">menu</span>
                 </button>
             </div>
@@ -181,20 +181,20 @@
 
         <!-- Mobile Navigation Dropdown Drawer (Crystal Translucent Light Glass Card) -->
         <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 p-4 z-50 transition-all duration-300">
-            <div class="p-5 rounded-3xl space-y-2.5 shadow-[0_25px_60px_rgba(0,76,76,0.15),_inset_0_1px_1px_rgba(255,255,255,0.9)] border border-white/80 relative overflow-hidden" style="background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);">
+            <div class="p-5 rounded-3xl space-y-2.5 shadow-[0_25px_60px_rgba(0,76,76,0.15),_inset_0_1px_1px_rgba(255,255,255,0.9)] border border-white/80 relative overflow-hidden" style="background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%);">
                 <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl font-bold text-sm text-primary shadow-sm border border-primary/25" style="background: rgba(0, 76, 76, 0.12);" href="#">
                     <span class="material-symbols-outlined text-xl text-primary">home</span> <span>Home</span>
                 </a>
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-white/70 shadow-sm hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(12px);" href="#sambutan">
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-white/70 shadow-sm hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.6);" href="#sambutan">
                     <span class="material-symbols-outlined text-xl text-primary">school</span> <span>Profile</span>
                 </a>
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-white/70 shadow-sm hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(12px);" href="#program">
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-white/70 shadow-sm hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.6);" href="#program">
                     <span class="material-symbols-outlined text-xl text-primary">auto_stories</span> <span>Program</span>
                 </a>
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-white/70 shadow-sm hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(12px);" href="#warta">
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-white/70 shadow-sm hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.6);" href="#warta">
                     <span class="material-symbols-outlined text-xl text-primary">newspaper</span> <span>Information</span>
                 </a>
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-white/70 shadow-sm hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(12px);" href="#kontak">
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-white/70 shadow-sm hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.6);" href="#kontak">
                     <span class="material-symbols-outlined text-xl text-primary">call</span> <span>Contact</span>
                 </a>
                 <div class="pt-3 border-t border-slate-900/10">
