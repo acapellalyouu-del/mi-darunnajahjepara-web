@@ -176,26 +176,47 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation True Glass Transparent Dropdown Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden border-b border-white/40 px-4 py-4 space-y-2 shadow-2xl animate-in slide-in-from-top-2 duration-200" style="background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold text-sm border border-primary/20 shadow-sm" style="background: rgba(0, 76, 76, 0.12); backdrop-filter: blur(10px);" href="#">
-                <span class="material-symbols-outlined text-lg">home</span> <span>Home</span>
-            </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-semibold text-sm transition-colors border border-white/30 hover:border-white/60" style="background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);" href="#sambutan">
-                <span class="material-symbols-outlined text-lg">school</span> <span>Profile</span>
-            </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-semibold text-sm transition-colors border border-white/30 hover:border-white/60" style="background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);" href="#program">
-                <span class="material-symbols-outlined text-lg">auto_stories</span> <span>Program</span>
-            </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-semibold text-sm transition-colors border border-white/30 hover:border-white/60" style="background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);" href="#warta">
-                <span class="material-symbols-outlined text-lg">newspaper</span> <span>Information</span>
-            </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant font-semibold text-sm transition-colors border border-white/30 hover:border-white/60" style="background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);" href="#kontak">
-                <span class="material-symbols-outlined text-lg">call</span> <span>Contact</span>
-            </a>
-            <div class="pt-2 border-t border-white/40">
-                <a class="flex items-center justify-center gap-2 w-full py-3 text-on-primary rounded-xl font-bold text-sm shadow-md active:scale-95 transition-all" style="background: rgba(0, 76, 76, 0.85); backdrop-filter: blur(10px);" href="/login">
-                    <span class="material-symbols-outlined text-lg">lock</span> <span>Portal Admin</span>
+        <!-- Mobile Navigation Full-Screen True Glass Overlay Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden fixed inset-0 z-[100] flex flex-col p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200" style="background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
+            <!-- Mobile Drawer Header -->
+            <div class="flex items-center justify-between pb-5 border-b border-black/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border border-white/80 shadow-md p-1" style="background: rgba(255, 255, 255, 0.85);">
+                        <img src="{{ $welcomeLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain"/>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-primary text-base leading-tight">{{ $settings['school_name'] }}</h1>
+                        <p class="text-[10px] text-on-surface-variant tracking-wider uppercase font-medium">Cerdas Terampil Berakhlaq Mulia</p>
+                    </div>
+                </div>
+                <button onclick="toggleMobileMenu()" class="p-2.5 text-primary rounded-full border border-black/10 shadow-sm active:scale-95 flex items-center justify-center" style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px);" aria-label="Close Menu">
+                    <span class="material-symbols-outlined text-2xl">close</span>
+                </button>
+            </div>
+
+            <!-- Mobile Drawer Links (Translucent Glass Pills) -->
+            <div class="flex-1 py-6 space-y-3 overflow-y-auto">
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 rounded-2xl text-primary font-bold text-base border border-primary/20 shadow-md transition-all" style="background: rgba(0, 76, 76, 0.15); backdrop-filter: blur(12px);" href="#">
+                    <span class="material-symbols-outlined text-xl">home</span> <span>Home</span>
+                </a>
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 rounded-2xl text-on-surface font-semibold text-base transition-all border border-white/40 hover:border-primary/30" style="background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(12px);" href="#sambutan">
+                    <span class="material-symbols-outlined text-xl text-primary">school</span> <span>Profile</span>
+                </a>
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 rounded-2xl text-on-surface font-semibold text-base transition-all border border-white/40 hover:border-primary/30" style="background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(12px);" href="#program">
+                    <span class="material-symbols-outlined text-xl text-primary">auto_stories</span> <span>Program</span>
+                </a>
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 rounded-2xl text-on-surface font-semibold text-base transition-all border border-white/40 hover:border-primary/30" style="background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(12px);" href="#warta">
+                    <span class="material-symbols-outlined text-xl text-primary">newspaper</span> <span>Information</span>
+                </a>
+                <a onclick="toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 rounded-2xl text-on-surface font-semibold text-base transition-all border border-white/40 hover:border-primary/30" style="background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(12px);" href="#kontak">
+                    <span class="material-symbols-outlined text-xl text-primary">call</span> <span>Contact</span>
+                </a>
+            </div>
+
+            <!-- Footer Action Button -->
+            <div class="pt-4 border-t border-black/10">
+                <a class="flex items-center justify-center gap-2 w-full py-4 text-on-primary rounded-2xl font-bold text-base shadow-xl active:scale-95 transition-all" style="background: rgba(0, 76, 76, 0.9); backdrop-filter: blur(12px);" href="/login">
+                    <span class="material-symbols-outlined text-xl">lock</span> <span>Portal Admin</span>
                 </a>
             </div>
         </div>
