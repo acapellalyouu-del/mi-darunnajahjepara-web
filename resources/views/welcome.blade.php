@@ -176,35 +176,36 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation Backdrop Overlay (Full-screen Glass Dimmer) -->
-        <div id="mobileMenuBackdrop" class="hidden md:hidden fixed inset-0 bg-slate-950/65 backdrop-blur-xl z-40 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
-
-        <!-- Mobile Navigation Dropdown Drawer (Floating Frosted Glass Card) -->
-        <div id="mobileMenu" class="hidden md:hidden fixed top-20 left-0 right-0 p-4 z-50 transition-all duration-300 max-h-[calc(100vh-90px)] overflow-y-auto">
-            <div class="p-5 rounded-3xl space-y-2.5 shadow-[0_30px_70px_rgba(0,0,0,0.4)] border border-white/60 relative overflow-hidden" style="background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%);">
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl font-bold text-sm text-primary shadow-sm border border-primary/20" style="background: rgba(0, 76, 76, 0.12);" href="#">
-                    <span class="material-symbols-outlined text-xl">home</span> <span>Home</span>
-                </a>
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-slate-200/50 hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.6);" href="#sambutan">
-                    <span class="material-symbols-outlined text-xl text-primary">school</span> <span>Profile</span>
-                </a>
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-slate-200/50 hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.6);" href="#program">
-                    <span class="material-symbols-outlined text-xl text-primary">auto_stories</span> <span>Program</span>
-                </a>
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-slate-200/50 hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.6);" href="#warta">
-                    <span class="material-symbols-outlined text-xl text-primary">newspaper</span> <span>Information</span>
-                </a>
-                <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-slate-900 font-semibold text-sm transition-all border border-slate-200/50 hover:border-primary/40 hover:bg-white/80" style="background: rgba(255, 255, 255, 0.6);" href="#kontak">
-                    <span class="material-symbols-outlined text-xl text-primary">call</span> <span>Contact</span>
-                </a>
-                <div class="pt-3 border-t border-slate-900/10">
-                    <a class="flex items-center justify-center gap-2 w-full py-3.5 bg-primary text-on-primary rounded-2xl font-bold text-sm shadow-xl shadow-primary/30 active:scale-95 transition-all" href="/login">
-                        <span class="material-symbols-outlined text-xl">lock</span> <span>Portal Admin</span>
-                    </a>
-                </div>
-            </div>
-        </div>
     </header>
+</div>
+
+<!-- Mobile Navigation Backdrop Overlay (Full-Screen Dark Blur Glass Dimmer) -->
+<div id="mobileMenuBackdrop" class="hidden md:hidden fixed inset-0 bg-slate-950/75 backdrop-blur-2xl z-[9998] transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+
+<!-- Mobile Navigation Dropdown Drawer (True Frosted Glassmorphism Floating Card) -->
+<div id="mobileMenu" class="hidden md:hidden fixed top-[88px] left-3 right-3 p-2 z-[9999] transition-all duration-300 max-h-[calc(100vh-100px)] overflow-y-auto">
+    <div class="p-5 rounded-3xl space-y-3 shadow-[0_30px_70px_rgba(0,0,0,0.6),_inset_0_1px_1px_rgba(255,255,255,0.3)] border border-white/25 relative overflow-hidden" style="background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(40px) saturate(200%); -webkit-backdrop-filter: blur(40px) saturate(200%);">
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl font-bold text-sm text-emerald-300 shadow-sm border border-emerald-400/30 transition-all" style="background: rgba(0, 150, 136, 0.25);" href="#">
+            <span class="material-symbols-outlined text-xl text-emerald-400">home</span> <span>Home</span>
+        </a>
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-white font-semibold text-sm transition-all border border-white/10 hover:border-white/30 hover:bg-white/15" style="background: rgba(255, 255, 255, 0.08);" href="#sambutan">
+            <span class="material-symbols-outlined text-xl text-emerald-400">school</span> <span>Profile</span>
+        </a>
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-white font-semibold text-sm transition-all border border-white/10 hover:border-white/30 hover:bg-white/15" style="background: rgba(255, 255, 255, 0.08);" href="#program">
+            <span class="material-symbols-outlined text-xl text-emerald-400">auto_stories</span> <span>Program</span>
+        </a>
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-white font-semibold text-sm transition-all border border-white/10 hover:border-white/30 hover:bg-white/15" style="background: rgba(255, 255, 255, 0.08);" href="#warta">
+            <span class="material-symbols-outlined text-xl text-emerald-400">newspaper</span> <span>Information</span>
+        </a>
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-white font-semibold text-sm transition-all border border-white/10 hover:border-white/30 hover:bg-white/15" style="background: rgba(255, 255, 255, 0.08);" href="#kontak">
+            <span class="material-symbols-outlined text-xl text-emerald-400">call</span> <span>Contact</span>
+        </a>
+        <div class="pt-3 border-t border-white/15">
+            <a class="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-2xl font-bold text-sm shadow-xl shadow-emerald-900/40 border border-white/20 active:scale-95 transition-all" href="/login">
+                <span class="material-symbols-outlined text-xl">lock</span> <span>Portal Admin</span>
+            </a>
+        </div>
+    </div>
 </div>
 
 <!-- Hero Banner Section -->
