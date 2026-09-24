@@ -90,6 +90,16 @@ class AdminController extends Controller
         ));
     }
 
+    public function toggleMaintenance(Request $request)
+    {
+        $current = Setting::get('maintenance_mode', '0');
+        $new = ($current == '1' || $current === true) ? '0' : '1';
+        Setting::set('maintenance_mode', $new);
+
+        $statusText = $new === '1' ? 'AKTIF (Sistem dalam perbaikan)' : 'NON-AKTIF (Sistem normal)';
+        return back()->with('success', 'Status Maintenance Mode berhasil diubah: ' . $statusText);
+    }
+
     public function teachers()
     {
         \Illuminate\Support\Facades\Log::info('Teachers request - Session ID: ' . session()->getId() . ' | Auth check: ' . (Auth::check() ? 'YES' : 'NO'));

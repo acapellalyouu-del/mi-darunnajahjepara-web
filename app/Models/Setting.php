@@ -19,4 +19,12 @@ class Setting extends Model
         }
         return $default;
     }
+
+    public static function set(string $key, $value, string $type = 'string')
+    {
+        return self::updateOrCreate(
+            ['key' => $key],
+            ['value' => (string) $value, 'type' => $type]
+        );
+    }
 }

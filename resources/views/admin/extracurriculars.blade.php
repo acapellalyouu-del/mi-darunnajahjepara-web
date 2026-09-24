@@ -118,7 +118,7 @@
 @include('admin.partials.sidebar', ['active' => 'extracurriculars'])
 
 <!-- Main Content -->
-<main class="flex-1 ml-0 md:ml-64 p-margin-mobile md:p-margin-desktop w-full max-w-container-max mx-auto overflow-x-hidden">
+<main class="flex-1 ml-0 md:ml-64 p-4 md:p-8 max-w-full overflow-x-hidden">
     <!-- Header Section -->
     <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
@@ -150,47 +150,47 @@
     @endif
 
     <!-- Filter & Stats Row -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-8">
-        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary">
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+        <div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary flex-shrink-0">
                 <span class="material-symbols-outlined text-[32px]">sports_soccer</span>
             </div>
-            <div>
-                <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Total Activities</p>
+            <div class="min-w-0">
+                <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider truncate">Total Activities</p>
                 <p class="text-headline-md font-headline-md text-primary">{{ $extracurriculars->count() }}</p>
             </div>
         </div>
-        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+        <div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary flex-shrink-0">
                 <span class="material-symbols-outlined text-[32px]">grade</span>
             </div>
-            <div>
-                <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Featured</p>
+            <div class="min-w-0">
+                <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider truncate">Featured</p>
                 <p class="text-headline-md font-headline-md text-secondary">{{ $extracurriculars->where('is_featured', true)->count() }}</p>
             </div>
         </div>
-        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary">
+        <div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary flex-shrink-0">
                 <span class="material-symbols-outlined text-[32px]">person</span>
             </div>
-            <div>
-                <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Active Coaches</p>
+            <div class="min-w-0">
+                <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider truncate">Active Coaches</p>
                 <p class="text-headline-md font-headline-md text-tertiary">{{ $extracurriculars->where('is_active', true)->pluck('coach_name')->filter()->unique()->count() }}</p>
             </div>
         </div>
-        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-error-container/20 flex items-center justify-center text-error">
+        <div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-error-container/20 flex items-center justify-center text-error flex-shrink-0">
                 <span class="material-symbols-outlined text-[32px]">pending_actions</span>
             </div>
-            <div>
-                <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Active Programs</p>
+            <div class="min-w-0">
+                <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider truncate">Active Programs</p>
                 <p class="text-headline-md font-headline-md text-error">{{ $extracurriculars->where('is_active', true)->count() }}</p>
             </div>
         </div>
     </div>
 
     <!-- Bento Grid Layout for Activities -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         @forelse ($extracurriculars as $extra)
         <div class="group bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden hover:shadow-lg transition-all duration-300">
             <div class="h-48 relative overflow-hidden bg-surface-container">

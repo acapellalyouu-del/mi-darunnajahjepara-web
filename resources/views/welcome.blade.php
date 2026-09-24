@@ -120,8 +120,28 @@
 </head>
 <body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
 
-<!-- Sticky Top Header Container -->
-<div class="sticky top-0 z-50 w-full shadow-sm">
+@if (\App\Models\Setting::get('maintenance_mode', '0') === '1')
+    <!-- Maintenance Mode Public Overlay -->
+    <div class="fixed inset-0 z-[100] bg-surface-container-lowest/95 backdrop-blur-md flex items-center justify-center p-6 text-center">
+        <div class="max-w-md bg-white border border-outline-variant p-8 rounded-2xl shadow-2xl space-y-4">
+            <div class="w-16 h-16 bg-amber-500/10 text-amber-600 rounded-full flex items-center justify-center mx-auto">
+                <span class="material-symbols-outlined text-4xl">build_circle</span>
+            </div>
+            <h2 class="text-2xl font-bold text-primary font-headline-lg">Website Dalam Pemeliharaan</h2>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+                Website MI Darun Najah saat ini sedang dalam proses perbaikan &amp; pembaruan sistem (maintenance). Silakan kembali lagi beberapa saat lagi.
+            </p>
+            <div class="pt-4 border-t border-outline-variant/60 flex justify-center">
+                <a href="/login" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">lock</span> Portal Admin Login
+                </a>
+            </div>
+        </div>
+    </div>
+@endif
+
+<!-- Fixed Top Header Container Over Hero -->
+<div class="fixed top-0 left-0 right-0 z-50 w-full">
     <!-- Running Announcement Bar -->
     @if ($settings['announcement_bar_active'] ?? true)
     <div class="bg-primary text-on-primary py-2 overflow-hidden whitespace-nowrap relative w-full">
@@ -146,26 +166,26 @@
             ? (filter_var($welcomeLogo, FILTER_VALIDATE_URL) ? $welcomeLogo : (Str::startsWith($welcomeLogo, ['/storage', 'storage']) ? asset($welcomeLogo) : asset('storage/' . ltrim($welcomeLogo, '/'))))
             : '/images/logo.png';
     @endphp
-    <header class="border-b border-white/30 relative z-50 shadow-sm" style="background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+    <header class="border-b border-white/30 relative z-50 shadow-sm transition-all duration-300" style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
         <div class="flex justify-between items-center h-20 px-4 md:px-margin-desktop max-w-container-max mx-auto relative">
             <a href="/" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex-shrink-0 border border-white/60 shadow-sm p-1 md:p-1.5" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px);">
-                    <img src="{{ $welcomeLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain"/>
+                <div class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
+                    <img src="{{ $welcomeLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain filter drop-shadow-md"/>
                 </div>
                 <div>
-                    <h1 class="font-headline-md text-base sm:text-lg md:text-headline-md font-bold text-primary leading-tight group-hover:text-primary/80 transition-colors">{{ $settings['school_name'] }}</h1>
-                    <p class="font-label-sm text-[9px] sm:text-[10px] md:text-label-sm text-on-surface-variant tracking-wider uppercase leading-none mt-0.5">Cerdas Terampil Berakhlaq Mulia</p>
+                    <h1 class="font-headline-md text-base sm:text-lg md:text-headline-md font-extrabold text-primary leading-tight group-hover:opacity-80 transition-colors drop-shadow-sm">{{ $settings['school_name'] }}</h1>
+                    <p class="font-label-sm text-[9px] sm:text-[10px] md:text-label-sm text-slate-800 font-semibold tracking-wider uppercase leading-none mt-0.5 drop-shadow-sm">Cerdas Terampil Berakhlaq Mulia</p>
                 </div>
             </a>
 
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-8">
-                <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 font-bold" href="#">Home</a>
-                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#sambutan">Profile</a>
-                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#program">Program</a>
-                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#warta">Information</a>
-                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#kontak">Contact</a>
-                <a href="/login" class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all" title="Portal Admin">person</a>
+            <!-- Desktop Navigation with Adaptive Dynamic Contrast & Active Indicator -->
+            <nav id="desktopNav" class="hidden md:flex items-center gap-8">
+                <a class="nav-link font-label-md text-label-md text-primary border-b-2 border-primary pb-1 font-extrabold drop-shadow-sm transition-all" href="#">Home</a>
+                <a class="nav-link font-label-md text-label-md text-slate-900 border-b-2 border-transparent pb-1 hover:text-primary font-bold transition-all drop-shadow-sm" href="#sambutan">Profile</a>
+                <a class="nav-link font-label-md text-label-md text-slate-900 border-b-2 border-transparent pb-1 hover:text-primary font-bold transition-all drop-shadow-sm" href="#program">Program</a>
+                <a class="nav-link font-label-md text-label-md text-slate-900 border-b-2 border-transparent pb-1 hover:text-primary font-bold transition-all drop-shadow-sm" href="#warta">Information</a>
+                <a class="nav-link font-label-md text-label-md text-slate-900 border-b-2 border-transparent pb-1 hover:text-primary font-bold transition-all drop-shadow-sm" href="#kontak">Contact</a>
+                <a href="/login" class="material-symbols-outlined p-2 text-slate-900 hover:text-primary hover:bg-white/40 rounded-full transition-all font-bold drop-shadow-sm" title="Portal Admin">person</a>
             </nav>
 
             <!-- Mobile Hamburger Button (3-Strip Icon) -->
@@ -176,25 +196,25 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation Absolute Glass Transparent Dropdown Overlay (75% Transparent / 25% Opacity White) -->
-        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 w-full border-b border-white/50 px-4 py-5 space-y-2.5 shadow-2xl animate-in slide-in-from-top-2 duration-200 z-50" style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold text-sm border border-primary/30 shadow-sm" style="background: rgba(0, 76, 76, 0.18); backdrop-filter: blur(12px);" href="#">
+        <!-- Mobile Navigation Solid White Dropdown Overlay -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 w-full bg-white border-b border-slate-200 px-4 py-5 space-y-2.5 shadow-2xl animate-in slide-in-from-top-2 duration-200 z-50">
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold text-sm bg-primary/10 border border-primary/20 shadow-sm" href="#">
                 <span class="material-symbols-outlined text-lg">home</span> <span>Home</span>
             </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold text-sm transition-colors border border-white/50 hover:border-white/80 shadow-sm" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px);" href="#sambutan">
-                <span class="material-symbols-outlined text-lg">school</span> <span>Profile</span>
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="#sambutan">
+                <span class="material-symbols-outlined text-lg text-primary">school</span> <span>Profile</span>
             </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold text-sm transition-colors border border-white/50 hover:border-white/80 shadow-sm" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px);" href="#program">
-                <span class="material-symbols-outlined text-lg">auto_stories</span> <span>Program</span>
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="#program">
+                <span class="material-symbols-outlined text-lg text-primary">auto_stories</span> <span>Program</span>
             </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold text-sm transition-colors border border-white/50 hover:border-white/80 shadow-sm" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px);" href="#warta">
-                <span class="material-symbols-outlined text-lg">newspaper</span> <span>Information</span>
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="#warta">
+                <span class="material-symbols-outlined text-lg text-primary">newspaper</span> <span>Information</span>
             </a>
-            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold text-sm transition-colors border border-white/50 hover:border-white/80 shadow-sm" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px);" href="#kontak">
-                <span class="material-symbols-outlined text-lg">call</span> <span>Contact</span>
+            <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="#kontak">
+                <span class="material-symbols-outlined text-lg text-primary">call</span> <span>Contact</span>
             </a>
-            <div class="pt-2 border-t border-white/40">
-                <a class="flex items-center justify-center gap-2 w-full py-3.5 text-on-primary rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-all" style="background: rgba(0, 76, 76, 0.9); backdrop-filter: blur(12px);" href="/login">
+            <div class="pt-2 border-t border-slate-200">
+                <a class="flex items-center justify-center gap-2 w-full py-3.5 bg-primary text-white hover:bg-primary/90 rounded-xl font-bold text-sm shadow-md active:scale-95 transition-all" href="/login">
                     <span class="material-symbols-outlined text-lg">lock</span> <span>Portal Admin</span>
                 </a>
             </div>
@@ -221,7 +241,7 @@
         $heroImages[] = asset('images/logo.png');
     }
 @endphp
-<section class="relative min-h-[550px] py-12 md:py-0 md:h-[750px] flex items-center overflow-hidden">
+<section class="relative min-h-[600px] md:h-[750px] pt-24 md:pt-28 flex items-center overflow-hidden">
     <!-- Background Slideshow Images -->
     <div class="absolute inset-0 z-0 overflow-hidden">
         @foreach($heroImages as $idx => $imgUrl)
@@ -269,6 +289,22 @@
         }
     }
 
+    function toggleAccreditationCard() {
+        if (window.innerWidth >= 768) return;
+        const content = document.getElementById('accreditationMobileContent');
+        const chevron = document.getElementById('accreditationChevron');
+        if (content) {
+            const isOpen = content.classList.toggle('is-open');
+            if (chevron) {
+                if (isOpen) {
+                    chevron.classList.add('is-active');
+                } else {
+                    chevron.classList.remove('is-active');
+                }
+            }
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.hero-bg-slide');
         if (slides.length > 1) {
@@ -286,58 +322,104 @@
     });
 </script>
 
+<style>
+    #accreditationChevron {
+        display: inline-block;
+        transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+        transform-origin: center;
+    }
+    #accreditationChevron.is-active {
+        transform: rotate(180deg);
+    }
+    @media (max-width: 767px) {
+        .accreditation-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-16px) scale(0.96);
+            overflow: hidden;
+            pointer-events: none;
+            margin-top: -1.5rem;
+            transition: max-height 0.5s cubic-bezier(0.34, 1.4, 0.64, 1),
+                        opacity 0.35s ease-in-out,
+                        transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1),
+                        margin-top 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+        }
+        .accreditation-accordion.is-open {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            margin-top: 0;
+            pointer-events: auto;
+        }
+    }
+</style>
+
 <!-- Accreditation & Identity Section -->
 <section class="py-12 bg-surface -mt-16 relative z-20">
     <div class="px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-outline-variant flex items-center gap-4 hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container shrink-0">
-                <span class="material-symbols-outlined text-2xl">verified</span>
+        <!-- Main Card: Akreditasi A (Accordion Header for Mobile) -->
+        <div onclick="toggleAccreditationCard()" class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-outline-variant flex items-center justify-between gap-4 hover:shadow-md active:scale-[0.99] transition-all cursor-pointer md:cursor-default">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container shrink-0">
+                    <span class="material-symbols-outlined text-2xl">verified</span>
+                </div>
+                <div>
+                    <h4 class="font-bold text-primary font-headline-sm">Akreditasi A</h4>
+                    <p class="text-sm text-on-surface-variant">Unggul (BAN-S/M)</p>
+                </div>
             </div>
-            <div>
-                <h4 class="font-bold text-primary font-headline-sm">Akreditasi A</h4>
-                <p class="text-sm text-on-surface-variant">Unggul (BAN-S/M)</p>
-            </div>
-        </div>
-        <div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-outline-variant flex items-center gap-4 hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center text-on-secondary-container shrink-0">
-                <span class="material-symbols-outlined text-2xl">lightbulb</span>
-            </div>
-            <div>
-                <h4 class="font-bold text-primary font-headline-sm">Smart Religious School</h4>
-                <p class="text-sm text-on-surface-variant">Pendidikan Berbasis Teknologi</p>
+            <!-- Chevron Icon facing down with bouncy rotation for Mobile accordion -->
+            <div class="md:hidden text-primary transform" id="accreditationChevron" style="transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);">
+                <span class="material-symbols-outlined text-2xl">expand_more</span>
             </div>
         </div>
-        <div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-outline-variant flex items-center gap-4 hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 bg-tertiary-container rounded-full flex items-center justify-center text-on-tertiary-container shrink-0">
-                <span class="material-symbols-outlined text-2xl">menu_book</span>
+
+        <!-- Mobile Accordion Content (Cards 2 & 3: Collapsed by default on Mobile, Always expanded on Web/Desktop) -->
+        <div id="accreditationMobileContent" class="accreditation-accordion md:contents">
+            <div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-outline-variant flex items-center gap-4 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center text-on-secondary-container shrink-0">
+                    <span class="material-symbols-outlined text-2xl">lightbulb</span>
+                </div>
+                <div>
+                    <h4 class="font-bold text-primary font-headline-sm">Smart Religious School</h4>
+                    <p class="text-sm text-on-surface-variant">Pendidikan Berbasis Teknologi</p>
+                </div>
             </div>
-            <div>
-                <h4 class="font-bold text-primary font-headline-sm">Islamic Character</h4>
-                <p class="text-sm text-on-surface-variant">Pendidikan Karakter Qur'ani</p>
+            <div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-outline-variant flex items-center gap-4 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-tertiary-container rounded-full flex items-center justify-center text-on-tertiary-container shrink-0">
+                    <span class="material-symbols-outlined text-2xl">menu_book</span>
+                </div>
+                <div>
+                    <h4 class="font-bold text-primary font-headline-sm">Islamic Character</h4>
+                    <p class="text-sm text-on-surface-variant">Pendidikan Karakter Qur'ani</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Achievement Counter -->
-<section class="bg-primary-container text-on-primary-container py-16">
-    <div class="px-margin-desktop max-w-container-max mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
-            <div class="space-y-2">
-                <span class="font-display-lg text-display-lg block font-bold text-on-primary-container">{{ $teachers->count() }}</span>
-                <p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Tenaga Pengajar</p>
+<section class="bg-primary-container text-on-primary-container py-8 md:py-16">
+    <div class="px-3 sm:px-margin-desktop max-w-container-max mx-auto">
+        <div class="grid grid-cols-4 gap-1.5 sm:gap-4 text-center">
+            <div class="space-y-1 sm:space-y-2">
+                <span class="text-xl sm:text-3xl md:text-display-lg block font-bold text-on-primary-container font-headline-md leading-tight">{{ $teachers->count() }}</span>
+                <p class="text-[9px] sm:text-xs md:text-label-md opacity-80 uppercase tracking-wider font-semibold leading-tight">Tenaga Pengajar</p>
             </div>
-            <div class="space-y-2">
-                <span class="font-display-lg text-display-lg block font-bold text-on-primary-container">850+</span>
-                <p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Siswa Aktif</p>
+            <div class="space-y-1 sm:space-y-2">
+                <span class="text-xl sm:text-3xl md:text-display-lg block font-bold text-on-primary-container font-headline-md leading-tight">850+</span>
+                <p class="text-[9px] sm:text-xs md:text-label-md opacity-80 uppercase tracking-wider font-semibold leading-tight">Siswa Aktif</p>
             </div>
-            <div class="space-y-2">
-                <span class="font-display-lg text-display-lg block font-bold text-on-primary-container">120+</span>
-                <p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Prestasi Nasional</p>
+            <div class="space-y-1 sm:space-y-2">
+                <span class="text-xl sm:text-3xl md:text-display-lg block font-bold text-on-primary-container font-headline-md leading-tight">120+</span>
+                <p class="text-[9px] sm:text-xs md:text-label-md opacity-80 uppercase tracking-wider font-semibold leading-tight">Prestasi Nasional</p>
             </div>
-            <div class="space-y-2">
-                <span class="font-display-lg text-display-lg block font-bold text-on-primary-container">24</span>
-                <p class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Ruang Kelas</p>
+            <div class="space-y-1 sm:space-y-2">
+                <span class="text-xl sm:text-3xl md:text-display-lg block font-bold text-on-primary-container font-headline-md leading-tight">24</span>
+                <p class="text-[9px] sm:text-xs md:text-label-md opacity-80 uppercase tracking-wider font-semibold leading-tight">Ruang Kelas</p>
             </div>
         </div>
     </div>
@@ -369,49 +451,58 @@
 
 <!-- Vision & Mission -->
 <section id="visimisi" class="py-12 bg-surface-container-lowest border-y border-outline-variant">
-    <div class="px-margin-desktop max-w-container-max mx-auto grid md:grid-cols-2 gap-12">
-        <div class="bg-surface p-8 rounded-lg border border-outline-variant relative overflow-hidden group hover:shadow-md transition-shadow">
-            <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                <svg class="w-32 h-32" fill="currentColor" viewbox="0 0 100 100"><path d="M50 0L61.8034 38.1966H100L69.0983 60.6558L80.9017 98.8525L50 76.3934L19.0983 98.8525L30.9017 60.6558L0 38.1966H38.1966L50 0Z"></path></svg>
+    <div class="px-margin-desktop max-w-container-max mx-auto">
+        <div class="max-w-4xl mx-auto bg-surface p-6 sm:p-8 md:p-10 rounded-2xl border border-outline-variant relative overflow-hidden group hover:shadow-md transition-shadow">
+            <!-- Background Watermark -->
+            <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+                <svg class="w-40 h-40" fill="currentColor" viewBox="0 0 100 100"><path d="M50 0L61.8034 38.1966H100L69.0983 60.6558L80.9017 98.8525L50 76.3934L19.0983 98.8525L30.9017 60.6558L0 38.1966H38.1966L50 0Z"></path></svg>
             </div>
-            <div class="relative z-10">
-                <div class="w-16 h-16 bg-primary-container text-on-primary-container rounded-lg flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-3xl">visibility</span>
+            
+            <div class="relative z-10 space-y-8">
+                <!-- Visi Kami -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center shadow-sm flex-shrink-0">
+                            <span class="material-symbols-outlined text-xl">visibility</span>
+                        </div>
+                        <h3 class="font-headline-md text-primary font-bold text-xl md:text-2xl">Visi Kami</h3>
+                    </div>
+                    <p class="text-on-surface-variant leading-relaxed text-base md:text-lg pl-1">
+                        {{ $settings['school_vision'] ?? 'Terwujudnya generasi Islam yang cerdas, terampil, berakhlaq mulia, dan berwawasan lingkungan berlandaskan Al-Qur\'an dan As-Sunnah.' }}
+                    </p>
                 </div>
-                <h3 class="font-headline-md text-primary mb-4 font-bold">Visi Kami</h3>
-                <p class="text-on-surface-variant leading-relaxed">
-                    {{ $settings['school_vision'] ?? 'Terwujudnya generasi Islam yang cerdas, terampil, berakhlaq mulia, dan berwawasan lingkungan berlandaskan Al-Qur\'an dan As-Sunnah.' }}
-                </p>
-            </div>
-        </div>
-        <div class="bg-surface p-8 rounded-lg border border-outline-variant relative overflow-hidden group hover:shadow-md transition-shadow">
-            <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                <svg class="w-32 h-32" fill="currentColor" viewbox="0 0 100 100"><path d="M50 0L61.8034 38.1966H100L69.0983 60.6558L80.9017 98.8525L50 76.3934L19.0983 98.8525L30.9017 60.6558L0 38.1966H38.1966L50 0Z"></path></svg>
-            </div>
-            <div class="relative z-10">
-                <div class="w-16 h-16 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-3xl">track_changes</span>
-                </div>
-                <h3 class="font-headline-md text-primary mb-4 font-bold">Misi Kami</h3>
-                <div class="text-on-surface-variant leading-relaxed space-y-2">
-                    @if (!empty($settings['school_mission']))
-                        {!! $settings['school_mission'] !!}
-                    @else
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-3">
-                                <span class="material-symbols-outlined text-primary mt-1 text-sm">check_circle</span>
-                                <span>Menyelenggarakan pendidikan dasar Islam yang terpadu dan bermutu.</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="material-symbols-outlined text-primary mt-1 text-sm">check_circle</span>
-                                <span>Membentuk karakter siswa yang tangguh dan Islami.</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="material-symbols-outlined text-primary mt-1 text-sm">check_circle</span>
-                                <span>Mengembangkan potensi kecerdasan majemuk peserta didik.</span>
-                            </li>
-                        </ul>
-                    @endif
+
+                <!-- Divider -->
+                <div class="border-t border-outline-variant/60"></div>
+
+                <!-- Misi Kami -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-secondary-container text-on-secondary-container rounded-xl flex items-center justify-center shadow-sm flex-shrink-0">
+                            <span class="material-symbols-outlined text-xl">track_changes</span>
+                        </div>
+                        <h3 class="font-headline-md text-primary font-bold text-xl md:text-2xl">Misi Kami</h3>
+                    </div>
+                    <div class="text-on-surface-variant leading-relaxed space-y-2 pl-1">
+                        @if (!empty($settings['school_mission']))
+                            {!! $settings['school_mission'] !!}
+                        @else
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-1 text-sm">check_circle</span>
+                                    <span>Menyelenggarakan pendidikan dasar Islam yang terpadu dan bermutu.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-1 text-sm">check_circle</span>
+                                    <span>Membentuk karakter siswa yang tangguh dan Islami.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary mt-1 text-sm">check_circle</span>
+                                    <span>Mengembangkan potensi kecerdasan majemuk peserta didik.</span>
+                                </li>
+                            </ul>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -419,13 +510,14 @@
 </section>
 
 <!-- School Programs -->
-<section id="program" class="py-section-gap px-margin-desktop max-w-container-max mx-auto">
-    <div class="text-center mb-12">
+<section id="program" class="py-6 md:py-section-gap px-margin-desktop max-w-container-max mx-auto">
+    <div class="text-center mb-6 md:mb-12">
         <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Program Kelas</h3>
         <p class="text-on-surface-variant">Pilihan program pendidikan yang disesuaikan dengan kebutuhan belajar siswa.</p>
     </div>
-    <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-surface rounded-lg p-8 border border-outline-variant hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between">
+    <div class="grid md:grid-cols-3 gap-8 items-stretch">
+        <!-- Card 1: Kelas Reguler -->
+        <div class="rounded-xl p-8 border border-emerald-200/80 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 ease-in-out cursor-pointer flex flex-col justify-between z-0 hover:z-20 shadow-sm" style="background-color: #e6f4f1;">
             <div>
                 <h4 class="font-bold text-primary font-headline-md mb-2">Kelas Reguler</h4>
                 <p class="text-on-surface-variant text-sm mb-6">Program pendidikan standar dengan kurikulum nasional dan muatan lokal keislaman.</p>
@@ -435,10 +527,12 @@
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Ekstrakurikuler Wajib</li>
                 </ul>
             </div>
-            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary-container hover:text-white transition-colors block">Detail Kurikulum</a>
+            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors block">Detail Kurikulum</a>
         </div>
-        <div class="bg-primary text-on-primary rounded-lg p-8 shadow-lg relative transform scale-105 z-10 flex flex-col justify-between text-white">
-            <div class="absolute top-0 right-0 bg-secondary-fixed text-on-secondary-fixed text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">POPULER</div>
+
+        <!-- Card 2: Kelas Reguler Plus -->
+        <div class="bg-primary text-on-primary rounded-xl p-8 shadow-lg border border-primary relative hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 ease-in-out cursor-pointer flex flex-col justify-between text-white z-0 hover:z-20">
+            <div class="absolute top-0 right-0 bg-secondary-fixed text-on-secondary-fixed text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">UNGGULAN</div>
             <div>
                 <h4 class="font-bold font-headline-md mb-2 text-white text-xl">Kelas Reguler Plus</h4>
                 <p class="text-on-primary/80 text-sm mb-6">Program intensif dengan penambahan jam belajar untuk tahfidz dan bahasa asing.</p>
@@ -451,7 +545,9 @@
             </div>
             <a href="#kontak" class="w-full text-center bg-secondary-container text-on-secondary-container py-2.5 rounded-lg font-bold hover:opacity-90 transition-opacity block">Detail Kurikulum</a>
         </div>
-        <div class="bg-surface rounded-lg p-8 border border-outline-variant hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between">
+
+        <!-- Card 3: Full Day Class -->
+        <div class="rounded-xl p-8 border border-emerald-200/80 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 ease-in-out cursor-pointer flex flex-col justify-between z-0 hover:z-20 shadow-sm" style="background-color: #e6f4f1;">
             <div>
                 <h4 class="font-bold text-primary font-headline-md mb-2">Full Day Class</h4>
                 <p class="text-on-surface-variant text-sm mb-6">Program pendidikan menyeluruh hingga sore hari dengan pengayaan khusus.</p>
@@ -462,28 +558,30 @@
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Bimbingan Belajar Khusus</li>
                 </ul>
             </div>
-            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary-container hover:text-white transition-colors block">Detail Kurikulum</a>
+            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors block">Detail Kurikulum</a>
         </div>
     </div>
 </section>
 
 <!-- Featured Programs (Dynamic Extracurriculars) -->
 @if ($extracurriculars->isNotEmpty())
-<section class="py-section-gap bg-surface-container-lowest">
+<section class="py-6 md:py-section-gap bg-surface-container-lowest overflow-hidden">
     <div class="px-margin-desktop max-w-container-max mx-auto">
-        <div class="text-center mb-12">
+        <div class="text-center mb-6 md:mb-12">
             <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Jelajahi Program Ekstrakurikuler Kami</h3>
             <p class="text-on-surface-variant">Inovasi bakat dan minat untuk melatih fisik serta kreativitas anak didik.</p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Horizontal Scroll on Mobile, Grid on Desktop -->
+        <div class="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible pb-2 md:pb-0 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0">
             @foreach ($extracurriculars->take(6) as $extra)
-                <div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col justify-between">
-                    <div class="h-48 bg-cover bg-center bg-surface-variant relative overflow-hidden" style="background-image: url('{{ filter_var($extra->image_path, FILTER_VALIDATE_URL) ? $extra->image_path : (Str::startsWith($extra->image_path, ['/storage', 'storage']) ? asset($extra->image_path) : asset('storage/' . $extra->image_path)) }}')">
+                <div class="bg-surface border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group flex flex-col justify-between snap-start flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto">
+                    <div class="h-44 sm:h-48 bg-cover bg-center bg-surface-variant relative overflow-hidden" style="background-image: url('{{ filter_var($extra->image_path, FILTER_VALIDATE_URL) ? $extra->image_path : (Str::startsWith($extra->image_path, ['/storage', 'storage']) ? asset($extra->image_path) : asset('storage/' . $extra->image_path)) }}')">
                         <span class="absolute top-4 left-4 bg-primary text-on-primary text-xs font-bold px-3 py-1 rounded-full z-10">{{ $extra->category }}</span>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent z-0"></div>
                         <h4 class="absolute bottom-4 left-4 font-bold text-white text-lg z-10 leading-snug">{{ $extra->name }}</h4>
                     </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between gap-4">
+                    <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
                         <!-- Coach Info -->
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full border-2 border-primary-fixed overflow-hidden bg-surface-container-high flex-shrink-0">
@@ -525,36 +623,58 @@
 
 <!-- Teacher Showcase (Automatic rotating quotes + thumbnails) -->
 @if ($teachers->isNotEmpty())
-<section id="teachers" class="py-section-gap px-margin-desktop max-w-container-max mx-auto">
-    <div class="flex justify-between items-end mb-12">
+<section id="teachers" class="py-6 md:py-section-gap px-margin-desktop max-w-container-max mx-auto">
+    <div class="flex justify-between items-end mb-6 md:mb-12">
         <div>
             <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Tim Pendidik &amp; Inspirator</h3>
             <p class="text-on-surface-variant">Pendidik profesional yang berdedikasi membimbing dengan Al-Qur'an.</p>
         </div>
     </div>
-    <div class="flex flex-col lg:flex-row gap-8 items-center bg-surface-container-lowest p-8 rounded-xl border border-outline-variant shadow-sm relative">
+    <div class="flex flex-col lg:flex-row gap-8 items-center bg-surface-container-lowest p-5 sm:p-8 rounded-xl border border-outline-variant shadow-sm relative">
         <!-- Main Quote Display Card -->
-        <div class="w-full lg:w-1/2 relative aspect-square rounded-xl overflow-hidden bg-primary-container text-white flex flex-col justify-end p-8" id="teacher-showcase-card">
-            <div class="absolute inset-0 z-0 bg-cover bg-center transition-all duration-500 brightness-50" id="showcase-img"></div>
-            <div class="relative z-10 space-y-2">
-                <div class="flex gap-2">
-                    <span class="inline-block px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-md text-xs font-bold tracking-wider" id="showcase-role">Guru</span>
-                    <span class="inline-block px-3 py-1 bg-white/20 border border-white/25 rounded-md text-xs font-bold tracking-wider" id="showcase-subject">Guru Kelas &amp; Tahfidz</span>
+        <div class="w-full lg:w-1/2 flex flex-col rounded-xl overflow-hidden border border-outline-variant/50 bg-surface shadow-sm" id="teacher-showcase-card">
+            <!-- Photo Box -->
+            <div class="relative w-full aspect-square sm:aspect-[4/3] lg:aspect-square overflow-hidden bg-primary-container">
+                <div class="absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-300 lg:brightness-50" id="showcase-img"></div>
+                
+                <!-- Desktop Overlay Content (visible only on desktop >= lg) -->
+                <div class="hidden lg:flex absolute inset-0 z-10 p-8 flex-col justify-end text-white space-y-2">
+                    <div class="flex gap-2">
+                        <span class="inline-block px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-md text-xs font-bold tracking-wider" id="showcase-role-desktop">Guru</span>
+                        <span class="inline-block px-3 py-1 bg-white/20 border border-white/25 rounded-md text-xs font-bold tracking-wider" id="showcase-subject-desktop">Guru Kelas &amp; Tahfidz</span>
+                    </div>
+                    <h4 class="font-headline-md font-bold text-2xl" id="showcase-name-desktop">Ust. Abdullah, S.Pd</h4>
+                    <blockquote class="text-base italic opacity-95 leading-relaxed pt-2" id="showcase-quote-desktop">
+                        "Pendidikan sejati bukan hanya mentransfer ilmu, tapi menumbuhkan akhlaq mulia dalam setiap jiwa siswa."
+                    </blockquote>
+                    <div class="pt-4">
+                        <a href="#" id="showcase-link-desktop" class="text-secondary-fixed font-bold text-sm inline-flex items-center gap-1 hover:underline">
+                            Lihat Profil Lengkap <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </a>
+                    </div>
                 </div>
-                <h4 class="font-headline-md font-bold text-2xl" id="showcase-name">Ust. Abdullah, S.Pd</h4>
-                <blockquote class="text-base italic opacity-95 leading-relaxed pt-2" id="showcase-quote">
+            </div>
+
+            <!-- Mobile Below-Photo Content (visible only on mobile < lg) -->
+            <div class="lg:hidden p-5 sm:p-6 bg-surface space-y-3 border-t border-outline-variant/40">
+                <div class="flex flex-wrap gap-2">
+                    <span class="inline-block px-3 py-1 bg-primary text-on-primary rounded-md text-xs font-bold tracking-wider" id="showcase-role">Guru</span>
+                    <span class="inline-block px-3 py-1 bg-surface-variant text-on-surface-variant rounded-md text-xs font-bold tracking-wider" id="showcase-subject">Guru Kelas &amp; Tahfidz</span>
+                </div>
+                <h4 class="font-headline-md font-bold text-xl text-primary" id="showcase-name">Ust. Abdullah, S.Pd</h4>
+                <blockquote class="text-sm italic text-on-surface-variant leading-relaxed pt-1" id="showcase-quote">
                     "Pendidikan sejati bukan hanya mentransfer ilmu, tapi menumbuhkan akhlaq mulia dalam setiap jiwa siswa."
                 </blockquote>
-                <div class="pt-4">
-                    <a href="#" id="showcase-link" class="text-secondary-fixed font-bold text-sm inline-flex items-center gap-1 hover:underline">
+                <div class="pt-2">
+                    <a href="#" id="showcase-link" class="text-primary font-bold text-sm inline-flex items-center gap-1 hover:underline">
                         Lihat Profil Lengkap <span class="material-symbols-outlined text-sm">arrow_forward</span>
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Thumbnails and Selection -->
-        <div class="w-full lg:w-1/2 space-y-4">
+        <!-- Thumbnails and Selection (Hidden on Mobile, Visible on Desktop lg) -->
+        <div class="w-full lg:w-1/2 space-y-4 hidden lg:block">
             <h5 class="font-bold text-primary text-sm uppercase tracking-wider">Pilih Guru &amp; Quotes</h5>
             <div class="grid grid-cols-3 sm:grid-cols-4 gap-4">
                 @foreach ($teachers as $idx => $t)
@@ -589,7 +709,7 @@
         const thumb = document.getElementById(`thumb-${idx}`);
         if (!thumb) return;
 
-        // Reset borders
+        // Reset borders for desktop thumbnails
         for (let i = 0; i < teachersListLength; i++) {
             const el = document.getElementById(`thumb-${i}`);
             if (el) {
@@ -601,7 +721,7 @@
         thumb.classList.add('border-primary');
         thumb.classList.remove('border-transparent', 'opacity-70');
 
-        // Update main showcase card content
+        // Extract data
         const name = thumb.getAttribute('data-name');
         const role = thumb.getAttribute('data-role');
         const subject = thumb.getAttribute('data-subject');
@@ -609,12 +729,41 @@
         const quote = thumb.getAttribute('data-quote');
         const url = thumb.getAttribute('data-url');
 
-        document.getElementById('showcase-name').textContent = name;
-        document.getElementById('showcase-role').textContent = role || 'Guru';
-        document.getElementById('showcase-subject').textContent = subject;
-        document.getElementById('showcase-quote').textContent = `"${quote}"`;
-        document.getElementById('showcase-img').style.backgroundImage = `url('${photo}')`;
-        document.getElementById('showcase-link').setAttribute('href', url);
+        // Smooth image fade transition
+        const imgEl = document.getElementById('showcase-img');
+        if (imgEl) {
+            imgEl.style.opacity = '0';
+            setTimeout(() => {
+                imgEl.style.backgroundImage = `url('${photo}')`;
+                imgEl.style.opacity = '1';
+            }, 150);
+        }
+
+        // Mobile Elements
+        const mobileName = document.getElementById('showcase-name');
+        const mobileRole = document.getElementById('showcase-role');
+        const mobileSubject = document.getElementById('showcase-subject');
+        const mobileQuote = document.getElementById('showcase-quote');
+        const mobileLink = document.getElementById('showcase-link');
+
+        if (mobileName) mobileName.textContent = name;
+        if (mobileRole) mobileRole.textContent = role || 'Guru';
+        if (mobileSubject) mobileSubject.textContent = subject;
+        if (mobileQuote) mobileQuote.textContent = `"${quote}"`;
+        if (mobileLink) mobileLink.setAttribute('href', url);
+
+        // Desktop Elements
+        const deskName = document.getElementById('showcase-name-desktop');
+        const deskRole = document.getElementById('showcase-role-desktop');
+        const deskSubject = document.getElementById('showcase-subject-desktop');
+        const deskQuote = document.getElementById('showcase-quote-desktop');
+        const deskLink = document.getElementById('showcase-link-desktop');
+
+        if (deskName) deskName.textContent = name;
+        if (deskRole) deskRole.textContent = role || 'Guru';
+        if (deskSubject) deskSubject.textContent = subject;
+        if (deskQuote) deskQuote.textContent = `"${quote}"`;
+        if (deskLink) deskLink.setAttribute('href', url);
     }
 
     function autoCycleShowcase() {
@@ -626,7 +775,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         if (teachersListLength > 0) {
             selectShowcaseTeacher(0);
-            showcaseInterval = setInterval(autoCycleShowcase, 4000); // changes every 4 seconds
+            showcaseInterval = setInterval(autoCycleShowcase, 3000); // cycle every 3 seconds
         }
     });
 </script>
@@ -658,22 +807,32 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-4 gap-4" id="countdown-timer" data-date="{{ $featuredEvent->event_date }}">
-                <div class="bg-white text-primary p-4 rounded-lg text-center shadow-md">
-                    <span class="block text-3xl font-extrabold" id="days-val">00</span>
-                    <span class="text-xs uppercase font-bold">Hari</span>
-                </div>
-                <div class="bg-white text-primary p-4 rounded-lg text-center shadow-md">
-                    <span class="block text-3xl font-extrabold" id="hours-val">00</span>
-                    <span class="text-xs uppercase font-bold">Jam</span>
-                </div>
-                <div class="bg-white text-primary p-4 rounded-lg text-center shadow-md">
-                    <span class="block text-3xl font-extrabold" id="minutes-val">00</span>
-                    <span class="text-xs uppercase font-bold">Menit</span>
-                </div>
-                <div class="bg-white text-primary p-4 rounded-lg text-center shadow-md">
-                    <span class="block text-3xl font-extrabold" id="seconds-val">00</span>
-                    <span class="text-xs uppercase font-bold">Detik</span>
+            <!-- Unified Single White Box Countdown -->
+            <div class="bg-white text-primary p-4 sm:p-5 rounded-2xl shadow-lg border border-white/40" id="countdown-timer" data-date="{{ $featuredEvent->event_date }}">
+                <div class="flex items-center justify-around w-full text-primary px-1 sm:px-4">
+                    <!-- Hari -->
+                    <div class="flex flex-col items-center">
+                        <span class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono" id="days-val">00</span>
+                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider opacity-70">Hari</span>
+                    </div>
+                    <span class="text-xl sm:text-2xl font-bold opacity-30 pb-3">:</span>
+                    <!-- Jam -->
+                    <div class="flex flex-col items-center">
+                        <span class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono" id="hours-val">00</span>
+                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider opacity-70">Jam</span>
+                    </div>
+                    <span class="text-xl sm:text-2xl font-bold opacity-30 pb-3">:</span>
+                    <!-- Menit -->
+                    <div class="flex flex-col items-center">
+                        <span class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono" id="minutes-val">00</span>
+                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider opacity-70">Menit</span>
+                    </div>
+                    <span class="text-xl sm:text-2xl font-bold opacity-30 pb-3">:</span>
+                    <!-- Detik -->
+                    <div class="flex flex-col items-center">
+                        <span class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono" id="seconds-val">00</span>
+                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider opacity-70">Detik</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -720,13 +879,19 @@
 <!-- Latest News & Announcements (Warta) -->
 @if ($announcements->isNotEmpty())
 <section id="warta" class="py-section-gap px-margin-desktop max-w-container-max mx-auto">
-    <div class="flex justify-between items-end mb-12">
+    <div class="flex justify-between items-end mb-8 md:mb-12">
         <div>
             <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Warta &amp; Pengumuman</h3>
-            <p class="text-on-surface-variant">Informasi terkini seputar kegiatan dan perkembangan madrasah.</p>
+            <p class="text-on-surface-variant text-sm sm:text-base">Informasi terkini seputar kegiatan dan perkembangan madrasah.</p>
+        </div>
+        <!-- Swipe indicator for Mobile -->
+        <div class="flex items-center gap-1 text-xs text-primary/70 font-semibold md:hidden">
+            <span>Geser</span>
+            <span class="material-symbols-outlined text-sm animate-pulse">swipe_left</span>
         </div>
     </div>
-    <div class="grid md:grid-cols-3 gap-8">
+    <!-- Horizontal Scroll on Mobile, 3-Col Grid on Desktop -->
+    <div class="flex md:grid md:grid-cols-3 gap-5 md:gap-8 overflow-x-auto md:overflow-visible pb-4 md:pb-0 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0">
         @foreach ($announcements as $ann)
             @php
                 $imageUrl = $ann->image_path ? (filter_var($ann->image_path, FILTER_VALIDATE_URL) ? $ann->image_path : (Str::startsWith($ann->image_path, ['/storage', 'storage']) ? asset($ann->image_path) : asset('storage/' . $ann->image_path))) : 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=800';
@@ -734,7 +899,7 @@
                 $formattedDate = \Carbon\Carbon::parse($ann->published_at)->translatedFormat('d M Y');
                 $jsContent = json_encode($ann->content);
             @endphp
-            <div class="bg-surface rounded-lg overflow-hidden border border-outline-variant hover:shadow-lg transition-shadow group flex flex-col justify-between">
+            <div class="bg-surface rounded-lg overflow-hidden border border-outline-variant hover:shadow-lg transition-shadow group flex flex-col justify-between snap-start flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto">
                 <!-- Banner Image with Category Badge -->
                 <div class="relative aspect-[16/9] w-full bg-surface-container-low overflow-hidden">
                     <img src="{{ $imageUrl }}" alt="{{ $ann->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -744,7 +909,7 @@
                 </div>
 
                 <!-- Card Content -->
-                <div class="p-6 space-y-3 flex-grow flex flex-col justify-between">
+                <div class="p-5 sm:p-6 space-y-3 flex-grow flex flex-col justify-between">
                     <div>
                         <!-- Date -->
                         <div class="flex items-center text-[11px] font-bold text-on-surface-variant/80 uppercase tracking-wide mb-2">
@@ -755,12 +920,12 @@
                         </div>
                         
                         <!-- Title -->
-                        <h4 class="font-bold text-lg leading-snug text-on-surface hover:text-primary transition-colors line-clamp-2 cursor-pointer" onclick="openAnnouncementModal('{{ addslashes($ann->title) }}', '{{ $ann->category ?? 'Pengumuman' }}', '{{ $formattedDate }}', {!! $jsContent !!}, '{{ $imageUrl }}')">
+                        <h4 class="font-bold text-base sm:text-lg leading-snug text-on-surface hover:text-primary transition-colors line-clamp-2 cursor-pointer" onclick="openAnnouncementModal('{{ addslashes($ann->title) }}', '{{ $ann->category ?? 'Pengumuman' }}', '{{ $formattedDate }}', {!! $jsContent !!}, '{{ $imageUrl }}')">
                             {{ $ann->title }}
                         </h4>
                         
                         <!-- Description -->
-                        <div class="text-on-surface-variant text-sm line-clamp-3 mt-2">
+                        <div class="text-on-surface-variant text-xs sm:text-sm line-clamp-3 mt-2">
                             {!! strip_tags($ann->content) !!}
                         </div>
                     </div>
@@ -832,9 +997,9 @@
 
 <!-- School Achievements Grid -->
 @if ($achievements->isNotEmpty())
-<section class="py-section-gap bg-surface-container">
-    <div class="px-margin-desktop max-w-container-max mx-auto flex flex-col sm:flex-row justify-between items-center mb-12">
-        <div class="text-center sm:text-left mb-6 sm:mb-0">
+<section class="py-6 md:py-section-gap bg-surface-container">
+    <div class="px-margin-desktop max-w-container-max mx-auto flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-12">
+        <div class="text-center sm:text-left mb-4 sm:mb-0">
             <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Prestasi Madrasah</h3>
             <p class="text-on-surface-variant">Kebanggaan kami dalam mencetak generasi berprestasi.</p>
         </div>
@@ -842,7 +1007,8 @@
             <span class="material-symbols-outlined">emoji_events</span> Lihat Semua Prestasi
         </a>
     </div>
-    <div class="px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- 4 Achievement Cards (Hidden on Mobile) -->
+    <div class="px-margin-desktop max-w-container-max mx-auto hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         @foreach ($achievements->take(4) as $ach)
             <div class="bg-surface p-6 rounded-lg border border-outline-variant flex flex-col justify-between hover:bg-secondary-fixed transition-colors group">
                 <div>
@@ -1008,32 +1174,26 @@
 </section>
 
 <!-- Footer -->
-<footer class="bg-primary text-on-primary py-16 text-white">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-desktop py-12 max-w-container-max mx-auto text-white">
-        <div class="md:col-span-6 space-y-6">
+<footer class="bg-primary text-on-primary py-8 md:py-10 text-white">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-desktop py-4 max-w-container-max mx-auto text-white items-center">
+        <!-- School Info & Description -->
+        <div class="md:col-span-8 space-y-4">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-primary">
                     <span class="material-symbols-outlined text-3xl">school</span>
                 </div>
                 <h1 class="font-headline-md text-headline-md font-bold text-white">{{ $settings['school_name'] }}</h1>
             </div>
-            <p class="opacity-80 max-w-md text-sm leading-relaxed text-white">Lembaga pendidikan Islam yang berfokus pada pembentukan karakter Qur'ani dan keunggulan akademik yang kompetitif di era digital.</p>
+            <p class="opacity-80 max-w-lg text-sm leading-relaxed text-white">Lembaga pendidikan Islam yang berfokus pada pembentukan karakter Qur'ani dan keunggulan akademik yang kompetitif di era digital.</p>
         </div>
-        <div class="md:col-span-3 space-y-4">
-            <h6 class="font-bold uppercase tracking-widest text-secondary-fixed text-sm text-secondary-container">Tautan Cepat</h6>
-            <nav class="flex flex-col gap-3 opacity-80 text-sm">
-                <a class="hover:text-secondary-fixed transition-colors flex items-center gap-1" href="#sambutan"><span class="material-symbols-outlined text-xs">chevron_right</span> Profil Sekolah</a>
-                <a class="hover:text-secondary-fixed transition-colors flex items-center gap-1" href="#program"><span class="material-symbols-outlined text-xs">chevron_right</span> Program Unggulan</a>
-                <a class="hover:text-secondary-fixed transition-colors flex items-center gap-1" href="#warta"><span class="material-symbols-outlined text-xs">chevron_right</span> Berita Terkini</a>
-                <a class="hover:text-secondary-fixed transition-colors flex items-center gap-1" href="/achievements"><span class="material-symbols-outlined text-xs">chevron_right</span> Galeri Prestasi</a>
-            </nav>
-        </div>
-        <div class="md:col-span-3 space-y-4">
+
+        <!-- Media Sosial -->
+        <div class="md:col-span-4 space-y-3 md:text-right">
             <h6 class="font-bold uppercase tracking-widest text-secondary-fixed text-sm text-secondary-container">Media Sosial</h6>
-            <div class="flex gap-6 pt-2">
+            <div class="flex gap-5 pt-1 md:justify-end">
                 <!-- Instagram -->
-                <a href="https://www.instagram.com/midarunnajah_srobyong.mlonggo?igsi=NDVrd3dxMGhjY3ll" target="_blank" class="flex flex-col items-center gap-2 group">
-                    <div class="w-11 h-11 rounded-lg bg-white/10 flex items-center justify-center hover:bg-secondary-container hover:text-on-secondary-container transition-all hover:scale-110 shadow-md">
+                <a href="https://www.instagram.com/midarunnajah_srobyong.mlonggo?igsi=NDVrd3dxMGhjY3ll" target="_blank" class="flex flex-col items-center gap-1.5 group">
+                    <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-secondary-container hover:text-on-secondary-container transition-all hover:scale-110 shadow-md">
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
                         </svg>
@@ -1042,8 +1202,8 @@
                 </a>
                 
                 <!-- WhatsApp -->
-                <a href="https://wa.me/6285293382850" target="_blank" class="flex flex-col items-center gap-2 group">
-                    <div class="w-11 h-11 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all hover:scale-110 shadow-md">
+                <a href="https://wa.me/6285293382850" target="_blank" class="flex flex-col items-center gap-1.5 group">
+                    <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all hover:scale-110 shadow-md">
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.456h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                         </svg>
@@ -1052,8 +1212,8 @@
                 </a>
                 
                 <!-- Gmail -->
-                <a href="mailto:midarunnajahjepara@gmail.com" target="_blank" class="flex flex-col items-center gap-2 group">
-                    <div class="w-11 h-11 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#EA4335] hover:text-white transition-all hover:scale-110 shadow-md">
+                <a href="mailto:midarunnajahjepara@gmail.com" target="_blank" class="flex flex-col items-center gap-1.5 group">
+                    <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#EA4335] hover:text-white transition-all hover:scale-110 shadow-md">
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M24 5.457v13.917c0 .904-.732 1.637-1.636 1.637h-3.819V11.5L12 16.64 5.455 11.5v9.511H1.636A1.638 1.638 0 010 19.374V5.457c0-.904.732-1.636 1.636-1.636h3.819L12 9.49l6.545-5.67h3.819C23.268 3.82 24 4.553 24 5.457z"/>
                         </svg>
@@ -1063,10 +1223,77 @@
             </div>
         </div>
     </div>
-    <div class="border-t border-white/10 pt-8 mt-8 text-center px-margin-desktop opacity-60 text-xs">
+    <div class="border-t border-white/10 pt-4 mt-4 text-center px-margin-desktop opacity-60 text-xs">
         <p>© 2026 {{ $settings['school_name'] }}. All Rights Reserved.</p>
     </div>
 </footer>
+
+<script>
+    // Dynamic Scroll Contrast Adapter for Navbar Header
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (!header) return;
+        if (window.scrollY > 80) {
+            header.style.background = 'rgba(255, 255, 255, 0.92)';
+            header.style.backdropFilter = 'blur(16px)';
+            header.classList.add('shadow-md');
+        } else {
+            header.style.background = 'rgba(255, 255, 255, 0.25)';
+            header.style.backdropFilter = 'blur(20px)';
+            header.classList.remove('shadow-md');
+        }
+    });
+
+    // Active Navigation Underline & ScrollSpy Handler
+    document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.querySelectorAll('#desktopNav .nav-link');
+        if (!navLinks || navLinks.length === 0) return;
+
+        const sections = [
+            { id: '', link: navLinks[0] }, // Home (Top)
+            { id: 'sambutan', link: navLinks[1] },
+            { id: 'program', link: navLinks[2] },
+            { id: 'warta', link: navLinks[3] },
+            { id: 'kontak', link: navLinks[4] }
+        ];
+
+        function setActiveLink(activeLink) {
+            navLinks.forEach(link => {
+                if (link === activeLink) {
+                    link.classList.add('text-primary', 'border-primary', 'font-extrabold');
+                    link.classList.remove('text-slate-900', 'border-transparent');
+                } else {
+                    link.classList.remove('text-primary', 'border-primary', 'font-extrabold');
+                    link.classList.add('text-slate-900', 'border-transparent');
+                }
+            });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                setActiveLink(this);
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 200;
+            let currentSection = sections[0];
+
+            sections.forEach(sec => {
+                if (sec.id) {
+                    const el = document.getElementById(sec.id);
+                    if (el && el.offsetTop <= scrollPosition) {
+                        currentSection = sec;
+                    }
+                }
+            });
+
+            if (currentSection && currentSection.link) {
+                setActiveLink(currentSection.link);
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

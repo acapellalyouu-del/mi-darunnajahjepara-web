@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/settings', [AdminController::class, 'settings']);
     Route::post('/admin/settings', [AdminController::class, 'storeSettings']);
+    Route::post('/admin/toggle-maintenance', [AdminController::class, 'toggleMaintenance']);
 
     Route::get('/admin/events', [AdminController::class, 'events']);
     Route::post('/admin/events', [AdminController::class, 'storeEvent']);

@@ -114,10 +114,10 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 md:p-8 bg-surface">
-    <main class="w-full max-w-5xl bg-surface-container-lowest rounded-[20px] shadow-[0px_4px_20px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row min-h-[600px] border border-outline-variant/30">
+<body class="min-h-screen flex items-center justify-center p-3 sm:p-4 md:p-8 bg-surface">
+    <main class="w-full max-w-5xl bg-surface-container-lowest rounded-[20px] shadow-[0px_4px_20px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row min-h-0 md:min-h-[600px] border border-outline-variant/30">
         <!-- Left Side: Dark Teal Side -->
-        <section class="md:w-5/12 bg-primary relative overflow-hidden p-8 md:p-12 flex flex-col justify-between text-on-primary">
+        <section class="md:w-5/12 bg-primary relative overflow-hidden p-4 sm:p-5 md:p-12 flex flex-col justify-between text-on-primary">
             <!-- Animated Background / Pattern Layer -->
             <div class="absolute inset-0 islamic-pattern pointer-events-none opacity-40"></div>
             <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-container to-primary opacity-90 pointer-events-none"></div>
@@ -129,14 +129,14 @@
                         ? (filter_var($loginLogo, FILTER_VALIDATE_URL) ? $loginLogo : (\Illuminate\Support\Str::startsWith($loginLogo, ['/storage', 'storage']) ? asset($loginLogo) : asset('storage/' . ltrim($loginLogo, '/'))))
                         : '/images/logo.png';
                 @endphp
-                <div class="flex items-center gap-3 mb-16">
-                    <div class="w-12 h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-white/40 shadow-sm p-1.5">
+                <div class="flex items-center gap-3 mb-0 md:mb-16">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full overflow-hidden flex-shrink-0 border border-white/40 shadow-sm p-1 md:p-1.5">
                         <img class="w-full h-full object-contain" alt="{{ $school_name ?? 'MI Darun Najah' }} Logo" src="{{ $loginLogoUrl }}">
                     </div>
-                    <span class="font-headline-md text-headline-md font-bold tracking-tight">{{ $school_name ?? 'MI Darun Najah' }}</span>
+                    <span class="font-headline-md text-base md:text-headline-md font-bold tracking-tight">{{ $school_name ?? 'MI Darun Najah' }}</span>
                 </div>
-                <!-- Welcome Text -->
-                <div class="space-y-4">
+                <!-- Welcome Text (Hidden on Mobile) -->
+                <div class="space-y-4 hidden md:block">
                     <h1 class="font-headline-lg text-headline-lg leading-tight">Welcome Back, Administrator</h1>
                     <p class="font-body-md text-body-md opacity-80 max-w-xs">
                         Access the management portal to oversee academic operations, student records, and institutional growth.
@@ -146,11 +146,11 @@
         </section>
         
         <!-- Right Side: Login Form -->
-        <section class="md:w-7/12 bg-surface-container-lowest p-8 md:p-16 flex flex-col justify-center">
+        <section class="md:w-7/12 bg-surface-container-lowest p-6 md:p-16 flex flex-col justify-center">
             <div class="max-w-md mx-auto w-full">
-                <header class="mb-10">
-                    <h2 class="font-display-lg text-display-lg text-primary mb-2">Admin Login</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant">Please enter your credentials to access the dashboard.</p>
+                <header class="mb-6 md:mb-10">
+                    <h2 class="font-display-lg text-2xl md:text-display-lg text-primary mb-2">Admin Login</h2>
+                    <p class="font-body-md text-sm md:text-body-md text-on-surface-variant">Please enter your credentials to access the dashboard.</p>
                 </header>
 
                 <!-- Error & Lockout Messages -->
@@ -175,7 +175,7 @@
                     </div>
                 @endif
 
-                <form class="space-y-6" action="/login" method="POST" id="login-form">
+                <form class="space-y-6" action="/login" method="POST" id="login-form" autocomplete="off">
                     @csrf
                     <!-- Email Field -->
                     <div class="space-y-2">
@@ -184,7 +184,7 @@
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
                                 <span class="material-symbols-outlined text-[20px]">mail</span>
                             </div>
-                            <input class="block w-full pl-11 pr-4 py-3.5 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-md text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" id="email" name="email" placeholder="admin@darunnajah.edu" required="" type="email" value="{{ old('email') }}">
+                            <input class="block w-full pl-11 pr-4 py-3.5 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-md text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" id="email" name="email" placeholder="Masukkan Email" required="" type="email" value="{{ old('email') }}" autocomplete="off">
                         </div>
                     </div>
                     <!-- Password Field -->
@@ -194,7 +194,7 @@
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
                                 <span class="material-symbols-outlined text-[20px]">lock</span>
                             </div>
-                            <input class="block w-full pl-11 pr-12 py-3.5 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-md text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" id="password" name="password" placeholder="••••••••" required="" type="password">
+                            <input class="block w-full pl-11 pr-12 py-3.5 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-md text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" id="password" name="password" placeholder="Masukkan Password" required="" type="password" autocomplete="new-password">
                             <button class="absolute inset-y-0 right-0 pr-4 flex items-center text-outline-variant hover:text-primary transition-colors" type="button" id="toggle-password">
                                 <span class="material-symbols-outlined text-[20px]">visibility</span>
                             </button>

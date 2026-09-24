@@ -54,6 +54,9 @@
             <button onclick="setTarget('/')" id="btn-web" class="preset-btn active-preset px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-teal-600 text-white shadow-md">
                 <span class="material-symbols-outlined text-sm">language</span> <span>Web Publik</span>
             </button>
+            <button onclick="setTarget('/login')" id="btn-login" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800">
+                <span class="material-symbols-outlined text-sm">lock</span> <span>Admin Login</span>
+            </button>
             <button onclick="setTarget('/admin')" id="btn-admin" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800">
                 <span class="material-symbols-outlined text-sm">dashboard</span> <span>Admin Dashboard</span>
             </button>
@@ -195,6 +198,7 @@
 
             const btnMap = {
                 '/': 'btn-web',
+                '/login': 'btn-login',
                 '/admin': 'btn-admin',
                 '/admin/teachers': 'btn-teachers',
                 '/admin/announcements': 'btn-announcements',

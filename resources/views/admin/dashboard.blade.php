@@ -229,6 +229,34 @@
 </div>
 </div>
 </div>
+<!-- Web Maintenance Toggle Card -->
+@php
+    $isMaintenance = \App\Models\Setting::get('maintenance_mode', '0') === '1';
+@endphp
+<div class="bg-surface-container-lowest p-gutter rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+        <div class="p-3 {{ $isMaintenance ? 'bg-error-container/30 text-error' : 'bg-primary/10 text-primary' }} rounded-lg w-fit transition-colors">
+            <span class="material-symbols-outlined">{{ $isMaintenance ? 'build_circle' : 'verified_user' }}</span>
+        </div>
+        <!-- ON / OFF Toggle Switch -->
+        <form action="/admin/toggle-maintenance" method="POST" id="maintenance-form">
+            @csrf
+            <label class="relative inline-flex items-center cursor-pointer" title="Toggle Maintenance Mode">
+                <input type="checkbox" name="maintenance_mode" class="sr-only peer" onchange="document.getElementById('maintenance-form').submit()" {{ $isMaintenance ? 'checked' : '' }}>
+                <div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-error"></div>
+            </label>
+        </form>
+    </div>
+    <div>
+        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Web Maintenance</p>
+        <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full {{ $isMaintenance ? 'bg-error animate-pulse' : 'bg-primary' }}"></span>
+            <h3 class="font-headline-md text-sm md:text-base font-bold {{ $isMaintenance ? 'text-error' : 'text-primary' }}">
+                {{ $isMaintenance ? 'ON (Fix & Update)' : 'OFF (Normal Mode)' }}
+            </h3>
+        </div>
+    </div>
+</div>
 </section>
 <!-- Shortcuts & Activity Feed -->
 <section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
