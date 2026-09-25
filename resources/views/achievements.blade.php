@@ -176,7 +176,7 @@
             </div>
             <div class="w-full md:w-auto flex items-center gap-4">
                 <label class="font-label-sm text-label-sm text-on-surface-variant shrink-0">Filter Tahun:</label>
-                <select name="year" onchange="this.form.submit()" class="bg-surface border border-outline-variant text-on-surface text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
+                <select name="year" onchange="this.form.submit()" class="bg-surface border border-outline-variant text-on-surface text-sm rounded-lg focus:ring-primary focus:border-primary block w-full pl-4 pr-10 py-2.5 min-w-[150px] appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236f7979%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:1.25rem] bg-[right_0.75rem_center] bg-no-repeat cursor-pointer">
                     <option value="all" {{ request('year') === 'all' ? 'selected' : '' }}>Semua Tahun</option>
                     @for ($y = date('Y'); $y >= 2022; $y--)
                         <option value="{{ $y }}" {{ request('year') == $y ? 'selected' : '' }}>{{ $y }}</option>

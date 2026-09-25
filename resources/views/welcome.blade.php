@@ -317,15 +317,15 @@
 </script>
 
 <style>
-    #accreditationChevron {
-        display: inline-block;
-        transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
-        transform-origin: center;
-    }
-    #accreditationChevron.is-active {
-        transform: rotate(180deg);
-    }
     @media (max-width: 767px) {
+        #accreditationChevron {
+            display: inline-block;
+            transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+            transform-origin: center;
+        }
+        #accreditationChevron.is-active {
+            transform: rotate(180deg);
+        }
         .accreditation-accordion {
             display: flex;
             flex-direction: column;
@@ -349,13 +349,18 @@
             pointer-events: auto;
         }
     }
+    @media (min-width: 768px) {
+        #accreditationChevron {
+            display: none !important;
+        }
+    }
 </style>
 
 <!-- Accreditation & Identity Section -->
 <section class="py-12 bg-surface -mt-16 relative z-20">
     <div class="px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Main Card: Akreditasi A (Accordion Header for Mobile) -->
-        <div onclick="toggleAccreditationCard()" class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-outline-variant flex items-center justify-between gap-4 hover:shadow-md active:scale-[0.99] transition-all cursor-pointer md:cursor-default">
+        <div onclick="if (window.innerWidth < 768) toggleAccreditationCard()" class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border border-outline-variant flex items-center justify-between gap-4 hover:shadow-md active:scale-[0.99] md:active:scale-100 transition-all cursor-pointer md:cursor-default">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container shrink-0">
                     <span class="material-symbols-outlined text-2xl">verified</span>
@@ -366,7 +371,7 @@
                 </div>
             </div>
             <!-- Chevron Icon facing down with bouncy rotation for Mobile accordion -->
-            <div class="md:hidden text-primary transform" id="accreditationChevron" style="transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);">
+            <div class="block md:hidden text-primary transform" id="accreditationChevron">
                 <span class="material-symbols-outlined text-2xl">expand_more</span>
             </div>
         </div>
@@ -554,7 +559,6 @@
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Tahfidz 1 Juz</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Ekstrakurikuler Wajib</li>
                 </ul>
-                <a href="#kontak" class="w-full text-center border border-primary text-primary py-2 rounded-lg font-bold text-xs hover:bg-primary hover:text-white transition-colors block mt-2">Detail Kurikulum</a>
             </div>
 
             <!-- Card 2 Content -->
@@ -570,7 +574,6 @@
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> English &amp; Arabic Club</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> Program Pengembangan Diri</li>
                 </ul>
-                <a href="#kontak" class="w-full text-center bg-secondary-container text-on-secondary-container py-2 rounded-lg font-bold text-xs hover:opacity-90 transition-opacity block mt-2">Detail Kurikulum</a>
             </div>
 
             <!-- Card 3 Content -->
@@ -586,7 +589,6 @@
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Katering Makan Siang</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Bimbingan Belajar Khusus</li>
                 </ul>
-                <a href="#kontak" class="w-full text-center border border-primary text-primary py-2 rounded-lg font-bold text-xs hover:bg-primary hover:text-white transition-colors block mt-2">Detail Kurikulum</a>
             </div>
         </div>
     </div>
@@ -598,13 +600,12 @@
             <div>
                 <h4 class="font-bold text-primary font-headline-md mb-2">Kelas Reguler</h4>
                 <p class="text-on-surface-variant text-sm mb-6">Program pendidikan standar dengan kurikulum nasional dan muatan lokal keislaman.</p>
-                <ul class="space-y-2 mb-8 text-sm text-on-surface-variant">
+                <ul class="space-y-2 text-sm text-on-surface-variant">
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Kurikulum Merdeka</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Tahfidz 1 Juz</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Ekstrakurikuler Wajib</li>
                 </ul>
             </div>
-            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors block">Detail Kurikulum</a>
         </div>
 
         <!-- Card 2: Kelas Reguler Plus -->
@@ -613,14 +614,13 @@
             <div>
                 <h4 class="font-bold font-headline-md mb-2 text-white text-xl">Kelas Reguler Plus</h4>
                 <p class="text-on-primary/80 text-sm mb-6">Program intensif dengan penambahan jam belajar untuk tahfidz dan bahasa asing.</p>
-                <ul class="space-y-2 mb-8 text-sm opacity-90">
+                <ul class="space-y-2 text-sm opacity-90">
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> Kurikulum Merdeka Plus</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> Tahfidz 3 Juz</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> English &amp; Arabic Club</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> Program Pengembangan Diri</li>
                 </ul>
             </div>
-            <a href="#kontak" class="w-full text-center bg-secondary-container text-on-secondary-container py-2.5 rounded-lg font-bold hover:opacity-90 transition-opacity block">Detail Kurikulum</a>
         </div>
 
         <!-- Card 3: Full Day Class -->
@@ -628,14 +628,13 @@
             <div>
                 <h4 class="font-bold text-primary font-headline-md mb-2">Full Day Class</h4>
                 <p class="text-on-surface-variant text-sm mb-6">Program pendidikan menyeluruh hingga sore hari dengan pengayaan khusus.</p>
-                <ul class="space-y-2 mb-8 text-sm text-on-surface-variant">
+                <ul class="space-y-2 text-sm text-on-surface-variant">
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Pembelajaran Terpadu</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Tahfidz 5 Juz</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Katering Makan Siang</li>
                     <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Bimbingan Belajar Khusus</li>
                 </ul>
             </div>
-            <a href="#kontak" class="w-full text-center border border-primary text-primary py-2.5 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors block">Detail Kurikulum</a>
         </div>
     </div>
 </section>
