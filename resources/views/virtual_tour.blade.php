@@ -93,16 +93,8 @@
         </div>
     </div>
 
-    <!-- HUD Bottom Center Bar: Perfectly Centered Category Tabs & Room Switcher -->
+    <!-- HUD Bottom Center Bar: Perfectly Centered Room Switcher -->
     <div class="absolute bottom-6 left-0 right-0 z-20 pointer-events-auto w-full px-4 flex flex-col items-center justify-center text-center mx-auto">
-        <!-- Category Filter Tabs -->
-        <div class="glass-panel rounded-xl p-1.5 flex flex-wrap items-center justify-center gap-1.5 shadow-xl text-xs font-bold mb-2 mx-auto w-fit text-center">
-            <button data-cat="all" class="cat-btn px-3 py-1.5 rounded-lg transition bg-blue-600 text-white">Semua ({{ count($virtualTours) }})</button>
-            <button data-cat="fasilitas" class="cat-btn px-3 py-1.5 rounded-lg transition text-slate-300 hover:text-white hover:bg-slate-800">Fasilitas Utama</button>
-            <button data-cat="kelas13" class="cat-btn px-3 py-1.5 rounded-lg transition text-slate-300 hover:text-white hover:bg-slate-800">Kelas 1 - 3</button>
-            <button data-cat="kelas46" class="cat-btn px-3 py-1.5 rounded-lg transition text-slate-300 hover:text-white hover:bg-slate-800">Kelas 4 - 6</button>
-        </div>
-
         <!-- Room Buttons Container (Centered Horizontal Slider) -->
         <div class="glass-panel rounded-2xl p-2 flex items-center justify-center gap-2 shadow-2xl overflow-x-auto custom-scrollbar w-full max-w-full" id="locationSwitcher">
             @foreach($virtualTours as $index => $vt)
