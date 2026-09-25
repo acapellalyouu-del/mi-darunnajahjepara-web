@@ -338,6 +338,7 @@
         let glTexture = null;
 
         function createGLTexture(imgSource) {
+            if (!gl) return;
             if (glTexture) {
                 gl.deleteTexture(glTexture);
             }
@@ -348,22 +349,7 @@
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-
-            // Downscale image to 1080p (max 1920x1080) for instant WebGL texture creation & zero memory lag
-            let source = imgSource;
-            const maxW = 1920;
-            const maxH = 1080;
-            if (imgSource.width && imgSource.height && (imgSource.width > maxW || imgSource.height > maxH)) {
-                const offCanvas = document.createElement('canvas');
-                const ratio = Math.min(maxW / imgSource.width, maxH / imgSource.height);
-                offCanvas.width = Math.round(imgSource.width * ratio);
-                offCanvas.height = Math.round(imgSource.height * ratio);
-                const ctx = offCanvas.getContext('2d');
-                ctx.drawImage(imgSource, 0, 0, offCanvas.width, offCanvas.height);
-                source = offCanvas;
-            }
-
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, imgSource);
         }
 
         let state = {
@@ -379,7 +365,7 @@
         };
 
         function showLoading(show, roomName = '') {
-            // Disabled: Room image displays instantly (0ms delay)
+            // Disabled
         }
 
         function hideLoadingImmediately() {
@@ -420,6 +406,7 @@
         document.getElementById('btnConfirmModal').onclick = closeModal;
 
         function selectLocation(btn) {
+            if (!btn) return;
             const name = btn.dataset.name;
             const desc = btn.dataset.desc;
             const type = btn.dataset.type;
@@ -448,33 +435,31 @@
                 }
             });
 
-            // INSTANT DISPLAY (0ms delay): Update background room image immediately!
+            // Set background room image instantly
             const bgImg = document.getElementById('backgroundImg');
             if (bgImg) {
                 bgImg.src = url;
             }
 
             if (type === '360_panorama') {
+                canvasGL.classList.remove('hidden');
                 const img = new Image();
                 img.onload = () => {
                     try {
                         createGLTexture(img);
                         canvasGL.classList.remove('opacity-0');
                     } catch(e) {
-                        canvasGL.classList.add('opacity-0');
+                        console.error('WebGL texture error:', e);
+                        canvasGL.classList.remove('opacity-0');
                     }
                 };
                 img.onerror = () => {
-                    canvasGL.classList.add('opacity-0');
+                    canvasGL.classList.remove('opacity-0');
                 };
                 img.src = url;
             } else {
                 canvasGL.classList.add('opacity-0');
             }
-
-            state.yaw = 0.0;
-            state.pitch = 0.0;
-        }
 
             state.yaw = 0.0;
             state.pitch = 0.0;
