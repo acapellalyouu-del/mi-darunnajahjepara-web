@@ -1064,13 +1064,9 @@
         <div class="space-y-6">
             <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Pertanyaan Sering Diajukan (FAQ)</h3>
             <p class="text-on-surface-variant">Cari jawaban cepat untuk pertanyaan umum mengenai pendaftaran dan program sekolah kami.</p>
-            <div class="relative">
-                <input class="w-full bg-surface-container border-none rounded-lg py-4 pl-12 pr-6 focus:ring-2 focus:ring-primary shadow-sm" id="faq-search" placeholder="Cari pertanyaan... (mis: pendaftaran, biaya)" type="text" oninput="filterFaqs()"/>
-                <span class="material-symbols-outlined absolute left-4 top-4 text-on-surface-variant">search</span>
-            </div>
         </div>
         <div class="space-y-4" id="faq-list">
-            @foreach ($faqs->take(5) as $faq)
+            @foreach ($faqs as $faq)
                 <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 group cursor-pointer hover:shadow-sm transition-shadow faq-item" data-question="{{ strtolower($faq->question) }}" data-answer="{{ strtolower($faq->answer) }}">
                     <div class="flex justify-between items-center text-primary font-bold" onclick="toggleFaq({{ $faq->id }})">
                         <span>{{ $faq->question }}</span>
@@ -1096,20 +1092,6 @@
             ans.classList.add('hidden');
             icon.classList.remove('rotate-180');
         }
-    }
-
-    function filterFaqs() {
-        const query = document.getElementById('faq-search').value.toLowerCase().trim();
-        const items = document.querySelectorAll('.faq-item');
-        items.forEach(item => {
-            const q = item.getAttribute('data-question');
-            const a = item.getAttribute('data-answer');
-            if (q.includes(query) || a.includes(query)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        });
     }
 </script>
 @endif

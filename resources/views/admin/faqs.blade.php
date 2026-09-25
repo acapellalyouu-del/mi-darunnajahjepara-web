@@ -124,15 +124,120 @@
 @include('admin.partials.sidebar', ['active' => 'faqs'])
 
 <!-- Main Content Area -->
-<main class="ml-64 min-h-screen flex flex-col bg-white justify-center items-center p-8">
-    <div class="text-center max-w-md p-10 rounded-2xl border border-outline-variant/60 shadow-sm bg-surface-container-lowest">
-        <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
-            <span class="material-symbols-outlined text-4xl">engineering</span>
+<main class="ml-64 min-h-screen flex-1 p-8 bg-surface">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div>
+            <h1 class="font-headline-lg text-2xl md:text-3xl font-bold text-primary flex items-center gap-3">
+                <span class="material-symbols-outlined text-3xl">quiz</span>
+                Kelola FAQ (Pertanyaan Sering Diajukan)
+            </h1>
+            <p class="text-on-surface-variant font-body-md text-sm mt-1">
+                Kelola daftar pertanyaan dan jawaban yang akan ditampilkan pada halaman utama website.
+            </p>
         </div>
-        <h2 class="font-headline-md text-2xl font-bold text-primary mb-2">Under Maintenance</h2>
-        <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">
-            Halaman Manajemen FAQ saat ini sedang dalam tahap pemeliharaan sistem.
-        </p>
+        <button onclick="openAddModal()" class="inline-flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95 w-fit">
+            <span class="material-symbols-outlined text-xl">add</span>
+            Tambah FAQ Baru
+        </button>
+    </div>
+
+    @if (session('success'))
+        <div class="mb-6 p-4 bg-tertiary-container/20 border border-tertiary/30 text-tertiary rounded-xl flex items-center gap-3 font-medium text-sm">
+            <span class="material-symbols-outlined">check_circle</span>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
+
+    <!-- Search & Filter Card -->
+    <div class="bg-white rounded-2xl border border-outline-variant/60 p-4 mb-6 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div class="relative flex-1 w-full">
+            <span class="material-symbols-outlined absolute left-4 top-3.5 text-on-surface-variant">search</span>
+            <input id="faqs-search" type="text" placeholder="Cari pertanyaan atau jawaban..." class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-outline-variant bg-surface focus:ring-2 focus:ring-primary outline-none text-sm" oninput="filterTable()">
+        </div>
+        <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+            <select id="category-filter" onchange="filterTable()" class="px-4 py-2.5 rounded-xl border border-outline-variant bg-surface focus:ring-2 focus:ring-primary outline-none text-sm font-medium text-on-surface">
+                <option value="all">Semua Kategori</option>
+                <option value="Admissions">Admissions (Pendaftaran)</option>
+                <option value="Academic">Academic (Akademik)</option>
+                <option value="Facilities">Facilities (Fasilitas)</option>
+                <option value="Financial">Financial (Keuangan)</option>
+            </select>
+            <div class="text-xs text-on-surface-variant whitespace-nowrap bg-surface px-3 py-2 rounded-lg border border-outline-variant/40">
+                Menampilkan <span id="visible-count" class="font-bold text-primary">{{ count($faqs) }}</span> FAQ
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ List Table -->
+    <div class="bg-white rounded-2xl border border-outline-variant/60 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-low border-b border-outline-variant/60 text-xs uppercase font-bold text-on-surface-variant tracking-wider">
+                        <th class="py-4 px-6 text-center w-16">Urutan</th>
+                        <th class="py-4 px-6">Pertanyaan & Jawaban</th>
+                        <th class="py-4 px-6 w-36">Kategori</th>
+                        <th class="py-4 px-6 text-center w-28">Status</th>
+                        <th class="py-4 px-6 text-right w-32">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/40 text-sm">
+                    @forelse ($faqs as $faq)
+                        <tr class="faq-row hover:bg-surface-container-lowest/70 transition-colors"
+                            data-question="{{ strtolower($faq->question) }}"
+                            data-answer="{{ strtolower($faq->answer) }}"
+                            data-category="{{ $faq->category }}">
+                            <td class="py-4 px-6 text-center font-bold text-primary">
+                                #{{ $faq->order }}
+                            </td>
+                            <td class="py-4 px-6">
+                                <p class="font-bold text-on-surface text-base mb-1">{{ $faq->question }}</p>
+                                <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-2">{{ $faq->answer }}</p>
+                            </td>
+                            <td class="py-4 px-6">
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
+                                    {{ $faq->category }}
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-center">
+                                @if ($faq->is_active)
+                                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-tertiary/10 text-tertiary border border-tertiary/20">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                        Aktif
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-error/10 text-error border border-error/20">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                        Non-Aktif
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="py-4 px-6 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <button onclick="openEditModal({{ json_encode($faq) }})" class="p-2 text-primary hover:bg-primary/10 rounded-xl transition-colors" title="Edit FAQ">
+                                        <span class="material-symbols-outlined text-xl">edit</span>
+                                    </button>
+                                    <button onclick="openDeleteDialog({{ $faq->id }}, '{{ addslashes($faq->question) }}')" class="p-2 text-error hover:bg-error/10 rounded-xl transition-colors" title="Hapus FAQ">
+                                        <span class="material-symbols-outlined text-xl">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="py-12 px-6 text-center text-on-surface-variant">
+                                <div class="max-w-xs mx-auto text-center space-y-3">
+                                    <span class="material-symbols-outlined text-4xl text-outline">quiz</span>
+                                    <p class="font-medium text-on-surface">Belum ada data FAQ</p>
+                                    <p class="text-xs text-on-surface-variant">Klik tombol "+ Tambah FAQ Baru" di atas untuk menambahkan pertanyaan & jawaban FAQ pertama Anda.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
 
