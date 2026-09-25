@@ -124,7 +124,7 @@
 @include('admin.partials.sidebar', ['active' => 'faqs'])
 
 <!-- Main Content Area -->
-<main class="ml-64 min-h-screen flex-1 p-8 bg-surface">
+<main class="ml-0 lg:ml-64 min-h-screen flex-1 p-4 md:p-8 bg-surface">
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>

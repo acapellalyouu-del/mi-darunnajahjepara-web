@@ -140,30 +140,21 @@
 <body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
 @include('admin.partials.sidebar', ['active' => 'dashboard'])
 <!-- Main Content Wrapper -->
-<main class="ml-64 min-h-screen">
+<main class="ml-0 lg:ml-64 min-h-screen">
 <!-- Top Navigation Bar -->
-<header class="h-20 bg-surface border-b border-outline-variant sticky top-0 z-40 px-margin-desktop flex justify-between items-center">
+<header class="min-h-16 py-3 bg-surface border-b border-outline-variant sticky top-0 z-20 px-4 md:px-8 flex justify-between items-center gap-4">
 <div>
-<h2 class="font-headline-md text-headline-md font-bold text-primary">Overview</h2>
-<p class="font-body-md text-on-surface-variant">Welcome back, Administrator</p>
+<h2 class="font-headline-md text-xl md:text-headline-md font-bold text-primary">Overview</h2>
+<p class="font-body-md text-xs md:text-sm text-on-surface-variant">Welcome back, Administrator</p>
 </div>
-<div class="flex items-center gap-gutter">
+<div class="flex items-center gap-4">
 <div class="relative hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant focus-within:border-primary transition-all">
 <span class="material-symbols-outlined text-outline">search</span>
 <input class="bg-transparent border-none focus:ring-0 text-body-md w-48 lg:w-64" placeholder="Search records..." type="text"/>
 </div>
-<div class="flex items-center gap-4">
-<button class="relative p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
-<span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
-</button>
-<div class="h-10 w-[1px] bg-outline-variant mx-2"></div>
-<div class="flex items-center gap-3 group cursor-pointer">
-<div class="text-right">
-</div>
 </div>
 </header>
-<div class="p-margin-desktop space-y-section-gap">
+<div class="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-10">
 <!-- Stats Bento Grid -->
 <section class="bento-grid">
 <!-- Large Card: Main Stat -->

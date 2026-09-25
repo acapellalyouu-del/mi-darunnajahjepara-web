@@ -509,7 +509,90 @@
         <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Program Kelas</h3>
         <p class="text-on-surface-variant">Pilihan program pendidikan yang disesuaikan dengan kebutuhan belajar siswa.</p>
     </div>
-    <div class="grid md:grid-cols-3 gap-8 items-stretch">
+
+    <!-- Mobile Only: 3 Circles Side-by-Side + Soft Bounce Popup Card -->
+    <div class="block md:hidden space-y-6">
+        <!-- 3 Circles Side-by-Side -->
+        <div class="flex items-center justify-center gap-6 sm:gap-8">
+            <!-- Circle 1: Reguler -->
+            <button type="button" onclick="selectMobileClass(1)" onmouseenter="selectMobileClass(1)" id="btn-mobile-class-1" class="flex flex-col items-center gap-1.5 group outline-none cursor-pointer">
+                <div id="circle-mobile-class-1" class="w-14 h-14 rounded-full bg-emerald-100 border-2 border-emerald-500 text-teal-800 flex items-center justify-center shadow-md transition-all duration-300 transform scale-110">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14v6.5"/></svg>
+                </div>
+                <span class="text-xs font-bold text-primary tracking-tight">Reguler</span>
+            </button>
+
+            <!-- Circle 2: Reguler Plus (Unggulan) -->
+            <button type="button" onclick="selectMobileClass(2)" onmouseenter="selectMobileClass(2)" id="btn-mobile-class-2" class="flex flex-col items-center gap-1.5 group outline-none cursor-pointer relative">
+                <span class="absolute -top-2 bg-amber-400 text-amber-950 text-[9px] font-black px-2 py-0.5 rounded-full shadow z-10 uppercase tracking-tighter">PLUS</span>
+                <div id="circle-mobile-class-2" class="w-14 h-14 rounded-full bg-surface-variant border-2 border-transparent text-on-surface-variant flex items-center justify-center shadow-sm transition-all duration-300 transform">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <span class="text-xs font-semibold text-on-surface-variant tracking-tight">Reguler Plus</span>
+            </button>
+
+            <!-- Circle 3: Full Day -->
+            <button type="button" onclick="selectMobileClass(3)" onmouseenter="selectMobileClass(3)" id="btn-mobile-class-3" class="flex flex-col items-center gap-1.5 group outline-none cursor-pointer">
+                <div id="circle-mobile-class-3" class="w-14 h-14 rounded-full bg-surface-variant border-2 border-transparent text-on-surface-variant flex items-center justify-center shadow-sm transition-all duration-300 transform">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                </div>
+                <span class="text-xs font-semibold text-on-surface-variant tracking-tight">Full Day</span>
+            </button>
+        </div>
+
+        <!-- Soft Bounce Compact Popup Card Box -->
+        <div id="mobile-class-popup" class="max-w-sm mx-auto transition-all duration-300 transform scale-100 opacity-100 ease-out">
+            <!-- Card 1 Content (Default Active) -->
+            <div id="popup-content-1" class="rounded-2xl p-5 border border-emerald-300/80 shadow-lg space-y-3 transition-all duration-300" style="background-color: #e6f4f1;">
+                <div class="flex items-center justify-between">
+                    <h4 class="font-bold text-primary font-headline-md text-base">Kelas Reguler</h4>
+                    <span class="text-[10px] font-bold bg-emerald-200/80 text-teal-900 px-2.5 py-0.5 rounded-full">Standar</span>
+                </div>
+                <p class="text-on-surface-variant text-xs leading-relaxed">Program pendidikan standar dengan kurikulum nasional dan muatan lokal keislaman.</p>
+                <ul class="space-y-1.5 text-xs text-on-surface-variant">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Kurikulum Merdeka</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Tahfidz 1 Juz</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Ekstrakurikuler Wajib</li>
+                </ul>
+                <a href="#kontak" class="w-full text-center border border-primary text-primary py-2 rounded-lg font-bold text-xs hover:bg-primary hover:text-white transition-colors block mt-2">Detail Kurikulum</a>
+            </div>
+
+            <!-- Card 2 Content -->
+            <div id="popup-content-2" class="hidden rounded-2xl p-5 bg-primary text-on-primary shadow-xl border border-primary space-y-3 text-white transition-all duration-300 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-secondary-fixed text-on-secondary-fixed text-[9px] font-extrabold px-3 py-0.5 rounded-bl-lg">UNGGULAN</div>
+                <div class="flex items-center justify-between pr-12">
+                    <h4 class="font-bold font-headline-md text-base text-white">Kelas Reguler Plus</h4>
+                </div>
+                <p class="text-on-primary/80 text-xs leading-relaxed">Program intensif dengan penambahan jam belajar untuk tahfidz dan bahasa asing.</p>
+                <ul class="space-y-1.5 text-xs opacity-95">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> Kurikulum Merdeka Plus</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> Tahfidz 3 Juz</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> English &amp; Arabic Club</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-fixed text-sm">done</span> Program Pengembangan Diri</li>
+                </ul>
+                <a href="#kontak" class="w-full text-center bg-secondary-container text-on-secondary-container py-2 rounded-lg font-bold text-xs hover:opacity-90 transition-opacity block mt-2">Detail Kurikulum</a>
+            </div>
+
+            <!-- Card 3 Content -->
+            <div id="popup-content-3" class="hidden rounded-2xl p-5 border border-emerald-300/80 shadow-lg space-y-3 transition-all duration-300" style="background-color: #e6f4f1;">
+                <div class="flex items-center justify-between">
+                    <h4 class="font-bold text-primary font-headline-md text-base">Full Day Class</h4>
+                    <span class="text-[10px] font-bold bg-teal-200/80 text-teal-900 px-2.5 py-0.5 rounded-full">Full Day</span>
+                </div>
+                <p class="text-on-surface-variant text-xs leading-relaxed">Program pendidikan menyeluruh hingga sore hari dengan pengayaan khusus.</p>
+                <ul class="space-y-1.5 text-xs text-on-surface-variant">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Pembelajaran Terpadu</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Tahfidz 5 Juz</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Katering Makan Siang</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">done</span> Bimbingan Belajar Khusus</li>
+                </ul>
+                <a href="#kontak" class="w-full text-center border border-primary text-primary py-2 rounded-lg font-bold text-xs hover:bg-primary hover:text-white transition-colors block mt-2">Detail Kurikulum</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Only: Original 3 Grid Cards -->
+    <div class="hidden md:grid md:grid-cols-3 gap-8 items-stretch">
         <!-- Card 1: Kelas Reguler -->
         <div class="rounded-xl p-8 border border-emerald-200/80 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 ease-in-out cursor-pointer flex flex-col justify-between z-0 hover:z-20 shadow-sm" style="background-color: #e6f4f1;">
             <div>
@@ -556,6 +639,55 @@
         </div>
     </div>
 </section>
+
+<script>
+    function selectMobileClass(num) {
+        const popupContainer = document.getElementById('mobile-class-popup');
+        if (!popupContainer) return;
+
+        // Soft bounce effect trigger
+        popupContainer.classList.add('scale-95', 'opacity-70');
+        
+        setTimeout(() => {
+            for (let i = 1; i <= 3; i++) {
+                const circle = document.getElementById(`circle-mobile-class-${i}`);
+                const btn = document.getElementById(`btn-mobile-class-${i}`);
+                const content = document.getElementById(`popup-content-${i}`);
+
+                if (i === num) {
+                    if (circle) {
+                        circle.className = 'w-14 h-14 rounded-full bg-emerald-100 border-2 border-emerald-500 text-teal-800 flex items-center justify-center shadow-md transition-all duration-300 transform scale-110';
+                    }
+                    if (btn) {
+                        const label = btn.querySelector('span:last-child');
+                        if (label) {
+                            label.className = 'text-xs font-bold text-primary tracking-tight';
+                        }
+                    }
+                    if (content) content.classList.remove('hidden');
+                } else {
+                    if (circle) {
+                        circle.className = 'w-14 h-14 rounded-full bg-surface-variant border-2 border-transparent text-on-surface-variant flex items-center justify-center shadow-sm transition-all duration-300 transform hover:scale-105';
+                    }
+                    if (btn) {
+                        const label = btn.querySelector('span:last-child');
+                        if (label) {
+                            label.className = 'text-xs font-semibold text-on-surface-variant tracking-tight';
+                        }
+                    }
+                    if (content) content.classList.add('hidden');
+                }
+            }
+
+            // Soft bounce back animation
+            popupContainer.classList.remove('scale-95', 'opacity-70');
+            popupContainer.classList.add('scale-105');
+            setTimeout(() => {
+                popupContainer.classList.remove('scale-105');
+            }, 140);
+        }, 100);
+    }
+</script>
 
 <!-- Featured Programs (Dynamic Extracurriculars) -->
 @if ($extracurriculars->isNotEmpty())

@@ -7,7 +7,6 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -111,89 +110,149 @@
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container flex min-h-screen overflow-hidden">
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden">
 @include('admin.partials.sidebar', ['active' => 'teachers'])
 <!-- Main Content Canvas -->
-<main class="flex-1 ml-64 flex flex-col h-screen">
+<main class="flex-1 ml-0 lg:ml-64 flex flex-col min-h-screen pt-14 lg:pt-0">
 <!-- Top Toolbar -->
-<header class="h-20 px-8 flex justify-between items-center bg-surface border-b border-outline-variant">
+<header class="min-h-16 py-3 px-4 md:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center bg-surface border-b border-outline-variant gap-3">
 <div class="flex flex-col">
-<h2 class="font-headline-md text-headline-md text-primary font-bold">Teacher Management</h2>
+<h2 class="font-headline-md text-lg md:text-headline-md text-primary font-bold">Teacher Management</h2>
 <nav class="flex text-xs text-on-surface-variant/60 gap-1">
-<a class="hover:text-primary" href="#">Dashboard</a>
+<a class="hover:text-primary" href="/admin">Dashboard</a>
 <span>/</span>
 <span class="text-on-surface-variant">Teachers</span>
 </nav>
 </div>
-<div class="flex items-center gap-4">
-<div class="relative group">
-<input class="pl-10 pr-4 py-2 w-64 bg-surface-container-lowest border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-full font-body-md text-body-md transition-all" placeholder="Search teachers..." type="text"/>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+<div class="relative group w-full sm:w-auto">
+<input class="pl-10 pr-4 py-2 w-full sm:w-64 bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-full font-body-md text-sm transition-all" placeholder="Search teachers..." type="text"/>
 <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant group-focus-within:text-primary" data-icon="search">search</span>
 </div>
-<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg flex items-center gap-2 font-label-md text-label-md shadow-sm hover:opacity-90 active:scale-95 transition-all" onclick="openAddModal()">
-<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-lg flex items-center justify-center gap-2 font-label-md text-sm shadow-sm hover:opacity-90 active:scale-95 transition-all cursor-pointer" onclick="openAddModal()">
+<span class="material-symbols-outlined text-lg" data-icon="person_add">person_add</span>
                     Add New Teacher
                 </button>
 </div>
 </header>
 <!-- Content Area -->
-<div class="flex-1 p-8 overflow-y-auto custom-scrollbar">
+<div class="flex-1 p-4 md:p-8">
 <!-- Stats Row -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-6 mb-6 md:mb-8">
+<div class="bg-surface-container-lowest p-4 sm:p-6 rounded-xl border border-outline-variant flex items-center gap-4">
+<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-xl sm:text-2xl" data-icon="groups">groups</span>
 </div>
 <div>
-<p class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Total Teachers</p>
-<p class="font-display-lg text-[32px] text-primary">{{ $teachers->count() }}</p>
+<p class="text-on-surface-variant font-label-sm text-[11px] sm:text-label-sm uppercase tracking-wider">Total Teachers</p>
+<p class="font-display-lg text-2xl sm:text-[32px] text-primary font-bold">{{ $teachers->count() }}</p>
 </div>
 </div>
-<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary">
-<span class="material-symbols-outlined" data-icon="verified">verified</span>
-</div>
-<div>
-<p class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Certified (NUPTK)</p>
-<p class="font-display-lg text-[32px] text-tertiary">{{ $teachers->filter(fn($t) => !empty($t->nip))->count() }}</p>
-</div>
-</div>
-<div class="bg-secondary-container p-6 rounded-xl border border-secondary-fixed flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-white/40 flex items-center justify-center text-on-secondary-container">
-<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<div class="bg-surface-container-lowest p-4 sm:p-6 rounded-xl border border-outline-variant flex items-center gap-4">
+<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary flex-shrink-0">
+<span class="material-symbols-outlined text-xl sm:text-2xl" data-icon="verified">verified</span>
 </div>
 <div>
-<p class="text-on-secondary-fixed-variant font-label-sm text-label-sm uppercase tracking-wider">Active Programs</p>
-<p class="font-display-lg text-[32px] text-on-secondary-container">{{ \App\Models\Extracurricular::where('is_active', true)->count() }}</p>
+<p class="text-on-surface-variant font-label-sm text-[11px] sm:text-label-sm uppercase tracking-wider">Certified (NUPTK)</p>
+<p class="font-display-lg text-2xl sm:text-[32px] text-tertiary font-bold">{{ $teachers->filter(fn($t) => !empty($t->nip))->count() }}</p>
+</div>
+</div>
+<div class="bg-secondary-container p-4 sm:p-6 rounded-xl border border-secondary-fixed flex items-center gap-4">
+<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/40 flex items-center justify-center text-on-secondary-container flex-shrink-0">
+<span class="material-symbols-outlined text-xl sm:text-2xl" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div>
+<p class="text-on-secondary-fixed-variant font-label-sm text-[11px] sm:text-label-sm uppercase tracking-wider">Active Programs</p>
+<p class="font-display-lg text-2xl sm:text-[32px] text-on-secondary-container font-bold">{{ \App\Models\Extracurricular::where('is_active', true)->count() }}</p>
 </div>
 </div>
 </div>
 <!-- Table Container -->
 <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm">
 <!-- Table Filters -->
-<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low/50">
-<div class="flex items-center gap-2">
-<span class="text-on-surface-variant font-label-sm text-label-sm">Show:</span>
-<select class="bg-transparent border-none text-on-surface font-label-md text-label-md focus:ring-0">
+<div class="p-3 sm:p-4 border-b border-outline-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-surface-container-low/50">
+<div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+<span class="text-on-surface-variant font-label-sm text-xs sm:text-label-sm">Show:</span>
+<select class="bg-transparent border-none text-on-surface font-label-md text-xs sm:text-label-md focus:ring-0">
 <option>10 entries</option>
 <option>25 entries</option>
 <option>50 entries</option>
 </select>
 </div>
-<div class="flex gap-2">
-<button class="flex items-center gap-2 px-3 py-1.5 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors">
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 py-1.5 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-sm text-xs transition-colors">
 <span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
                             Filter
                         </button>
-<button class="flex items-center gap-2 px-3 py-1.5 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 py-1.5 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-sm text-xs transition-colors">
 <span class="material-symbols-outlined text-sm" data-icon="download">download</span>
                             Export
                         </button>
 </div>
 </div>
-<!-- Actual Data Table -->
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
+
+<!-- Mobile Cards View (< sm) -->
+<div class="block sm:hidden divide-y divide-outline-variant/30">
+@forelse ($teachers as $teacher)
+<div class="p-4 space-y-3 bg-surface-container-lowest">
+    <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-lg overflow-hidden border border-outline-variant bg-surface-container-high flex-shrink-0">
+                @if ($teacher->photo_path)
+                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $teacher->photo_path) }}"/>
+                @else
+                    <div class="w-full h-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                        {{ substr($teacher->name, 0, 1) }}
+                    </div>
+                @endif
+            </div>
+            <div>
+                <p class="font-semibold text-primary text-sm leading-tight">{{ $teacher->name }}</p>
+                <p class="text-xs text-on-surface-variant mt-0.5">{{ $teacher->subject }}</p>
+                <p class="text-[10px] text-on-surface-variant/70 font-mono mt-0.5">NIP/NUPTK: {{ $teacher->nip ?? '-' }}</p>
+            </div>
+        </div>
+        <div>
+            @if(($teacher->role ?? 'Guru') === 'Kepala Sekolah')
+                <span class="px-2 py-0.5 bg-primary text-on-primary text-[10px] font-bold rounded-full">Kepala</span>
+            @elseif(($teacher->role ?? 'Guru') === 'Wakil Kepala Sekolah')
+                <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full">Waka</span>
+            @else
+                <span class="px-2 py-0.5 bg-surface-variant text-on-surface-variant text-[10px] font-bold rounded-full">Guru</span>
+            @endif
+        </div>
+    </div>
+    
+    <div class="flex items-center justify-between pt-2 border-t border-outline-variant/20">
+        <div class="flex items-center gap-2">
+            <span class="text-xs text-on-surface-variant">Tampil:</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input {{ $teacher->is_active ? 'checked' : '' }} class="sr-only peer" type="checkbox" onchange="toggleTeacherActive({{ $teacher->id }}, this)"/>
+                <div class="relative w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:bg-secondary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:left-[18px]"></div>
+            </label>
+        </div>
+        <div class="flex gap-2">
+            <button onclick="openEditModal({{ json_encode($teacher) }})" class="p-1.5 text-primary hover:bg-primary/10 rounded-lg border border-primary/20 transition-colors flex items-center gap-1 text-xs" title="Edit">
+                <span class="material-symbols-outlined text-base" data-icon="edit">edit</span>
+                <span>Edit</span>
+            </button>
+            <button onclick="openDeleteDialog({{ $teacher->id }}, '{{ addslashes($teacher->name) }}')" class="p-1.5 text-error hover:bg-error/10 rounded-lg border border-error/20 transition-colors flex items-center gap-1 text-xs" title="Delete">
+                <span class="material-symbols-outlined text-base" data-icon="delete">delete</span>
+                <span>Hapus</span>
+            </button>
+        </div>
+    </div>
+</div>
+@empty
+<div class="p-6 text-center text-on-surface-variant text-sm">
+    Belum ada data guru. Silakan tambahkan melalui tombol di atas.
+</div>
+@endforelse
+</div>
+
+<!-- Desktop Data Table (>= sm) -->
+<div class="hidden sm:block overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[650px]">
 <thead>
 <tr class="bg-surface-container text-on-surface-variant uppercase text-[11px] font-bold tracking-widest border-b border-outline-variant">
 <th class="px-6 py-4">Teacher</th>
@@ -209,7 +268,7 @@
 <tr class="hover:bg-surface-container-low/30 transition-colors">
 <td class="px-6 py-4 whitespace-nowrap">
 <div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-lg overflow-hidden border border-outline-variant bg-surface-container-high">
+<div class="w-10 h-10 rounded-lg overflow-hidden border border-outline-variant bg-surface-container-high flex-shrink-0">
 @if ($teacher->photo_path)
     <img class="w-full h-full object-cover" src="{{ asset('storage/' . $teacher->photo_path) }}"/>
 @else
@@ -263,100 +322,102 @@
 </div>
 </div>
 </main>
+
 <!-- Modal: Confirmation Dialog (Hidden by Default) -->
 <div class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4" id="delete-dialog">
-<div class="fixed inset-0 bg-on-background/40 glass-overlay"></div>
-<div class="relative bg-surface-container-lowest w-full max-w-md p-8 rounded-2xl shadow-2xl border border-outline-variant animate-in fade-in zoom-in duration-200">
-<div class="w-16 h-16 bg-error-container rounded-full flex items-center justify-center text-error mx-auto mb-6">
-<span class="material-symbols-outlined text-3xl" data-icon="warning">warning</span>
+<div class="fixed inset-0 bg-on-background/40 glass-overlay" onclick="closeDeleteDialog()"></div>
+<div class="relative bg-surface-container-lowest w-full max-w-md p-6 sm:p-8 rounded-2xl shadow-2xl border border-outline-variant animate-in fade-in zoom-in duration-200">
+<div class="w-12 h-12 sm:w-16 sm:h-16 bg-error-container rounded-full flex items-center justify-center text-error mx-auto mb-4 sm:mb-6">
+<span class="material-symbols-outlined text-2xl sm:text-3xl" data-icon="warning">warning</span>
 </div>
-<h3 class="text-center font-headline-md text-headline-md font-bold mb-2">Delete Teacher?</h3>
-<p class="text-center text-on-surface-variant font-body-md text-body-md mb-8">
+<h3 class="text-center font-headline-md text-lg sm:text-headline-md font-bold mb-2">Delete Teacher?</h3>
+<p class="text-center text-on-surface-variant font-body-md text-xs sm:text-body-md mb-6 sm:mb-8">
                 Are you sure you want to delete <span class="font-bold text-on-surface" id="teacher-name-to-delete">Teacher Name</span>? This action is permanent and cannot be undone.
             </p>
-<div class="flex gap-4">
-<button class="flex-1 py-3 px-4 border border-outline-variant text-on-surface-variant rounded-xl font-label-md text-label-md hover:bg-surface-container transition-colors" onclick="closeDeleteDialog()">
+<div class="flex gap-3 sm:gap-4">
+<button class="flex-1 py-2.5 sm:py-3 px-4 border border-outline-variant text-on-surface-variant rounded-xl font-label-md text-xs sm:text-label-md hover:bg-surface-container transition-colors" onclick="closeDeleteDialog()">
                     No, Cancel
                 </button>
-<button class="flex-1 py-3 px-4 bg-error text-on-error rounded-xl font-label-md text-label-md hover:opacity-90 shadow-lg shadow-error/20 active:scale-95 transition-all" onclick="confirmDelete()">
+<button class="flex-1 py-2.5 sm:py-3 px-4 bg-error text-on-error rounded-xl font-label-md text-xs sm:text-label-md hover:opacity-90 shadow-lg shadow-error/20 active:scale-95 transition-all" onclick="confirmDelete()">
                     Yes, Delete
                 </button>
 </div>
 </div>
 </div>
+
 <!-- Modal: Add/Edit Teacher Form -->
-<div class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4" id="add-modal">
-<div class="fixed inset-0 bg-on-background/40 glass-overlay"></div>
-<div class="relative bg-surface-container-lowest w-full max-w-2xl p-8 rounded-2xl shadow-2xl border border-outline-variant animate-in fade-in zoom-in duration-200">
-<div class="flex justify-between items-center mb-8">
-<h3 class="font-headline-md text-headline-md font-bold text-primary" id="modal-title">Add New Teacher</h3>
-<button class="p-2 hover:bg-surface-container rounded-full text-on-surface-variant" onclick="document.getElementById('add-modal').classList.add('hidden')">
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4 py-6" id="add-modal">
+<div class="fixed inset-0 bg-on-background/40 glass-overlay" onclick="document.getElementById('add-modal').classList.add('hidden')"></div>
+<div class="relative bg-surface-container-lowest w-full max-w-2xl p-4 sm:p-8 rounded-2xl shadow-2xl border border-outline-variant animate-in fade-in zoom-in duration-200 max-h-[90vh] flex flex-col">
+<div class="flex justify-between items-center mb-4 sm:mb-6 flex-shrink-0">
+<h3 class="font-headline-md text-base sm:text-headline-md font-bold text-primary" id="modal-title">Add New Teacher</h3>
+<button class="p-1.5 sm:p-2 hover:bg-surface-container rounded-full text-on-surface-variant" onclick="document.getElementById('add-modal').classList.add('hidden')">
 <span class="material-symbols-outlined" data-icon="close">close</span>
 </button>
 </div>
-<form action="/admin/teachers" method="POST" enctype="multipart/form-data" class="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+<form action="/admin/teachers" method="POST" enctype="multipart/form-data" class="space-y-4 overflow-y-auto pr-1 flex-1">
 @csrf
 <input type="hidden" name="id" id="teacher-id" value="">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">Full Name (with degree)</label>
-<input name="name" id="teacher-name" required class="w-full bg-surface border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md" placeholder="e.g. Ust. Ahmad Syarifuddin, M.Pd" type="text"/>
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">Full Name (with degree)</label>
+<input name="name" id="teacher-name" required class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm" placeholder="e.g. Ust. Ahmad Syarifuddin, M.Pd" type="text"/>
 </div>
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">NUPTK Number (NIP)</label>
-<input name="nip" id="teacher-nip" class="w-full bg-surface border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md" placeholder="16-digit code" type="text"/>
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">NUPTK Number (NIP)</label>
+<input name="nip" id="teacher-nip" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm" placeholder="16-digit code" type="text"/>
 </div>
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">Jabatan / Peran</label>
-<select name="role" id="teacher-role" required class="w-full bg-surface border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md">
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">Jabatan / Peran</label>
+<select name="role" id="teacher-role" required class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm">
 <option value="Guru">Guru Biasa</option>
 <option value="Kepala Sekolah">Kepala Sekolah</option>
 <option value="Wakil Kepala Sekolah">Wakil Kepala Sekolah</option>
 </select>
 </div>
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">Primary Subject</label>
-<select name="subject" id="teacher-subject" required class="w-full bg-surface border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md">
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">Primary Subject</label>
+<select name="subject" id="teacher-subject" required class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm">
 <option value="Fiqh & Aqidah">Fiqh &amp; Aqidah</option>
 <option value="Mathematics">Mathematics</option>
 <option value="Arabic Language">Arabic Language</option>
 <option value="Physical Education">Physical Education</option>
 </select>
 </div>
-<div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">Urutan / Prioritas Tampilan (1 = Teratas)</label>
-<input name="order" id="teacher-order" class="w-full bg-surface border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md" placeholder="e.g. 1 untuk Kepala Sekolah, 2, 3 dst." type="number" value="2"/>
+<div class="space-y-1 sm:col-span-2">
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">Urutan / Prioritas Tampilan (1 = Teratas)</label>
+<input name="order" id="teacher-order" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm" placeholder="e.g. 1 untuk Kepala Sekolah, 2, 3 dst." type="number" value="2"/>
 </div>
 </div>
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">Quote Guru</label>
-<textarea name="quote" id="teacher-quote" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md" rows="2" placeholder="e.g. Pendidikan sejati bukan hanya mentransfer ilmu..."></textarea>
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">Quote Guru</label>
+<textarea name="quote" id="teacher-quote" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm" rows="2" placeholder="e.g. Pendidikan sejati bukan hanya mentransfer ilmu..."></textarea>
 </div>
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">Biografi Singkat</label>
-<textarea name="bio" id="teacher-bio" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md" rows="3" placeholder="Jelaskan biografi singkat mengenai guru..."></textarea>
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">Biografi Singkat</label>
+<textarea name="bio" id="teacher-bio" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm" rows="3" placeholder="Jelaskan biografi singkat mengenai guru..."></textarea>
 </div>
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">Pendidikan (satu baris per entri)</label>
-<textarea name="education" id="teacher-education" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md" rows="2" placeholder="e.g. Master of Education (M.Pd.) - UPI (2010 - 2012)"></textarea>
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">Pendidikan (satu baris per entri)</label>
+<textarea name="education" id="teacher-education" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm" rows="2" placeholder="e.g. Master of Education (M.Pd.) - UPI (2010 - 2012)"></textarea>
 </div>
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant">Pengalaman Kerja (satu baris per entri)</label>
-<textarea name="experience" id="teacher-experience" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md" rows="2" placeholder="e.g. Senior Mathematics Instructor - MI Darun Najah (2015 - Present)"></textarea>
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant">Pengalaman Kerja (satu baris per entri)</label>
+<textarea name="experience" id="teacher-experience" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm" rows="2" placeholder="e.g. Senior Mathematics Instructor - MI Darun Najah (2015 - Present)"></textarea>
 </div>
 <div class="space-y-1">
-<label class="font-label-sm text-label-sm text-on-surface-variant block">Profile Photo</label>
+<label class="font-label-sm text-xs sm:text-label-sm text-on-surface-variant block">Profile Photo</label>
 <div id="current-photo-container" class="hidden mb-2 items-center gap-3">
     <img id="current-photo-preview" src="" class="w-16 h-16 object-cover rounded-lg border border-outline-variant">
     <div>
         <p class="text-xs text-on-surface-variant">Foto saat ini. Pilih berkas baru untuk mengubah.</p>
     </div>
 </div>
-<input type="file" id="teacher-photo-input" name="photo" class="w-full bg-surface border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2 font-body-md" accept="image/*"/>
+<input type="file" id="teacher-photo-input" name="photo" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2 font-body-md text-xs" accept="image/*"/>
 </div>
-<div class="flex justify-end gap-4 pt-4 border-t border-outline-variant">
-<button class="px-6 py-2.5 text-on-surface-variant font-label-md" onclick="document.getElementById('add-modal').classList.add('hidden')" type="button">Cancel</button>
-<button class="bg-primary text-on-primary px-8 py-2.5 rounded-lg font-label-md shadow-lg shadow-primary/20 hover:opacity-90 transition-all" type="submit" id="submit-button">Save Teacher Profile</button>
+<div class="flex justify-end gap-3 pt-4 border-t border-outline-variant flex-shrink-0">
+<button class="px-5 py-2 text-on-surface-variant font-label-md text-xs sm:text-sm" onclick="document.getElementById('add-modal').classList.add('hidden')" type="button">Cancel</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md text-xs sm:text-sm shadow-lg shadow-primary/20 hover:opacity-90 transition-all" type="submit" id="submit-button">Save Teacher Profile</button>
 </div>
 </form>
 </div>

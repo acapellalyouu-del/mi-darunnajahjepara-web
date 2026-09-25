@@ -124,11 +124,11 @@
 @include('admin.partials.sidebar', ['active' => 'achievements'])
 
 <!-- Main Content Area -->
-<main class="ml-64 min-h-screen flex flex-col">
+<main class="ml-0 lg:ml-64 min-h-screen flex flex-col">
     <!-- Top Bar -->
-    <header class="h-20 px-8 flex justify-between items-center bg-surface border-b border-outline-variant">
+    <header class="min-h-16 py-3 px-4 md:px-8 flex justify-between items-center bg-surface border-b border-outline-variant gap-4">
         <div class="flex flex-col">
-            <h2 class="font-headline-md text-headline-md text-primary font-bold">Manage Achievements</h2>
+            <h2 class="font-headline-md text-lg md:text-headline-md text-primary font-bold">Manage Achievements</h2>
             <nav class="flex text-xs text-on-surface-variant/60 gap-1">
                 <a class="hover:text-primary" href="/admin">Dashboard</a>
                 <span>/</span>

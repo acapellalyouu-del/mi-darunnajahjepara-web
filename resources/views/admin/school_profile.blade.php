@@ -124,12 +124,12 @@
 @include('admin.partials.sidebar', ['active' => 'school_profile'])
 
 <!-- Main Content Area -->
-<form action="/admin/settings" method="POST" enctype="multipart/form-data" class="ml-64 min-h-screen flex flex-col bg-background">
+<form action="/admin/settings" method="POST" enctype="multipart/form-data" class="ml-0 lg:ml-64 min-h-screen flex flex-col bg-background">
     @csrf
     <!-- TopNavBar -->
-    <header class="h-16 flex items-center justify-between px-10 bg-surface border-b border-outline-variant sticky top-0 z-40">
+    <header class="min-h-16 py-3 flex items-center justify-between px-4 md:px-8 bg-surface border-b border-outline-variant sticky top-0 z-20 gap-4">
         <div>
-            <h2 class="font-headline-md text-headline-md font-bold text-primary">School Profile &amp; Settings</h2>
+            <h2 class="font-headline-md text-lg md:text-headline-md font-bold text-primary">School Profile &amp; Settings</h2>
             <p class="text-on-surface-variant text-xs">Manage your institution's public identity and core information.</p>
         </div>
         <div class="flex gap-4">

@@ -179,7 +179,7 @@
 @include('admin.partials.sidebar', ['active' => 'hero_banners'])
 
 <!-- Main Content -->
-<main class="flex-1 ml-0 md:ml-64 p-margin-mobile md:p-margin-desktop w-full max-w-container-max mx-auto overflow-x-hidden">
+<main class="flex-1 ml-0 lg:ml-64 p-4 md:p-8 w-full max-w-container-max mx-auto overflow-x-hidden">
 <!-- Header Section -->
 <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
 <div>

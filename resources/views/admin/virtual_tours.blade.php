@@ -192,7 +192,7 @@
 @include('admin.partials.sidebar', ['active' => 'virtual_tours'])
 
 <!-- Main Content Area -->
-<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop bg-surface-bright min-h-screen">
+<main class="flex-1 ml-0 lg:ml-64 p-4 md:p-8 bg-surface-bright min-h-screen">
 <!-- Header -->
 <header class="flex justify-between items-center mb-8">
 <div>

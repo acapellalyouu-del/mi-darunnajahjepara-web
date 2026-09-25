@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -104,89 +103,93 @@
       }
     </script>
 <style>
+        body { font-family: 'Work Sans', sans-serif; }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .active-nav {
-            background-color: #006666; /* primary-container */
-            color: #93e1e0; /* on-primary-container */
+            background-color: #006666;
+            color: #93e1e0;
         }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #bec9c8; border-radius: 10px; }
         .editor-btn { padding: 4px 8px; border-radius: 4px; transition: background 0.2s; }
         .editor-btn:hover { background: #e1e3e4; }
+        .glass-overlay { backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.8); }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
-<div class="flex h-screen overflow-hidden">
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden">
+<div class="block lg:flex min-h-screen">
 @include('admin.partials.sidebar', ['active' => 'announcements'])
-<main class="ml-64 flex-1 flex flex-col h-full bg-surface">
-<form id="announcement-form" action="/admin/announcements" method="POST" enctype="multipart/form-data" class="flex flex-col h-full">
+<main class="ml-0 lg:ml-64 flex-1 flex flex-col min-h-screen pt-14 lg:pt-0 bg-surface">
+<form id="announcement-form" action="/admin/announcements" method="POST" enctype="multipart/form-data" class="flex flex-col min-h-screen">
 @csrf
 <input type="hidden" name="id" id="announcement-id" value="">
 <!-- Header Bar -->
-<header class="h-16 border-b border-outline-variant flex items-center justify-between px-margin-desktop bg-white">
+<header class="min-h-16 py-3 border-b border-outline-variant flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 md:px-8 bg-white gap-3">
 <div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary" data-icon="campaign">campaign</span>
-<h2 class="font-headline-md text-primary">New Announcement</h2>
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="campaign">campaign</span>
+<h2 class="font-headline-md text-base sm:text-lg md:text-headline-md font-bold text-primary">New Announcement</h2>
 </div>
-<div class="flex gap-4">
-<a href="/admin" class="px-6 py-2 rounded-lg border-2 border-outline text-outline font-label-md hover:bg-surface transition-all active:scale-95 flex items-center justify-center">
+<div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+<a href="/admin" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant font-label-md text-xs sm:text-sm hover:bg-surface transition-all active:scale-95 flex items-center justify-center flex-1 sm:flex-initial">
                         Cancel
                     </a>
-<button type="submit" class="px-6 py-2 rounded-lg bg-primary text-on-primary font-label-md shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95" id="save-btn">
+<button type="submit" class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-xs sm:text-sm shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95 flex-1 sm:flex-initial" id="save-btn">
                         Publish Announcement
                     </button>
 </div>
 </header>
+
 <!-- Content Area -->
-<div class="flex-1 p-8 overflow-y-auto custom-scrollbar">
-<div class="max-w-[900px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="flex-1 p-4 md:p-8">
+<div class="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
 <!-- Left Column: Primary Fields -->
-<div class="md:col-span-8 space-y-gutter">
+<div class="md:col-span-8 space-y-6">
 <!-- Title Section -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
+<div class="bg-white p-4 sm:p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
 <div>
-<label class="font-label-md text-on-surface-variant block mb-2">Announcement Title</label>
-<input name="title" required class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-lg text-on-surface" id="announcement-title" placeholder="e.g. Annual School Festival 2024" type="text"/>
-<p class="hidden text-error text-label-sm mt-1" id="error-title">Please provide a descriptive title for the announcement.</p>
+<label class="font-label-md text-sm text-on-surface-variant block mb-1.5 font-semibold">Announcement Title</label>
+<input name="title" required class="w-full px-4 py-2.5 sm:py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-sm sm:text-body-lg text-on-surface" id="announcement-title" placeholder="e.g. Annual School Festival 2024" type="text"/>
+<p class="hidden text-error text-xs mt-1" id="error-title">Please provide a descriptive title for the announcement.</p>
 </div>
-<div class="grid grid-cols-2 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div>
-<label class="font-label-md text-on-surface-variant block mb-2">Slug / URL (Optional)</label>
-<input name="slug" class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-on-surface" placeholder="e.g. annual-festival" type="text"/>
+<label class="font-label-md text-xs sm:text-sm text-on-surface-variant block mb-1.5 font-semibold">Slug / URL (Optional)</label>
+<input name="slug" class="w-full px-3.5 py-2 sm:py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-xs sm:text-sm text-on-surface" placeholder="e.g. annual-festival" type="text"/>
 </div>
 <div>
-<label class="font-label-md text-on-surface-variant block mb-2">Publish Date</label>
-<input name="published_at" class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-on-surface" type="date" value="{{ date('Y-m-d') }}"/>
+<label class="font-label-md text-xs sm:text-sm text-on-surface-variant block mb-1.5 font-semibold">Publish Date</label>
+<input name="published_at" class="w-full px-3.5 py-2 sm:py-2.5 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-xs sm:text-sm text-on-surface" type="date" value="{{ date('Y-m-d') }}"/>
 </div>
 </div>
 </div>
 <!-- Rich Text Editor -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
-<label class="font-label-md text-on-surface-variant block">Content</label>
+<div class="bg-white p-4 sm:p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
+<label class="font-label-md text-sm text-on-surface-variant block font-semibold">Content</label>
 <div class="border border-outline-variant rounded-lg overflow-hidden">
 <div class="bg-surface-container-low p-2 border-b border-outline-variant flex flex-wrap gap-1">
-<button type="button" onclick="formatText('bold')" class="editor-btn material-symbols-outlined hover:bg-surface-container-high p-1 rounded transition-colors" title="Bold">format_bold</button>
-<button type="button" onclick="formatText('italic')" class="editor-btn material-symbols-outlined hover:bg-surface-container-high p-1 rounded transition-colors" title="Italic">format_italic</button>
-<button type="button" onclick="formatText('underline')" class="editor-btn material-symbols-outlined hover:bg-surface-container-high p-1 rounded transition-colors" title="Underline">format_underlined</button>
+<button type="button" onclick="formatText('bold')" class="editor-btn material-symbols-outlined hover:bg-surface-container-high p-1 rounded transition-colors text-sm" title="Bold">format_bold</button>
+<button type="button" onclick="formatText('italic')" class="editor-btn material-symbols-outlined hover:bg-surface-container-high p-1 rounded transition-colors text-sm" title="Italic">format_italic</button>
+<button type="button" onclick="formatText('underline')" class="editor-btn material-symbols-outlined hover:bg-surface-container-high p-1 rounded transition-colors text-sm" title="Underline">format_underlined</button>
 </div>
 <!-- Content Area -->
-<textarea name="content" required class="w-full min-h-[300px] p-6 focus:outline-none border-none font-body-md text-on-surface leading-relaxed focus:ring-0" placeholder="Start writing the announcement details here..."></textarea>
+<textarea name="content" required class="w-full min-h-[250px] sm:min-h-[300px] p-4 sm:p-6 focus:outline-none border-none font-body-md text-sm sm:text-base text-on-surface leading-relaxed focus:ring-0" placeholder="Start writing the announcement details here..."></textarea>
 </div>
 </div>
 </div>
+
 <!-- Right Column: Media & Settings -->
-<div class="md:col-span-4 space-y-gutter">
+<div class="md:col-span-4 space-y-6">
 <!-- Featured Image & Category -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
-    <h3 class="font-label-md text-on-surface border-b border-outline-variant pb-2 font-bold text-primary">Metadata Warta</h3>
+<div class="bg-white p-4 sm:p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
+    <h3 class="font-label-md text-sm text-on-surface border-b border-outline-variant pb-2 font-bold text-primary">Metadata Warta</h3>
     
     <div>
-        <label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Kategori</label>
-        <select name="category" required class="w-full bg-surface border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-sm">
+        <label class="font-label-sm text-xs text-on-surface-variant block mb-1">Kategori</label>
+        <select name="category" required class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2.5 font-body-md text-xs sm:text-sm">
             <option value="Pengumuman">Pengumuman</option>
             <option value="Warta">Warta</option>
             <option value="Prestasi">Prestasi</option>
@@ -196,26 +199,27 @@
     </div>
 
     <div>
-        <label class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Foto Utama / Banner Warta</label>
+        <label class="font-label-sm text-xs text-on-surface-variant block mb-1.5">Foto Utama / Banner Warta</label>
         <!-- Preview image container -->
-        <div class="hidden gap-3 items-center mb-2 bg-surface-container p-3 rounded-lg border border-outline-variant" id="current-image-container">
+        <div class="hidden gap-3 items-center mb-2 bg-surface-container p-2.5 rounded-lg border border-outline-variant" id="current-image-container">
             <img class="w-16 h-10 object-cover rounded" id="current-image-preview" src="" alt="Preview">
             <p class="text-xs text-on-surface-variant">Foto Utama</p>
         </div>
-        <input type="file" id="announcement-image-input" name="image" class="w-full bg-surface border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2 font-body-md text-xs" accept="image/*"/>
+        <input type="file" id="announcement-image-input" name="image" class="w-full bg-surface border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-2 font-body-md text-xs" accept="image/*"/>
         <p class="text-[10px] text-outline mt-1 leading-tight">Rasio rekomendasi: 16:9. Maks 10MB.</p>
     </div>
 </div>
+
 <!-- Visibility Settings -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-6">
-<h3 class="font-label-md text-on-surface border-b border-outline-variant pb-2">Publishing Settings</h3>
+<div class="bg-white p-4 sm:p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
+<h3 class="font-label-md text-sm text-on-surface border-b border-outline-variant pb-2 font-bold text-primary">Publishing Settings</h3>
 <!-- Toggle Active -->
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary-container" data-icon="keep">keep</span>
+<span class="material-symbols-outlined text-primary text-xl" data-icon="keep">keep</span>
 <div>
-<p class="font-label-md text-on-surface">Publish Immediately</p>
-<p class="text-label-sm text-on-surface-variant">Visible on public website</p>
+<p class="font-label-md text-xs sm:text-sm text-on-surface font-semibold">Publish Immediately</p>
+<p class="text-[11px] text-on-surface-variant">Visible on public website</p>
 </div>
 </div>
 <label class="relative inline-flex items-center cursor-pointer">
@@ -224,37 +228,31 @@
 </label>
 </div>
 </div>
-<!-- Status Badge -->
-<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant flex items-center justify-between">
-<span class="font-label-md text-on-surface">Status</span>
-<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm flex items-center gap-1">
-<span class="w-2 h-2 bg-on-secondary-container rounded-full animate-pulse"></span>
-                                Active
-                            </span>
-</div>
 
 <!-- Existing Announcements List Section (Sidebar) -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
-    <h3 class="font-label-md text-on-surface border-b border-outline-variant pb-2 font-bold text-primary">Daftar Pengumuman</h3>
-    <div class="space-y-3 max-h-[320px] overflow-y-auto pr-1">
+<div class="bg-white p-4 sm:p-6 rounded-xl border border-outline-variant shadow-sm space-y-3">
+    <h3 class="font-label-md text-sm text-on-surface border-b border-outline-variant pb-2 font-bold text-primary">Daftar Pengumuman</h3>
+    <div class="space-y-2.5 max-h-[350px] overflow-y-auto pr-1">
         @forelse ($announcements as $announcement)
-            <div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant/50 flex justify-between items-center group hover:bg-surface-container-high transition-colors">
-                <div class="overflow-hidden flex-1 mr-2">
+            <div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant/50 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:bg-surface-container-high transition-colors">
+                <div class="overflow-hidden min-w-0 flex-1">
                     <p class="font-semibold text-xs text-primary truncate" title="{{ $announcement->title }}">{{ $announcement->title }}</p>
-                    <p class="text-[9px] text-on-surface-variant mt-0.5">
+                    <p class="text-[10px] text-on-surface-variant mt-0.5">
                         {{ $announcement->published_at ? \Carbon\Carbon::parse($announcement->published_at)->translatedFormat('d M Y') : $announcement->created_at->translatedFormat('d M Y') }}
                     </p>
                 </div>
-                <div class="flex items-center gap-1 flex-shrink-0">
-                    <span class="px-1.5 py-0.5 rounded text-[8px] font-bold {{ $announcement->is_active ? 'bg-primary-container text-on-primary-container' : 'bg-outline-variant text-on-surface-variant' }}">
+                <div class="flex items-center justify-between sm:justify-end gap-1.5 flex-shrink-0 pt-1 sm:pt-0 border-t sm:border-t-0 border-outline-variant/30">
+                    <span class="px-2 py-0.5 rounded text-[9px] font-bold {{ $announcement->is_active ? 'bg-primary-container text-on-primary-container' : 'bg-outline-variant text-on-surface-variant' }}">
                         {{ $announcement->is_active ? 'Aktif' : 'Draft' }}
                     </span>
-                    <button type="button" onclick="openEditAnnouncement({{ json_encode($announcement) }})" class="p-1 text-primary hover:bg-primary/10 rounded-full transition-colors" title="Edit">
-                        <span class="material-symbols-outlined text-sm">edit</span>
-                    </button>
-                    <button type="button" onclick="openDeleteAnnouncementDialog({{ $announcement->id }}, '{{ addslashes($announcement->title) }}')" class="p-1 text-error hover:bg-error/10 rounded-full transition-colors" title="Hapus">
-                        <span class="material-symbols-outlined text-sm">delete</span>
-                    </button>
+                    <div class="flex gap-1">
+                        <button type="button" onclick="openEditAnnouncement({{ json_encode($announcement) }})" class="p-1 text-primary hover:bg-primary/10 rounded-full transition-colors" title="Edit">
+                            <span class="material-symbols-outlined text-base">edit</span>
+                        </button>
+                        <button type="button" onclick="openDeleteAnnouncementDialog({{ $announcement->id }}, '{{ addslashes($announcement->title) }}')" class="p-1 text-error hover:bg-error/10 rounded-full transition-colors" title="Hapus">
+                            <span class="material-symbols-outlined text-base">delete</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         @empty
@@ -273,26 +271,27 @@
 
 <!-- Modal: Confirmation Delete Announcement Dialog (Hidden by Default) -->
 <div class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4" id="delete-announcement-dialog">
-    <div class="absolute inset-0 bg-on-background/40 glass-overlay" onclick="closeDeleteAnnouncementDialog()"></div>
-    <div class="relative bg-surface-container-lowest w-full max-w-md p-8 rounded-2xl shadow-2xl border border-outline-variant animate-in fade-in zoom-in duration-200">
-        <div class="w-16 h-16 bg-error-container rounded-full flex items-center justify-center text-error mx-auto mb-6">
-            <span class="material-symbols-outlined text-3xl">warning</span>
+    <div class="fixed inset-0 bg-on-background/40 glass-overlay" onclick="closeDeleteAnnouncementDialog()"></div>
+    <div class="relative bg-surface-container-lowest w-full max-w-md p-6 sm:p-8 rounded-2xl shadow-2xl border border-outline-variant animate-in fade-in zoom-in duration-200">
+        <div class="w-12 h-12 sm:w-16 sm:h-16 bg-error-container rounded-full flex items-center justify-center text-error mx-auto mb-4 sm:mb-6">
+            <span class="material-symbols-outlined text-2xl sm:text-3xl">warning</span>
         </div>
-        <h3 class="text-center font-headline-md text-headline-md font-bold mb-2">Hapus Pengumuman?</h3>
-        <p class="text-center text-on-surface-variant font-body-md text-body-md mb-8">
+        <h3 class="text-center font-headline-md text-lg sm:text-headline-md font-bold mb-2">Hapus Pengumuman?</h3>
+        <p class="text-center text-on-surface-variant font-body-md text-xs sm:text-body-md mb-6 sm:mb-8">
             Apakah Anda yakin ingin menghapus pengumuman <span class="font-bold text-on-surface" id="announcement-title-to-delete">Judul Pengumuman</span>? Tindakan ini permanen dan tidak dapat dibatalkan.
         </p>
-        <div class="flex gap-4">
-            <button type="button" class="flex-1 py-3 px-4 border border-outline-variant text-on-surface-variant rounded-xl font-label-md text-label-md hover:bg-surface-container transition-colors" onclick="closeDeleteAnnouncementDialog()">
+        <div class="flex gap-3 sm:gap-4">
+            <button type="button" class="flex-1 py-2.5 sm:py-3 px-4 border border-outline-variant text-on-surface-variant rounded-xl font-label-md text-xs sm:text-label-md hover:bg-surface-container transition-colors" onclick="closeDeleteAnnouncementDialog()">
                 Batal
             </button>
-            <button type="button" class="flex-1 py-3 px-4 bg-error text-on-error rounded-xl font-label-md text-label-md hover:opacity-90 shadow-lg shadow-error/20 active:scale-95 transition-all" onclick="confirmDeleteAnnouncement()">
+            <button type="button" class="flex-1 py-2.5 sm:py-3 px-4 bg-error text-on-error rounded-xl font-label-md text-xs sm:text-label-md hover:opacity-90 shadow-lg shadow-error/20 active:scale-95 transition-all" onclick="confirmDeleteAnnouncement()">
                 Ya, Hapus
             </button>
         </div>
     </div>
 </div>
 
+<script src="{{ asset('js/image-cropper.js') }}"></script>
 <script>
         // Micro-interactions and UI Logic
         function formatText(formatType) {
@@ -433,6 +432,7 @@
             
             form.submit();
         }
+
         function handleLogout(e) {
             e.preventDefault();
             const form = document.createElement('form');
@@ -454,5 +454,4 @@
         });
     });
 </script>
-<script src="{{ asset('js/image-cropper.js') }}"></script>
 </body></html>
