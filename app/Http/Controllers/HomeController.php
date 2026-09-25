@@ -160,6 +160,7 @@ class HomeController extends Controller
 
         $settings = [
             'school_name' => Setting::get('school_name', 'MI Darun Najah'),
+            'school_logo' => Setting::get('school_logo'),
             'contact_email' => Setting::get('contact_email', 'info@midarunnajah.sch.id'),
             'contact_phone' => Setting::get('contact_phone', '(021) 123456'),
             'contact_address' => Setting::get('contact_address', 'Alamat Sekolah...'),

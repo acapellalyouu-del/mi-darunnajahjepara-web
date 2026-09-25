@@ -108,48 +108,87 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .animate-scroll {
-            animation: scroll 30s linear infinite;
+            animation: scroll 25s linear infinite;
         }
         @keyframes scroll {
-            0% { transform: translateX(100%); }
+            0% { transform: translateX(100vw); }
             100% { transform: translateX(-100%); }
         }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+
 <!-- Running Announcement Bar -->
-@if ($settings['announcement_bar_active'] && !empty($settings['announcement_bar_text']))
-<div class="bg-primary text-on-primary py-2 overflow-hidden whitespace-nowrap sticky top-0 z-[60]">
+@if ($settings['announcement_bar_active'] ?? true)
+<div class="bg-primary text-on-primary py-2 overflow-hidden whitespace-nowrap relative w-full z-[60]">
     <div class="animate-scroll inline-block font-label-md">
         @if (!empty($settings['announcement_bar_link']))
-            <a href="{{ $settings['announcement_bar_link'] }}" target="_blank" class="hover:underline">{{ $settings['announcement_bar_text'] }}</a>
+            <a href="{{ $settings['announcement_bar_link'] }}" target="_blank" class="hover:underline">{{ $settings['announcement_bar_text'] ?? 'Selamat Datang di Website Resmi MI Darun Najah Jepara' }}</a>
         @else
-            {{ $settings['announcement_bar_text'] }}
+            <span>{{ !empty($settings['announcement_bar_text']) ? $settings['announcement_bar_text'] : 'Selamat Datang di Website Resmi MI Darun Najah Jepara' }}</span>
         @endif
+        <span class="mx-8 opacity-75">•</span>
+        <span>Mewujudkan Generasi Islami, Cerdas, Terampil, dan Berakhlaq Mulia</span>
+        <span class="mx-8 opacity-75">•</span>
+        <span>Pusat Informasi Akademik, Kegiatan Siswa, serta Prestasi Madrasah Ibtidaiyah Darun Najah</span>
     </div>
 </div>
 @endif
 
-<!-- TopAppBar -->
-<header class="bg-surface border-b border-outline-variant top-0 z-50 sticky transition-all duration-300 ease-in-out">
-    <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
-        <div class="flex items-center gap-4">
-            <a href="/login" class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container hover:scale-105 transition-transform" title="MI Darun Najah Jepara">
-                <span class="material-symbols-outlined text-3xl">school</span>
+<!-- Top Navigation Header -->
+@php
+    $achLogo = $settings['school_logo'] ?? null;
+    $achLogoUrl = $achLogo
+        ? (filter_var($achLogo, FILTER_VALIDATE_URL) ? $achLogo : (\Illuminate\Support\Str::startsWith($achLogo, ['/storage', 'storage']) ? asset($achLogo) : asset('storage/' . ltrim($achLogo, '/'))))
+        : '/images/logo.png';
+@endphp
+<header class="bg-surface border-b border-outline-variant sticky top-0 z-50 transition-all duration-300 shadow-sm">
+    <div class="flex justify-between items-center h-20 px-4 md:px-margin-desktop max-w-container-max mx-auto relative">
+        <div class="flex items-center gap-3">
+            <a href="/login" class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 block transition-transform hover:scale-105" title="MI Darun Najah Jepara">
+                <img src="{{ $achLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain filter drop-shadow-md"/>
             </a>
             <a href="/" class="group">
-                <h1 class="font-headline-md text-headline-md font-bold text-primary group-hover:opacity-80 transition-colors">{{ $settings['school_name'] }}</h1>
-                <p class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Cerdas Terampil Berakhlaq Mulia</p>
+                <h1 class="font-headline-md text-base sm:text-lg md:text-headline-md font-extrabold text-primary leading-tight group-hover:opacity-80 transition-colors drop-shadow-sm">{{ $settings['school_name'] }}</h1>
+                <p class="font-label-sm text-[9px] sm:text-[10px] md:text-label-sm text-slate-800 font-semibold tracking-wider uppercase leading-none mt-0.5 drop-shadow-sm">Cerdas Terampil Berakhlaq Mulia</p>
             </a>
         </div>
-        <nav class="hidden md:flex gap-8">
-            <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/">Home</a>
-            <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/#sambutan">Profile</a>
-            <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/#program">Program</a>
-            <a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 font-bold" href="/achievements">Information</a>
-            <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/#kontak">Contact</a>
+
+        <!-- Desktop Navigation -->
+        <nav id="desktopNav" class="hidden md:flex items-center gap-8">
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="/">Home</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="/#sambutan">Profile</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="/#program">Program</a>
+            <a class="nav-link font-label-md text-label-md text-primary border-b-2 border-primary pb-1 font-extrabold transition-all" href="/achievements">Information</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors font-bold" href="/#kontak">Contact</a>
         </nav>
+
+        <!-- Mobile Hamburger Button -->
+        <div class="flex items-center md:hidden">
+            <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-primary rounded-xl transition-all border border-outline-variant flex items-center justify-center shadow-sm active:scale-95 bg-white" aria-label="Toggle Menu">
+                <span id="mobileMenuIcon" class="material-symbols-outlined text-2xl">menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 w-full bg-white border-b border-slate-200 px-4 py-5 space-y-2.5 shadow-2xl animate-in slide-in-from-top-2 duration-200 z-50">
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="/">
+            <span class="material-symbols-outlined text-lg text-primary">home</span> <span>Home</span>
+        </a>
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="/#sambutan">
+            <span class="material-symbols-outlined text-lg text-primary">school</span> <span>Profile</span>
+        </a>
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="/#program">
+            <span class="material-symbols-outlined text-lg text-primary">auto_stories</span> <span>Program</span>
+        </a>
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold text-sm bg-primary/10 border border-primary/20 shadow-sm" href="/achievements">
+            <span class="material-symbols-outlined text-lg text-primary">emoji_events</span> <span>Information</span>
+        </a>
+        <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="/#kontak">
+            <span class="material-symbols-outlined text-lg text-primary">call</span> <span>Contact</span>
+        </a>
     </div>
 </header>
 
@@ -240,5 +279,20 @@
         </div>
     </div>
 </footer>
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const icon = document.getElementById('mobileMenuIcon');
+        if (menu) {
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                if (icon) icon.textContent = 'close';
+            } else {
+                menu.classList.add('hidden');
+                if (icon) icon.textContent = 'menu';
+            }
+        }
+    }
+</script>
 </body>
 </html>
