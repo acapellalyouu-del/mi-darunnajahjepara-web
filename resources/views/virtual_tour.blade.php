@@ -348,7 +348,22 @@
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, imgSource);
+
+            // Downscale image to 1080p (max 1920x1080) for instant WebGL texture creation & zero memory lag
+            let source = imgSource;
+            const maxW = 1920;
+            const maxH = 1080;
+            if (imgSource.width && imgSource.height && (imgSource.width > maxW || imgSource.height > maxH)) {
+                const offCanvas = document.createElement('canvas');
+                const ratio = Math.min(maxW / imgSource.width, maxH / imgSource.height);
+                offCanvas.width = Math.round(imgSource.width * ratio);
+                offCanvas.height = Math.round(imgSource.height * ratio);
+                const ctx = offCanvas.getContext('2d');
+                ctx.drawImage(imgSource, 0, 0, offCanvas.width, offCanvas.height);
+                source = offCanvas;
+            }
+
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
         }
 
         let state = {
@@ -363,26 +378,34 @@
             useGyro: false
         };
 
-        let loadingTimeout = null;
+        let loadingTimer = null;
 
         function showLoading(show, roomName = '') {
-            if (loadingTimeout) {
-                clearTimeout(loadingTimeout);
-                loadingTimeout = null;
+            if (loadingTimer) {
+                clearTimeout(loadingTimer);
+                loadingTimer = null;
             }
             if (show) {
                 loadingText.textContent = `Memuat ${roomName}...`;
                 loadingOverlay.classList.remove('hidden');
                 setTimeout(() => loadingOverlay.classList.remove('opacity-0'), 10);
 
-                // Enforce maximum 3-second (3000ms) loading overlay duration
-                loadingTimeout = setTimeout(() => {
-                    showLoading(false);
+                // STRICT HARD LIMIT: Force hide loading overlay after 3 seconds (3000ms) MAX!
+                loadingTimer = setTimeout(() => {
+                    hideLoadingImmediately();
                 }, 3000);
             } else {
-                loadingOverlay.classList.add('opacity-0');
-                setTimeout(() => loadingOverlay.classList.add('hidden'), 300);
+                hideLoadingImmediately();
             }
+        }
+
+        function hideLoadingImmediately() {
+            if (loadingTimer) {
+                clearTimeout(loadingTimer);
+                loadingTimer = null;
+            }
+            loadingOverlay.classList.add('opacity-0');
+            setTimeout(() => loadingOverlay.classList.add('hidden'), 200);
         }
 
         function renderHotspots() {
@@ -454,18 +477,45 @@
 
                 const img = new Image();
                 img.crossOrigin = 'anonymous';
-                img.onload = () => {
-                    createGLTexture(img);
-                    showLoading(false);
+
+                let isCompleted = false;
+                const finishRoomLoad = (isSuccess) => {
+                    if (isCompleted) return;
+                    isCompleted = true;
+                    if (isSuccess) {
+                        try {
+                            createGLTexture(img);
+                        } catch(e) {
+                            console.error('WebGL Texture fallback:', e);
+                            canvasGL.classList.add('hidden');
+                            galleryContainer.classList.remove('hidden');
+                            galleryImg.src = url;
+                        }
+                    } else {
+                        // Display image fallback immediately
+                        canvasGL.classList.add('hidden');
+                        galleryContainer.classList.remove('hidden');
+                        galleryImg.src = url;
+                    }
+                    hideLoadingImmediately();
                 };
-                img.onerror = () => {
-                    showLoading(false);
-                };
+
+                img.onload = () => finishRoomLoad(true);
+                img.onerror = () => finishRoomLoad(false);
+
+                // STRICT 3-SECOND HARD LIMIT: Force display room image after 3 seconds MAX if loading takes too long
+                setTimeout(() => {
+                    if (!isCompleted) {
+                        finishRoomLoad(true);
+                    }
+                }, 3000);
+
                 img.src = url;
             } else {
                 canvasGL.classList.add('hidden');
                 galleryContainer.classList.remove('hidden');
                 galleryImg.src = url;
+                hideLoadingImmediately();
             }
 
             state.yaw = 0.0;
