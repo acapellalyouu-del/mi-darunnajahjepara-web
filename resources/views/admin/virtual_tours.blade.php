@@ -688,10 +688,6 @@
             <div id="previewGallery" class="hidden inset-0 absolute flex items-center justify-center p-4">
                 <img id="previewGalleryImg" src="" class="max-h-full max-w-full object-contain rounded-lg">
             </div>
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/80 backdrop-blur-md border border-slate-700 px-4 py-1.5 rounded-full text-xs text-slate-300 pointer-events-none flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-sm text-blue-400">touch_app</span>
-                <span>Geser mouse untuk memutar panorama 360°</span>
-            </div>
         </div>
     </div>
 </div>

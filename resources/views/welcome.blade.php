@@ -1010,11 +1010,6 @@
             <h3 class="text-primary font-headline-lg text-headline-lg font-bold">Warta &amp; Pengumuman</h3>
             <p class="text-on-surface-variant text-sm sm:text-base">Informasi terkini seputar kegiatan dan perkembangan madrasah.</p>
         </div>
-        <!-- Swipe indicator for Mobile -->
-        <div class="flex items-center gap-1 text-xs text-primary/70 font-semibold md:hidden">
-            <span>Geser</span>
-            <span class="material-symbols-outlined text-sm animate-pulse">swipe_left</span>
-        </div>
     </div>
     <!-- Horizontal Scroll on Mobile, 3-Col Grid on Desktop -->
     <div class="flex md:grid md:grid-cols-3 gap-5 md:gap-8 overflow-x-auto md:overflow-visible pb-4 md:pb-0 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0">

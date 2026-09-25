@@ -62,7 +62,6 @@
             <div>
                 <h1 class="text-base font-bold tracking-wide text-white leading-tight flex items-center gap-2">
                     <span>Virtual School Tour 360°</span>
-                    <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30 font-semibold uppercase">HD Quality</span>
                 </h1>
                 <p id="roomTitle" class="text-xs text-blue-400 font-medium">{{ $virtualTours->first()->name ?? 'Virtual Tour' }}</p>
             </div>
@@ -83,14 +82,6 @@
             </button>
         </div>
     </header>
-
-    <!-- Drag & Scroll Hint -->
-    <div id="dragHint" class="absolute inset-x-0 top-24 z-10 flex justify-center pointer-events-none transition-opacity duration-1000">
-        <div class="glass-panel px-4 py-2 rounded-full text-xs text-slate-300 flex items-center gap-2 shadow-lg animate-bounce">
-            <span class="material-symbols-outlined text-sm text-blue-400">touch_app</span>
-            <span>Geser layar untuk melihat 360° | Scroll untuk zoom</span>
-        </div>
-    </div>
 
     <!-- Location Description Overlay (Left Panel) -->
     <div class="absolute top-24 left-4 z-20 pointer-events-none max-w-sm hidden md:block">
