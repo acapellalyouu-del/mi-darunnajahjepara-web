@@ -139,15 +139,15 @@ class HomeController extends Controller
         $query = Achievement::query();
 
         if ($category && $category !== 'all') {
-            if ($category === 'Akademik' || $category === 'Academic') {
+            if (in_array(strtolower($category), ['akademik', 'academic'])) {
                 $query->where(function($q) {
                     $q->where('category', 'like', '%academic%')
                       ->orWhere('category', 'like', '%akademik%');
                 });
             } else {
                 $query->where(function($q) {
-                    $q->where('category', 'not' , 'like', '%academic%')
-                      ->where('category', 'not', 'like', '%akademik%');
+                    $q->where('category', 'not like', '%academic%')
+                      ->where('category', 'not like', '%akademik%');
                 });
             }
         }
