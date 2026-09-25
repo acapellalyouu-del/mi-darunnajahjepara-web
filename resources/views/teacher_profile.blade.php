@@ -135,13 +135,13 @@
 <nav class="bg-surface border-b border-outline-variant top-0 z-50 sticky transition-all duration-300 ease-in-out">
     <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
         <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container">
+            <a href="/login" class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container hover:scale-105 transition-transform" title="MI Darun Najah Jepara">
                 <span class="material-symbols-outlined text-3xl">school</span>
-            </div>
-            <div>
-                <h1 class="font-headline-md text-headline-md font-bold text-primary">{{ $settings['school_name'] }}</h1>
+            </a>
+            <a href="/" class="group">
+                <h1 class="font-headline-md text-headline-md font-bold text-primary group-hover:opacity-80 transition-colors">{{ $settings['school_name'] }}</h1>
                 <p class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Cerdas Terampil Berakhlaq Mulia</p>
-            </div>
+            </a>
         </div>
         <div class="hidden md:flex items-center space-x-gutter">
             <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md p-2 rounded" href="/">Home</a>
@@ -149,10 +149,6 @@
             <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md p-2 rounded" href="/#program">Program</a>
             <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md p-2 rounded" href="/achievements">Information</a>
             <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md p-2 rounded" href="/#kontak">Contact</a>
-        </div>
-        <div class="flex items-center space-x-2">
-            <span class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full cursor-pointer transition-all">public</span>
-            <a href="/login" class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all" title="Portal Admin">person</a>
         </div>
     </div>
 </nav>

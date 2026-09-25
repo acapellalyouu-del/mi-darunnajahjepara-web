@@ -168,15 +168,15 @@
     @endphp
     <header class="border-b border-white/30 relative z-50 shadow-sm transition-all duration-300" style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
         <div class="flex justify-between items-center h-20 px-4 md:px-margin-desktop max-w-container-max mx-auto relative">
-            <a href="/" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <a href="/login" class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 block transition-transform hover:scale-105" title="MI Darun Najah Jepara">
                     <img src="{{ $welcomeLogoUrl }}" alt="{{ $settings['school_name'] }}" class="w-full h-full object-contain filter drop-shadow-md"/>
-                </div>
-                <div>
+                </a>
+                <a href="/" class="group">
                     <h1 class="font-headline-md text-base sm:text-lg md:text-headline-md font-extrabold text-primary leading-tight group-hover:opacity-80 transition-colors drop-shadow-sm">{{ $settings['school_name'] }}</h1>
                     <p class="font-label-sm text-[9px] sm:text-[10px] md:text-label-sm text-slate-800 font-semibold tracking-wider uppercase leading-none mt-0.5 drop-shadow-sm">Cerdas Terampil Berakhlaq Mulia</p>
-                </div>
-            </a>
+                </a>
+            </div>
 
             <!-- Desktop Navigation with Adaptive Dynamic Contrast & Active Indicator -->
             <nav id="desktopNav" class="hidden md:flex items-center gap-8">
@@ -185,7 +185,6 @@
                 <a class="nav-link font-label-md text-label-md text-slate-900 border-b-2 border-transparent pb-1 hover:text-primary font-bold transition-all drop-shadow-sm" href="#program">Program</a>
                 <a class="nav-link font-label-md text-label-md text-slate-900 border-b-2 border-transparent pb-1 hover:text-primary font-bold transition-all drop-shadow-sm" href="#warta">Information</a>
                 <a class="nav-link font-label-md text-label-md text-slate-900 border-b-2 border-transparent pb-1 hover:text-primary font-bold transition-all drop-shadow-sm" href="#kontak">Contact</a>
-                <a href="/login" class="material-symbols-outlined p-2 text-slate-900 hover:text-primary hover:bg-white/40 rounded-full transition-all font-bold drop-shadow-sm" title="Portal Admin">person</a>
             </nav>
 
             <!-- Mobile Hamburger Button (3-Strip Icon) -->
@@ -213,11 +212,6 @@
             <a onclick="toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-800 font-bold text-sm bg-slate-50 hover:bg-slate-100 border border-slate-200/70 shadow-sm transition-colors" href="#kontak">
                 <span class="material-symbols-outlined text-lg text-primary">call</span> <span>Contact</span>
             </a>
-            <div class="pt-2 border-t border-slate-200">
-                <a class="flex items-center justify-center gap-2 w-full py-3.5 bg-primary text-white hover:bg-primary/90 rounded-xl font-bold text-sm shadow-md active:scale-95 transition-all" href="/login">
-                    <span class="material-symbols-outlined text-lg">lock</span> <span>Portal Admin</span>
-                </a>
-            </div>
         </div>
     </header>
 </div>
