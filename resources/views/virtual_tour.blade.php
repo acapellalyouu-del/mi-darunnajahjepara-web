@@ -33,13 +33,10 @@
         }
     </style>
 </head>
-    <!-- Instant Room Background Image Display (Prevents Black/White Screen) -->
-    <div id="bgFallback" class="absolute inset-0 z-0 bg-slate-950 overflow-hidden">
-        <img id="bgImg" class="w-full h-full object-cover transition-opacity duration-300 opacity-100" src="" alt="Room Background"/>
-    </div>
+<body class="bg-slate-950 text-white font-[Work_Sans] h-screen w-screen relative overflow-hidden">
 
     <!-- Canvas WebGL for 360 Panorama View -->
-    <canvas id="glCanvas" class="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing z-0 transition-opacity duration-300 opacity-0"></canvas>
+    <canvas id="glCanvas" class="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing z-0"></canvas>
 
     <!-- Hotspots HTML Layer (3D projected circular markers) -->
     <div id="hotspotContainer" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
@@ -444,8 +441,6 @@
         document.getElementById('btnCloseModal').onclick = closeModal;
         document.getElementById('btnConfirmModal').onclick = closeModal;
 
-        const bgImg = document.getElementById('bgImg');
-
         function selectLocation(btn) {
             const name = btn.dataset.name;
             const desc = btn.dataset.desc;
@@ -457,11 +452,6 @@
             const rtEl = document.getElementById('roomTitle'); if (rtEl) rtEl.textContent = name;
             const lnEl = document.getElementById('locationName'); if (lnEl) lnEl.textContent = name;
             const ldEl = document.getElementById('locationDesc'); if (ldEl) ldEl.textContent = desc || 'Lokasi Virtual Tour MI Darun Najah.';
-
-            // INSTANT 0ms PHOTO DISPLAY: Update background photo immediately when clicking room!
-            if (bgImg && url) {
-                bgImg.src = url;
-            }
 
             document.querySelectorAll('.vt-btn').forEach(b => {
                 if (b === btn) {
@@ -483,9 +473,12 @@
             if (type === '360_panorama') {
                 galleryContainer.classList.add('hidden');
                 canvasGL.classList.remove('hidden');
+                showLoading(true, name);
 
                 const img = new Image();
-                img.crossOrigin = 'anonymous';
+                if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                    img.crossOrigin = 'anonymous';
+                }
 
                 let isCompleted = false;
                 const finishRoomLoad = (isSuccess) => {
@@ -494,13 +487,9 @@
                     if (isSuccess && img.width) {
                         try {
                             createGLTexture(img);
-                            canvasGL.classList.remove('opacity-0');
                         } catch(e) {
                             console.error('WebGL Texture error:', e);
-                            canvasGL.classList.add('opacity-0');
                         }
-                    } else {
-                        canvasGL.classList.add('opacity-0');
                     }
                     hideLoadingImmediately();
                 };
@@ -508,12 +497,12 @@
                 img.onload = () => finishRoomLoad(true);
                 img.onerror = () => finishRoomLoad(false);
 
-                // If loading takes > 1 second, reveal 360 panorama canvas smoothly
+                // Fallback timeout: hide loading spinner after 1.5 seconds MAX
                 setTimeout(() => {
                     if (!isCompleted) {
                         finishRoomLoad(true);
                     }
-                }, 1000);
+                }, 1500);
 
                 img.src = url;
             } else {
@@ -526,15 +515,6 @@
             state.yaw = 0.0;
             state.pitch = 0.0;
         }
-
-        // Image Preloader for Instant 0ms Room Switching
-        document.querySelectorAll('.vt-btn').forEach(btn => {
-            const u = btn.dataset.url;
-            if (u) {
-                const pImg = new Image();
-                pImg.src = u;
-            }
-        });
 
         document.querySelectorAll('.vt-btn').forEach(btn => {
             btn.addEventListener('click', () => selectLocation(btn));
