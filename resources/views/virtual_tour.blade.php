@@ -341,6 +341,32 @@
             if (glTexture) {
                 gl.deleteTexture(glTexture);
             }
+
+            // Downscale high-resolution images to max 1080p (max dimension 1920) for ultra-fast performance
+            let source = imgSource;
+            const maxDimension = 1920;
+            if (imgSource.width > maxDimension || imgSource.height > maxDimension) {
+                const offscreen = document.createElement('canvas');
+                let width = imgSource.width;
+                let height = imgSource.height;
+                if (width > height) {
+                    if (width > maxDimension) {
+                        height = Math.round((height * maxDimension) / width);
+                        width = maxDimension;
+                    }
+                } else {
+                    if (height > maxDimension) {
+                        width = Math.round((width * maxDimension) / height);
+                        height = maxDimension;
+                    }
+                }
+                offscreen.width = width;
+                offscreen.height = height;
+                const ctx = offscreen.getContext('2d');
+                ctx.drawImage(imgSource, 0, 0, width, height);
+                source = offscreen;
+            }
+
             glTexture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, glTexture);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -348,7 +374,7 @@
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, imgSource);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
         }
 
         let state = {
@@ -363,11 +389,22 @@
             useGyro: false
         };
 
+        let loadingTimer = null;
+
         function showLoading(show, roomName = '') {
+            if (loadingTimer) {
+                clearTimeout(loadingTimer);
+                loadingTimer = null;
+            }
             if (show) {
                 loadingText.textContent = `Memuat ${roomName}...`;
                 loadingOverlay.classList.remove('hidden');
                 setTimeout(() => loadingOverlay.classList.remove('opacity-0'), 10);
+
+                // MANDATORY 3 SECONDS MAX TIMEOUT: Forcefully hide loading screen and display panorama
+                loadingTimer = setTimeout(() => {
+                    showLoading(false);
+                }, 3000);
             } else {
                 loadingOverlay.classList.add('opacity-0');
                 setTimeout(() => loadingOverlay.classList.add('hidden'), 300);

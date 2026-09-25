@@ -157,10 +157,10 @@
             saveBtn.onclick = function() {
                 if (!activeCropper) return;
 
-                // Generate cropped canvas
+                // Generate cropped canvas scaled to max 1080p
                 const canvas = activeCropper.getCroppedCanvas({
-                    maxWidth: 1200,
-                    maxHeight: 1200,
+                    maxWidth: 1080,
+                    maxHeight: 1080,
                     imageSmoothingQuality: 'high'
                 });
 
