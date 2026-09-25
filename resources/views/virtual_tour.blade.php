@@ -94,7 +94,7 @@
     </div>
 
     <!-- HUD Bottom Center Bar: Perfectly Centered Room Switcher -->
-    <div class="absolute bottom-6 left-0 right-0 z-20 pointer-events-auto w-full px-4 flex flex-col items-center justify-center text-center mx-auto">
+    <div class="absolute bottom-12 md:bottom-16 left-0 right-0 z-20 pointer-events-auto w-full px-4 flex flex-col items-center justify-center text-center mx-auto">
         <!-- Room Buttons Container (Centered Horizontal Slider) -->
         <div class="glass-panel rounded-2xl p-2 flex items-center justify-center gap-2 shadow-2xl overflow-x-auto custom-scrollbar w-full max-w-full" id="locationSwitcher">
             @foreach($virtualTours as $index => $vt)
