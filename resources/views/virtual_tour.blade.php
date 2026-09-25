@@ -34,23 +34,23 @@
     </style>
 </head>
 <body class="bg-slate-950 text-white font-[Work_Sans] h-screen w-screen relative overflow-hidden">
+@php
+    $firstVt = $virtualTours->first();
+    $firstImgPath = '';
+    if ($firstVt && !empty($firstVt->image_paths)) {
+        $firstImgPath = is_array($firstVt->image_paths) ? ($firstVt->image_paths[0] ?? '') : $firstVt->image_paths;
+    }
+    $firstUrl = filter_var($firstImgPath, FILTER_VALIDATE_URL) ? $firstImgPath : (Str::startsWith($firstImgPath, ['/storage', 'storage']) ? asset($firstImgPath) : asset('storage/' . ltrim($firstImgPath, '/')));
+@endphp
+
+    <!-- Immediate Room Image Layer (0ms delay, NEVER black or white screen!) -->
+    <img id="backgroundImg" class="absolute inset-0 w-full h-full object-cover z-0" src="{{ $firstUrl }}" alt="Virtual Tour Room" />
 
     <!-- Canvas WebGL for 360 Panorama View -->
-    <canvas id="glCanvas" class="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing z-0"></canvas>
+    <canvas id="glCanvas" class="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing z-[1] transition-opacity duration-300 opacity-0"></canvas>
 
     <!-- Hotspots HTML Layer (3D projected circular markers) -->
     <div id="hotspotContainer" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
-
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="absolute inset-0 z-30 bg-slate-950/80 backdrop-blur-md flex flex-col items-center justify-center transition-opacity duration-300 pointer-events-none opacity-0 hidden">
-        <div class="w-10 h-10 border-3 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-3"></div>
-        <p id="loadingText" class="text-xs font-semibold text-slate-300 tracking-wider">Memuat Ruangan...</p>
-    </div>
-
-    <!-- Standard Gallery Container (fallback) -->
-    <div id="galleryContainer" class="absolute inset-0 z-0 bg-slate-900 hidden flex items-center justify-center p-8">
-        <img id="galleryImg" class="max-h-full max-w-full rounded-2xl object-contain shadow-2xl" src="" alt="Gallery Preview">
-    </div>
 
     <!-- HUD Header Bar -->
     <header class="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
@@ -378,34 +378,12 @@
             useGyro: false
         };
 
-        let loadingTimer = null;
-
         function showLoading(show, roomName = '') {
-            if (loadingTimer) {
-                clearTimeout(loadingTimer);
-                loadingTimer = null;
-            }
-            if (show) {
-                loadingText.textContent = `Memuat ${roomName}...`;
-                loadingOverlay.classList.remove('hidden');
-                setTimeout(() => loadingOverlay.classList.remove('opacity-0'), 10);
-
-                // STRICT HARD LIMIT: Force hide loading overlay after 3 seconds (3000ms) MAX!
-                loadingTimer = setTimeout(() => {
-                    hideLoadingImmediately();
-                }, 3000);
-            } else {
-                hideLoadingImmediately();
-            }
+            // Disabled: Room image displays instantly (0ms delay)
         }
 
         function hideLoadingImmediately() {
-            if (loadingTimer) {
-                clearTimeout(loadingTimer);
-                loadingTimer = null;
-            }
-            loadingOverlay.classList.add('opacity-0');
-            setTimeout(() => loadingOverlay.classList.add('hidden'), 200);
+            // Disabled
         }
 
         function renderHotspots() {
@@ -470,47 +448,33 @@
                 }
             });
 
+            // INSTANT DISPLAY (0ms delay): Update background room image immediately!
+            const bgImg = document.getElementById('backgroundImg');
+            if (bgImg) {
+                bgImg.src = url;
+            }
+
             if (type === '360_panorama') {
-                galleryContainer.classList.add('hidden');
-                canvasGL.classList.remove('hidden');
-                showLoading(true, name);
-
                 const img = new Image();
-                if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
-                    img.crossOrigin = 'anonymous';
-                }
-
-                let isCompleted = false;
-                const finishRoomLoad = (isSuccess) => {
-                    if (isCompleted) return;
-                    isCompleted = true;
-                    if (isSuccess && img.width) {
-                        try {
-                            createGLTexture(img);
-                        } catch(e) {
-                            console.error('WebGL Texture error:', e);
-                        }
+                img.onload = () => {
+                    try {
+                        createGLTexture(img);
+                        canvasGL.classList.remove('opacity-0');
+                    } catch(e) {
+                        canvasGL.classList.add('opacity-0');
                     }
-                    hideLoadingImmediately();
                 };
-
-                img.onload = () => finishRoomLoad(true);
-                img.onerror = () => finishRoomLoad(false);
-
-                // Fallback timeout: hide loading spinner after 1.5 seconds MAX
-                setTimeout(() => {
-                    if (!isCompleted) {
-                        finishRoomLoad(true);
-                    }
-                }, 1500);
-
+                img.onerror = () => {
+                    canvasGL.classList.add('opacity-0');
+                };
                 img.src = url;
             } else {
-                canvasGL.classList.add('hidden');
-                galleryContainer.classList.remove('hidden');
-                galleryImg.src = url;
-                hideLoadingImmediately();
+                canvasGL.classList.add('opacity-0');
             }
+
+            state.yaw = 0.0;
+            state.pitch = 0.0;
+        }
 
             state.yaw = 0.0;
             state.pitch = 0.0;
