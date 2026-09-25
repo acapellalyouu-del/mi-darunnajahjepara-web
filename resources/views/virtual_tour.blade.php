@@ -53,22 +53,13 @@
     </div>
 
     <!-- HUD Header Bar -->
-    <header class="absolute top-4 left-4 right-4 z-20 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
-        <!-- Back Button & Location Title -->
-        <div class="glass-panel rounded-2xl px-5 py-3 flex items-center gap-4 shadow-xl pointer-events-auto">
-            <a href="/" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors border border-white/20" title="Kembali ke Beranda">
-                <span class="material-symbols-outlined text-xl">arrow_back</span>
-            </a>
-            <div>
-                <h1 class="text-base font-bold tracking-wide text-white leading-tight flex items-center gap-2">
-                    <span>Virtual School Tour 360°</span>
-                </h1>
-                <p id="roomTitle" class="text-xs text-blue-400 font-medium">{{ $virtualTours->first()->name ?? 'Virtual Tour' }}</p>
-            </div>
-        </div>
-
-        <!-- Action Tools -->
+    <header class="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
+        <!-- Back Button & Action Tools Combined -->
         <div class="glass-panel rounded-2xl p-2 flex items-center gap-2 shadow-xl pointer-events-auto">
+            <a href="/" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors border border-white/20" title="Kembali ke Beranda">
+                <span class="material-symbols-outlined text-lg">arrow_back</span>
+            </a>
+
             <button id="btnAutoRotate" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white transition flex items-center gap-1.5 border border-slate-700/50">
                 <span class="material-symbols-outlined text-sm">sync</span> <span>Auto Rotate</span>
             </button>
@@ -424,9 +415,9 @@
 
             currentRoomName = name;
 
-            document.getElementById('roomTitle').textContent = name;
-            document.getElementById('locationName').textContent = name;
-            document.getElementById('locationDesc').textContent = desc || 'Lokasi Virtual Tour MI Darun Najah.';
+            const rtEl = document.getElementById('roomTitle'); if (rtEl) rtEl.textContent = name;
+            const lnEl = document.getElementById('locationName'); if (lnEl) lnEl.textContent = name;
+            const ldEl = document.getElementById('locationDesc'); if (ldEl) ldEl.textContent = desc || 'Lokasi Virtual Tour MI Darun Najah.';
 
             document.querySelectorAll('.vt-btn').forEach(b => {
                 if (b === btn) {
